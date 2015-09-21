@@ -2,6 +2,7 @@ package dss;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -97,13 +98,34 @@ public class DB {
         }
 
         /**
+         * Configure statement for execution.
+         * @param statement Statement
+         * @throws SQLException
+         */
+        private void configure(Statement statement) throws SQLException {
+            statement.setQueryTimeout(TIMEOUT);
+        }
+
+        /**
          * Get a statement for executing queries.
          * @return Statement
          * @throws SQLException
          */
         public Statement statement() throws SQLException {
-            Statement statement = this.connection.createStatement();
-            statement.setQueryTimeout(TIMEOUT);
+            Statement statement = connection.createStatement();
+            configure(statement);
+            return statement;
+        }
+
+        /**
+         * Get a prepared statement.
+         * @param query SQL query
+         * @return Prepared statement
+         * @throws SQLException
+         */
+        public PreparedStatement prepared(String query) throws SQLException {
+            PreparedStatement statement = connection.prepareStatement(query);
+            configure(statement);
             return statement;
         }
     }

@@ -38,6 +38,7 @@
         <jar destfile="${proj.build.jar}"
              basedir="${proj.build.classes}">
             <zipgroupfileset dir="lib" includes="**/*.jar"/>
+            <fileset dir="src" includes="**/*.sql"/>
             <manifest>
                 <attribute name="Main-Class" value="${proj.main}"/>
                 <attribute name="Class-Path" value="lib/*.jar"/>

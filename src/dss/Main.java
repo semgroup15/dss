@@ -1,20 +1,39 @@
 package dss;
 
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import dss.models.manufacturer.Manufacturer;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Main");
 
-        DB.execute(new DB.Task<Void>() {
-            @Override
-            public Void execute(DB.Context context) throws SQLException {
-                Statement statement = context.statement();
-                statement.executeUpdate("CREATE TABLE user (id integer)");
-                return null;
-            }
-        });
+        Manufacturer.manager.createTable();
+
+        /*
+         * Simple INSERT
+         */
+        Manufacturer x = new Manufacturer();
+        x.name = "Samsung";
+        x.save();
+
+        Manufacturer y = new Manufacturer();
+        y.name = "Sony";
+        y.save();
+
+        /*
+         * Bulk INSERT
+         */
+        Manufacturer a = new Manufacturer();
+        a.name = "HTC";
+
+        Manufacturer b = new Manufacturer();
+        b.name = "Motorola";
+
+        List<Manufacturer> manufacturers = new ArrayList<Manufacturer>();
+        manufacturers.add(a);
+        manufacturers.add(b);
+        Manufacturer.manager.insert(manufacturers);
     }
 }
