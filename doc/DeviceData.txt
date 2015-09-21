@@ -1,0 +1,67 @@
+Network
+    technology (multivalued enum)
+
+body
+    dimensions (x,y,z)
+    weight
+    sim (sim)
+
+display
+    type (match name)
+    protection (match name)
+    size (inches)
+    screen-to-body ratio (%)
+    resolution (w,h)
+    is_multitouch
+
+platform
+    os_group (match name before ',')
+    os_version
+    os_upgradable_version
+
+    chipset (match name)
+    gpu (match name)
+
+    cpu_raw
+    cpu_type (match name before GHz)
+    cpu_freq (match x.x GHz)
+
+memory
+    card_slot (match name)
+    internal_opts (before ,)
+    internal_ram (in gb/mb after ,)
+
+camera
+    camera_primary_mp (before ,)
+    camera_primary_dimensions (after ,)
+    camera_primary_features (multi-valued match name)
+    camera_primary_videospec (multi-valued)
+
+    camera_secondary_has (true/false)
+    camera_secondary_mp
+    camera_secondary_videospec (single videospec)
+
+sound
+    sound_loudspeaker (true/false)
+    sound_35jack (true/false)
+
+comms
+    comms_wlan (true/false)
+    comms_bluetooth (true/false)
+    comms_gps
+    comms_radio
+    comms_usb
+
+features
+    sensors (multi-valued, split ',')
+    messaging (multi-valued, split ',')
+
+battery
+    battery_descr
+    battery_stand_by (h)
+    battery_talk_time (h)
+    battery_music_play (h)
+    battery_life (endurance rating h)
+
+misc
+    colors (multi-valued, split ',')
