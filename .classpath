@@ -4,6 +4,7 @@
 
   <!-- Libraries -->
   <!-- <classpathentry kind="lib" path="lib/[].jar"/> -->
+  <classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.11.1.jar"/>
 
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="output" path="build"/>

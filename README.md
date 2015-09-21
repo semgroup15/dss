@@ -2,12 +2,9 @@
 
 ## Build
 
-* Build  with `ant build`
-* Run with `java -jar build/jar/dss.jar`
+* Build with `ant build`
+* Run with `ant run`
 
 ## Libraries
 
-Each JAR library under `lib/` should be included in
-
-* `.classpath` eclipse project classpath
-* `build.xml` apache ant build file
+Each JAR library under `lib/` should be included in `.classpath` for the Eclipse project to work properly.
