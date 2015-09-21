@@ -56,10 +56,13 @@ public class DB {
      */
     public static class Context {
 
+        // Settings
         private static final String DRIVER = "org.sqlite.JDBC";
         private static final String PATH = "db.sqlite3";
+        private static final String CONN = "jdbc:sqlite:" + PATH;
         private static final int TIMEOUT = 30;
 
+        // Current connection
         private Connection connection;
 
         /**
@@ -90,8 +93,7 @@ public class DB {
                 throw new RuntimeException(exception);
             }
 
-            return DriverManager.getConnection(
-                    String.format("jdbc:sqlite:%s", PATH));
+            return DriverManager.getConnection(CONN);
         }
 
         /**
