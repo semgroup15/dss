@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.sqlite.SQLiteConfig;
+
 /**
  * Database
  *
@@ -94,7 +96,11 @@ public class DB {
                 throw new RuntimeException(exception);
             }
 
-            return DriverManager.getConnection(CONN);
+            // Enable foreign keys
+            SQLiteConfig config = new SQLiteConfig();
+            config.enforceForeignKeys(true);
+
+            return DriverManager.getConnection(CONN, config.toProperties());
         }
 
         /**

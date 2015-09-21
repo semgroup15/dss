@@ -13,12 +13,12 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 
 import dss.DB;
-import dss.DB.Context;
 
 /**
  * Base data model
  */
 public abstract class Base {
+
     /**
      * Manager for general operations.
      *
@@ -32,6 +32,7 @@ public abstract class Base {
      * @param <T> Model class
      */
     public static class Manager<T extends Base> {
+
         /**
          * Loader and cache for SQL files.
          * @param <T> Model class
@@ -135,7 +136,7 @@ public abstract class Base {
         public void createTable() {
             DB.execute(new DB.Task<Integer>() {
                 @Override
-                public Integer execute(Context context) throws SQLException {
+                public Integer execute(DB.Context context) throws SQLException {
                     Statement statement = context.statement();
                     return statement.executeUpdate(getTableCreateQuery());
                 }
@@ -148,7 +149,7 @@ public abstract class Base {
         public void dropTable() {
             DB.execute(new DB.Task<Integer>() {
                 @Override
-                public Integer execute(Context context) throws SQLException {
+                public Integer execute(DB.Context context) throws SQLException {
                     Statement statement = context.statement();
                     return statement.executeUpdate(getTableDropQuery());
                 }
@@ -176,8 +177,8 @@ public abstract class Base {
         }
 
         /**
-         * {@code INSERT} multiple rows.
-         * @param rows Rows to insert.
+         * {@code INSERT} multiple instances.
+         * @param rows Instances to insert.
          */
         public void insert(List<T> rows) {
             DB.execute(new DB.Task<Integer>() {
@@ -195,8 +196,8 @@ public abstract class Base {
         }
 
         /**
-         * {@code UPDATE} multiple rows.
-         * @param rows Rows to update.
+         * {@code UPDATE} multiple instances.
+         * @param rows Instances to update.
          */
         public void update(List<T> rows) {
             DB.execute(new DB.Task<Integer>() {
