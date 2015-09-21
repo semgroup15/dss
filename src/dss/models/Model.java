@@ -17,7 +17,7 @@ import dss.DB;
 /**
  * Base data model
  */
-public abstract class Base {
+public abstract class Model {
 
     /**
      * Manager for general operations.
@@ -31,7 +31,7 @@ public abstract class Base {
      *
      * @param <T> Model class
      */
-    public static class Manager<T extends Base> {
+    public static class Manager<T extends Model> {
 
         /**
          * Loader and cache for SQL files.

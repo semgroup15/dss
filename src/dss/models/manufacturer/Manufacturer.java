@@ -3,9 +3,9 @@ package dss.models.manufacturer;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import dss.models.Base;
+import dss.models.Model;
 
-public class Manufacturer extends Base {
+public class Manufacturer extends Model {
 
     public long id;
     public String name;
