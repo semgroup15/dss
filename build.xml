@@ -1,0 +1,29 @@
+<project>
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes" includeantruntime="false">
+            <classpath>
+                <!-- Libraries -->
+                <!-- <pathelement location="lib/[].jar"/> -->
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/dss.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="dss.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="build">
+        <antcall target="compile"/>
+        <antcall target="jar"/>
+    </target>
+</project>
