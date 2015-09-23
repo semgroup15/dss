@@ -483,6 +483,7 @@ public abstract class Model {
                         T row;
                         try {
                             row = type.newInstance();
+                            row.exists = true;
                         } catch (InstantiationException exception) {
                             throw new RuntimeException(exception);
                         } catch (IllegalAccessException exception) {
@@ -505,7 +506,7 @@ public abstract class Model {
      */
     protected abstract Manager<?> getManager();
 
-    private boolean exists = false;
+    protected boolean exists = false;
 
     /**
      * Update or insert this model instance.
