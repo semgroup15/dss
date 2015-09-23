@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 
 import dss.DB;
+import dss.DB.Context;
 
 /**
  * Base data model
@@ -102,6 +104,7 @@ public abstract class Model {
             }
         }
 
+        private Class<T> type;
         private QueryLoader<T> queryLoader;
 
         /**
@@ -109,6 +112,7 @@ public abstract class Model {
          * @param type Model type
          */
         public Manager(Class<T> type) {
+            this.type = type;
             this.queryLoader = new QueryLoader<T>(type);
         }
 
@@ -242,6 +246,58 @@ public abstract class Model {
                 }
             });
         }
+
+        /*
+         * Custom query
+         */
+
+        /**
+         * Get {@code SELECT} query.
+         * @return SQL
+         */
+        private String getSelectQuery(String name) {
+            return queryLoader.get("select." + name);
+        }
+
+        /**
+         * {@code SELECT} instances.
+         * @param name Select query name
+         * @param parameters Query parameters
+         * @return Query result
+         */
+        public List<T> select(final String name, Object... parameters) {
+            return DB.execute(new DB.Task<List<T>>() {
+
+                @Override
+                public List<T> execute(Context context) throws SQLException {
+                    // Prepare statement
+                    PreparedStatement statement =
+                            context.prepared(getSelectQuery(name));
+                    for (int i = 0; i < parameters.length; i++) {
+                        statement.setObject(i + 1, parameters[i]);
+                    }
+
+                    // Populate objects with row data
+                    List<T> rows = new ArrayList<T>();
+                    ResultSet result = statement.executeQuery();
+                    while (result.next()) {
+                        T row;
+                        try {
+                            row = type.newInstance();
+                        } catch (InstantiationException exception) {
+                            throw new RuntimeException(exception);
+                        } catch (IllegalAccessException exception) {
+                            throw new RuntimeException(exception);
+                        }
+                        row.syncResultSet(result);
+                        rows.add(row);
+                    }
+                    result.close();
+
+                    return rows;
+                }
+            });
+        }
     }
 
     /**
@@ -316,6 +372,7 @@ public abstract class Model {
 
                 int result = statement.executeUpdate();
                 if (result > 0) {
+                    // Update model with generated key
                     ResultSet key = statement.getGeneratedKeys();
                     if (key.next()) {
                         syncGeneratedKey(key);

@@ -49,7 +49,7 @@ public class Manufacturer extends Model {
      */
 
     public static Manager<Manufacturer> manager =
-            new Manager<Manufacturer>(Manufacturer.class);
+            new Manager<>(Manufacturer.class);
 
     @Override
     protected Manager<?> getManager() {

@@ -36,9 +36,28 @@ public class Main {
         showManufacturer(y);
         showManufacturer(a);
         showManufacturer(b);
+
+        // Query
+        System.out.println("all");
+        showManufacturers(Manufacturer.manager.select("all"));
+
+        System.out.println("byName, Samsung");
+        showManufacturers(Manufacturer.manager.select("byName", "Samsung"));
+
+        System.out.println("byIdGte, 3");
+        showManufacturers(Manufacturer.manager.select("byIdGte", 3));
+
+        System.out.println("byIdLte 2");
+        showManufacturers(Manufacturer.manager.select("byIdLte", 2));
     }
 
     private static void showManufacturer(Manufacturer manufacturer) {
         System.out.println(manufacturer.id + ": " + manufacturer.name);
+    }
+
+    private static void showManufacturers(List<Manufacturer> manufacturers) {
+        for (Manufacturer manufacturer : manufacturers) {
+            showManufacturer(manufacturer);
+        }
     }
 }

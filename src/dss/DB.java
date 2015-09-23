@@ -110,6 +110,7 @@ public class DB {
          */
         private void configure(Statement statement) throws SQLException {
             statement.setQueryTimeout(TIMEOUT);
+            statement.closeOnCompletion();
         }
 
         /**
