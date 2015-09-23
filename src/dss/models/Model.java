@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -264,6 +265,21 @@ public abstract class Model {
     }
 
     /**
+     * Update the model with a generated key.
+     * @param result Generated key
+     * @throws SQLException
+     */
+    protected abstract void syncGeneratedKey(ResultSet result)
+            throws SQLException;
+
+    /**
+     * Update the model with row data.
+     * @param result Query result
+     */
+    protected abstract void syncResultSet(ResultSet result)
+            throws SQLException;
+
+    /**
      * Prepare for {@code INSERT} usually providing parameters.
      * @param statement Statement to prepare.
      * @throws SQLException
@@ -280,7 +296,7 @@ public abstract class Model {
             throws SQLException;
 
     /**
-     * Prepare for {@code DELETE} usually providing paramenters.
+     * Prepare for {@code DELETE} usually providing parameters.
      * @param statement Statement to prepare.
      * @throws SQLException
      */
@@ -297,7 +313,16 @@ public abstract class Model {
                 PreparedStatement statement =
                         context.prepared(getManager().getRowInsertQuery());
                 prepareInsert(statement);
-                return statement.executeUpdate();
+
+                int result = statement.executeUpdate();
+                if (result > 0) {
+                    ResultSet key = statement.getGeneratedKeys();
+                    if (key.next()) {
+                        syncGeneratedKey(key);
+                    }
+                    key.close();
+                }
+                return result;
             }
         });
     }

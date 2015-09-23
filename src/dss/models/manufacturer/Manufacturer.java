@@ -1,6 +1,7 @@
 package dss.models.manufacturer;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dss.models.Model;
@@ -9,6 +10,17 @@ public class Manufacturer extends Model {
 
     public long id;
     public String name;
+
+    @Override
+    protected void syncGeneratedKey(ResultSet result) throws SQLException {
+        id = result.getLong(1);
+    }
+
+    @Override
+    protected void syncResultSet(ResultSet result) throws SQLException {
+        id = result.getLong(1);
+        name = result.getString(2);
+    }
 
     @Override
     protected void prepareInsert(PreparedStatement statement)

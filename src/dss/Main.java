@@ -11,13 +11,6 @@ public class Main {
 
         Manufacturer.manager.createTable();
 
-        Manufacturer m = new Manufacturer();
-        m.name = "Samsung";
-        m.id = 1;
-        m.save();
-        m.delete();
-
-        /*
         // Simple INSERT
         Manufacturer x = new Manufacturer();
         x.name = "Samsung";
@@ -38,6 +31,14 @@ public class Main {
         manufacturers.add(a);
         manufacturers.add(b);
         Manufacturer.manager.insert(manufacturers);
-        */
+
+        showManufacturer(x);
+        showManufacturer(y);
+        showManufacturer(a);
+        showManufacturer(b);
+    }
+
+    private static void showManufacturer(Manufacturer manufacturer) {
+        System.out.println(manufacturer.id + ": " + manufacturer.name);
     }
 }
