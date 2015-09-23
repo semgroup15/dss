@@ -1,7 +1,5 @@
 package dss.models.manufacturer;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dss.models.Model;
@@ -12,25 +10,29 @@ public class Manufacturer extends Model {
     public String name;
 
     @Override
-    protected void syncGeneratedKey(ResultSet result) throws SQLException {
+    protected void syncGeneratedKey(Manager.RestrictedResult result)
+            throws SQLException {
+
         id = result.getLong(1);
     }
 
     @Override
-    protected void syncResultSet(ResultSet result) throws SQLException {
+    protected void syncResultSet(Manager.RestrictedResult result)
+            throws SQLException {
+
         id = result.getLong(1);
         name = result.getString(2);
     }
 
     @Override
-    protected void prepareInsert(PreparedStatement statement)
+    protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
 
         statement.setString(1, name);
     }
 
     @Override
-    protected void prepareUpdate(PreparedStatement statement)
+    protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
 
         statement.setString(1, name);
@@ -38,7 +40,7 @@ public class Manufacturer extends Model {
     }
 
     @Override
-    protected void prepareDelete(PreparedStatement statement)
+    protected void prepareDelete(Manager.RestrictedStatement statement)
             throws SQLException {
 
         statement.setLong(1, id);

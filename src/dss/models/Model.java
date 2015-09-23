@@ -31,11 +31,64 @@ public abstract class Model {
      *   <li>Bulk {@code INSERT}</li>
      *   <li>Bulk {@code UPDATE}</li>
      *   <li>Bulk {@code DELETE}</li>
+     *   <li>{@code SELECT}</li>
      * </ul>
      *
      * @param <T> Model class
      */
     public static class Manager<T extends Model> {
+
+        /**
+         * Wrapper for providing parameters to a {@code PreparedStatement}.
+         */
+        public static class RestrictedStatement {
+
+            private PreparedStatement statement;
+
+            /**
+             * Initialize {@code RestrictedStatement}.
+             * @param statement {@code PreparedStatement} to wrap
+             */
+            public RestrictedStatement(PreparedStatement statement) {
+                this.statement = statement;
+            }
+
+            public void setLong(int position, long value)
+                    throws SQLException {
+
+                statement.setLong(position, value);
+            }
+
+            public void setString(int position, String value)
+                    throws SQLException {
+
+                statement.setString(position, value);
+            }
+        }
+
+        /**
+         * Wrapper for obtaining values from a {@code ResultSet}.
+         */
+        public static class RestrictedResult {
+
+            private ResultSet result;
+
+            /**
+             * Initialize {@code RestrictedResult}.
+             * @param result {@code ResultSet} to wrap
+             */
+            public RestrictedResult(ResultSet result) {
+                this.result = result;
+            }
+
+            public long getLong(int position) throws SQLException {
+                return result.getLong(position);
+            }
+
+            public String getString(int position) throws SQLException {
+                return result.getString(position);
+            }
+        }
 
         /**
          * Loader and cache for SQL files.
@@ -201,7 +254,7 @@ public abstract class Model {
                     PreparedStatement statement =
                             context.prepared(getRowInsertQuery());
                     for (T row : rows) {
-                        row.prepareInsert(statement);
+                        row.prepareInsert(new RestrictedStatement(statement));
                         statement.addBatch();
                     }
                     return statement.executeBatch()[0];
@@ -220,7 +273,7 @@ public abstract class Model {
                     PreparedStatement statement =
                             context.prepared(getRowUpdateQuery());
                     for (T row : rows) {
-                        row.prepareUpdate(statement);
+                        row.prepareUpdate(new RestrictedStatement(statement));
                         statement.addBatch();
                     }
                     return statement.executeBatch()[0];
@@ -239,7 +292,7 @@ public abstract class Model {
                     PreparedStatement statement =
                         context.prepared(getRowDeleteQuery());
                     for (T row : rows) {
-                        row.prepareDelete(statement);
+                        row.prepareDelete(new RestrictedStatement(statement));
                         statement.addBatch();
                     }
                     return statement.executeBatch()[0];
@@ -289,7 +342,7 @@ public abstract class Model {
                         } catch (IllegalAccessException exception) {
                             throw new RuntimeException(exception);
                         }
-                        row.syncResultSet(result);
+                        row.syncResultSet(new RestrictedResult(result));
                         rows.add(row);
                     }
                     result.close();
@@ -325,14 +378,14 @@ public abstract class Model {
      * @param result Generated key
      * @throws SQLException
      */
-    protected abstract void syncGeneratedKey(ResultSet result)
+    protected abstract void syncGeneratedKey(Manager.RestrictedResult result)
             throws SQLException;
 
     /**
      * Update the model with row data.
      * @param result Query result
      */
-    protected abstract void syncResultSet(ResultSet result)
+    protected abstract void syncResultSet(Manager.RestrictedResult result)
             throws SQLException;
 
     /**
@@ -340,7 +393,7 @@ public abstract class Model {
      * @param statement Statement to prepare.
      * @throws SQLException
      */
-    protected abstract void prepareInsert(PreparedStatement statement)
+    protected abstract void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException;
 
     /**
@@ -348,7 +401,7 @@ public abstract class Model {
      * @param statement Statement to prepare.
      * @throws SQLException
      */
-    protected abstract void prepareUpdate(PreparedStatement statement)
+    protected abstract void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException;
 
     /**
@@ -356,7 +409,7 @@ public abstract class Model {
      * @param statement Statement to prepare.
      * @throws SQLException
      */
-    protected abstract void prepareDelete(PreparedStatement statement)
+    protected abstract void prepareDelete(Manager.RestrictedStatement statement)
             throws SQLException;
 
     /**
@@ -368,14 +421,14 @@ public abstract class Model {
             public Integer execute(DB.Context context) throws SQLException {
                 PreparedStatement statement =
                         context.prepared(getManager().getRowInsertQuery());
-                prepareInsert(statement);
+                prepareInsert(new Manager.RestrictedStatement(statement));
 
                 int result = statement.executeUpdate();
                 if (result > 0) {
                     // Update model with generated key
                     ResultSet key = statement.getGeneratedKeys();
                     if (key.next()) {
-                        syncGeneratedKey(key);
+                        syncGeneratedKey(new Manager.RestrictedResult(key));
                     }
                     key.close();
                 }
@@ -393,7 +446,7 @@ public abstract class Model {
             public Integer execute(DB.Context context) throws SQLException {
                 PreparedStatement statement =
                         context.prepared(getManager().getRowUpdateQuery());
-                prepareUpdate(statement);
+                prepareUpdate(new Manager.RestrictedStatement(statement));
                 return statement.executeUpdate();
             }
         });
@@ -408,7 +461,7 @@ public abstract class Model {
             public Integer execute(DB.Context context) throws SQLException {
                 PreparedStatement statement =
                         context.prepared(getManager().getRowDeleteQuery());
-                prepareDelete(statement);
+                prepareDelete(new Manager.RestrictedStatement(statement));
                 return statement.executeUpdate();
             }
         });
