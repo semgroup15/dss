@@ -25,6 +25,13 @@ public class Manufacturer extends Model {
         statement.setLong(2, id);
     }
 
+    @Override
+    protected void prepareDelete(PreparedStatement statement)
+            throws SQLException {
+
+        statement.setLong(1, id);
+    }
+
     /*
      * Manager
      */

@@ -11,9 +11,14 @@ public class Main {
 
         Manufacturer.manager.createTable();
 
+        Manufacturer m = new Manufacturer();
+        m.name = "Samsung";
+        m.id = 1;
+        m.save();
+        m.delete();
+
         /*
-         * Simple INSERT
-         */
+        // Simple INSERT
         Manufacturer x = new Manufacturer();
         x.name = "Samsung";
         x.save();
@@ -22,9 +27,7 @@ public class Main {
         y.name = "Sony";
         y.save();
 
-        /*
-         * Bulk INSERT
-         */
+        // Bulk INSERT
         Manufacturer a = new Manufacturer();
         a.name = "HTC";
 
@@ -35,5 +38,6 @@ public class Main {
         manufacturers.add(a);
         manufacturers.add(b);
         Manufacturer.manager.insert(manufacturers);
+        */
     }
 }

@@ -27,6 +27,7 @@ public abstract class Model {
      *   <li>{@code DROP TABLE}</li>
      *   <li>Bulk {@code INSERT}</li>
      *   <li>Bulk {@code UPDATE}</li>
+     *   <li>Bulk {@code DELETE}</li>
      * </ul>
      *
      * @param <T> Model class
@@ -177,6 +178,14 @@ public abstract class Model {
         }
 
         /**
+         * Get {@code DELETE} query.
+         * @return SQL
+         */
+        private String getRowDeleteQuery() {
+            return queryLoader.get("row.delete");
+        }
+
+        /**
          * {@code INSERT} multiple instances.
          * @param rows Instances to insert.
          */
@@ -207,6 +216,25 @@ public abstract class Model {
                             context.prepared(getRowUpdateQuery());
                     for (T row : rows) {
                         row.prepareUpdate(statement);
+                        statement.addBatch();
+                    }
+                    return statement.executeBatch()[0];
+                }
+            });
+        }
+
+        /**
+         * {@code DELETE} multiple instances.
+         * @param rows Instances to delete.
+         */
+        public void delete(List<T> rows) {
+            DB.execute(new DB.Task<Integer>() {
+                @Override
+                public Integer execute(DB.Context context) throws SQLException {
+                    PreparedStatement statement =
+                        context.prepared(getRowDeleteQuery());
+                    for (T row : rows) {
+                        row.prepareDelete(statement);
                         statement.addBatch();
                     }
                     return statement.executeBatch()[0];
@@ -252,6 +280,14 @@ public abstract class Model {
             throws SQLException;
 
     /**
+     * Prepare for {@code DELETE} usually providing paramenters.
+     * @param statement Statement to prepare.
+     * @throws SQLException
+     */
+    protected abstract void prepareDelete(PreparedStatement statement)
+            throws SQLException;
+
+    /**
      * {@code INSERT} this model instance.
      */
     private void insert() {
@@ -276,6 +312,21 @@ public abstract class Model {
                 PreparedStatement statement =
                         context.prepared(getManager().getRowUpdateQuery());
                 prepareUpdate(statement);
+                return statement.executeUpdate();
+            }
+        });
+    }
+
+    /**
+     * {@code DELETE} this model instance.
+     */
+    public void delete() {
+        DB.execute(new DB.Task<Integer>() {
+            @Override
+            public Integer execute(DB.Context context) throws SQLException {
+                PreparedStatement statement =
+                        context.prepared(getManager().getRowDeleteQuery());
+                prepareDelete(statement);
                 return statement.executeUpdate();
             }
         });
