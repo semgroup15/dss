@@ -3,6 +3,8 @@ package dss.models;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,14 +15,146 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-
-import dss.DB;
-import dss.DB.Context;
+import org.sqlite.SQLiteConfig;
 
 /**
  * Base data model
  */
 public abstract class Model {
+
+    /**
+     * Database
+     *
+     * <ul>
+     *   <li>Keeps all database settings in one place</li>
+     *   <li>Establishes the {@code Connection} to the database</li>
+     *   <li>Encapsulates what developers can do in a {@code Context}</li>
+     *   <li>Throws database exceptions at runtime</li>
+     * </ul>
+     */
+    public static class DB {
+
+        /**
+         * Task that performs database operations.
+         * @param <T> Return type
+         */
+        public static interface Task<T> {
+            /**
+             * Perform database operations.
+             * @param context Task execution context.
+             * @return Value provided to {@code DB.execute(...)}
+             * @throws SQLException Exception to be thrown at runtime.
+             */
+            public T execute(Context context) throws SQLException;
+        }
+
+        /**
+         * Execute the specified task.
+         * @param task Task to execute.
+         * @return Result provided by task.
+         */
+        public static <T> T execute(Task<T> task) {
+            try {
+                Context context = new Context();
+
+                context.start();
+                T result = task.execute(context);
+                context.finish();
+
+                return result;
+
+            } catch (SQLException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
+
+        /**
+         * Task execution context.
+         */
+        public static class Context {
+
+            // Settings
+            private static final String DRIVER = "org.sqlite.JDBC";
+            private static final String PATH = "db.sqlite3";
+            private static final String CONN = "jdbc:sqlite:" + PATH;
+            private static final int TIMEOUT = 30;
+
+            // Current connection
+            private Connection connection;
+
+            /**
+             * Initialize context for performing operations.
+             * @throws SQLException
+             */
+            private void start() throws SQLException {
+                this.connection = connect();
+            }
+
+            /**
+             * Clean up context after performing operations.
+             * @throws SQLException
+             */
+            private void finish() throws SQLException {
+                this.connection.close();
+            }
+
+            /**
+             * Connect to the default database.
+             * @return Database connection.
+             * @throws SQLException
+             */
+            private static Connection connect() throws SQLException {
+                try {
+                    Class.forName(DRIVER);
+                } catch (ClassNotFoundException exception) {
+                    throw new RuntimeException(exception);
+                }
+
+                // Enable foreign keys
+                SQLiteConfig config = new SQLiteConfig();
+                config.enforceForeignKeys(true);
+
+                return DriverManager.getConnection(
+                        CONN, config.toProperties());
+            }
+
+            /**
+             * Configure statement for execution.
+             * @param statement Statement
+             * @throws SQLException
+             */
+            private void configure(Statement statement) throws SQLException {
+                statement.setQueryTimeout(TIMEOUT);
+                statement.closeOnCompletion();
+            }
+
+            /**
+             * Get a statement for executing queries.
+             * @return Statement
+             * @throws SQLException
+             */
+            public Statement statement() throws SQLException {
+                Statement statement = connection.createStatement();
+                configure(statement);
+                return statement;
+            }
+
+            /**
+             * Get a prepared statement.
+             * @param query SQL query
+             * @return Prepared statement
+             * @throws SQLException
+             */
+            public PreparedStatement prepared(String query)
+                    throws SQLException {
+
+                PreparedStatement statement =
+                    connection.prepareStatement(query);
+                configure(statement);
+                return statement;
+            }
+        }
+    }
 
     /**
      * Manager for general operations.
@@ -195,7 +329,9 @@ public abstract class Model {
         public void createTable() {
             DB.execute(new DB.Task<Integer>() {
                 @Override
-                public Integer execute(DB.Context context) throws SQLException {
+                public Integer execute(DB.Context context)
+                        throws SQLException {
+
                     Statement statement = context.statement();
                     return statement.executeUpdate(getTableCreateQuery());
                 }
@@ -208,7 +344,9 @@ public abstract class Model {
         public void dropTable() {
             DB.execute(new DB.Task<Integer>() {
                 @Override
-                public Integer execute(DB.Context context) throws SQLException {
+                public Integer execute(DB.Context context)
+                        throws SQLException {
+
                     Statement statement = context.statement();
                     return statement.executeUpdate(getTableDropQuery());
                 }
@@ -250,7 +388,9 @@ public abstract class Model {
         public void insert(List<T> rows) {
             DB.execute(new DB.Task<Integer>() {
                 @Override
-                public Integer execute(DB.Context context) throws SQLException {
+                public Integer execute(DB.Context context)
+                        throws SQLException {
+
                     PreparedStatement statement =
                             context.prepared(getRowInsertQuery());
                     for (T row : rows) {
@@ -269,7 +409,9 @@ public abstract class Model {
         public void update(List<T> rows) {
             DB.execute(new DB.Task<Integer>() {
                 @Override
-                public Integer execute(DB.Context context) throws SQLException {
+                public Integer execute(DB.Context context)
+                        throws SQLException {
+
                     PreparedStatement statement =
                             context.prepared(getRowUpdateQuery());
                     for (T row : rows) {
@@ -288,7 +430,9 @@ public abstract class Model {
         public void delete(List<T> rows) {
             DB.execute(new DB.Task<Integer>() {
                 @Override
-                public Integer execute(DB.Context context) throws SQLException {
+                public Integer execute(DB.Context context)
+                        throws SQLException {
+
                     PreparedStatement statement =
                         context.prepared(getRowDeleteQuery());
                     for (T row : rows) {
@@ -322,7 +466,9 @@ public abstract class Model {
             return DB.execute(new DB.Task<List<T>>() {
 
                 @Override
-                public List<T> execute(Context context) throws SQLException {
+                public List<T> execute(DB.Context context)
+                        throws SQLException {
+
                     // Prepare statement
                     PreparedStatement statement =
                             context.prepared(getSelectQuery(name));
@@ -378,39 +524,39 @@ public abstract class Model {
      * @param result Generated key
      * @throws SQLException
      */
-    protected abstract void syncGeneratedKey(Manager.RestrictedResult result)
-            throws SQLException;
+    protected abstract void syncGeneratedKey(
+            Manager.RestrictedResult result) throws SQLException;
 
     /**
      * Update the model with row data.
      * @param result Query result
      */
-    protected abstract void syncResultSet(Manager.RestrictedResult result)
-            throws SQLException;
+    protected abstract void syncResultSet(
+            Manager.RestrictedResult result) throws SQLException;
 
     /**
      * Prepare for {@code INSERT} usually providing parameters.
      * @param statement Statement to prepare.
      * @throws SQLException
      */
-    protected abstract void prepareInsert(Manager.RestrictedStatement statement)
-            throws SQLException;
+    protected abstract void prepareInsert(
+            Manager.RestrictedStatement statement) throws SQLException;
 
     /**
      * Prepare for {@code UPDATE} usually providing parameters.
      * @param statement Statement to prepare.
      * @throws SQLException
      */
-    protected abstract void prepareUpdate(Manager.RestrictedStatement statement)
-            throws SQLException;
+    protected abstract void prepareUpdate(
+            Manager.RestrictedStatement statement) throws SQLException;
 
     /**
      * Prepare for {@code DELETE} usually providing parameters.
      * @param statement Statement to prepare.
      * @throws SQLException
      */
-    protected abstract void prepareDelete(Manager.RestrictedStatement statement)
-            throws SQLException;
+    protected abstract void prepareDelete(
+            Manager.RestrictedStatement statement) throws SQLException;
 
     /**
      * {@code INSERT} this model instance.
