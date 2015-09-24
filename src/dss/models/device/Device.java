@@ -10,7 +10,7 @@ public class Device extends Model {
     public long id;
 
     public String name;
-    public long year;
+    public int year;
 
     public long manufacturerId;
 
