@@ -9,6 +9,10 @@ public class Manufacturer extends Model {
     public long id;
     public String name;
 
+    /*
+     * Manager
+     */
+
     public static Manager<Manufacturer> manager =
             new Manager<>(Manufacturer.class);
 
@@ -16,6 +20,10 @@ public class Manufacturer extends Model {
     protected Manager<?> getManager() {
         return manager;
     }
+
+    /*
+     * Sync
+     */
 
     @Override
     protected void syncGeneratedKey(Manager.RestrictedResult result)
@@ -31,6 +39,10 @@ public class Manufacturer extends Model {
         id = result.getLong(1);
         name = result.getString(2);
     }
+
+    /*
+     * Prepare
+     */
 
     @Override
     protected void prepareInsert(Manager.RestrictedStatement statement)
@@ -53,4 +65,11 @@ public class Manufacturer extends Model {
 
         statement.setLong(1, id);
     }
+
+    /*
+     * Queries
+     */
+
+    public static final String SELECT_ID = "id";
+    public static final String SELECT_NAME = "name";
 }
