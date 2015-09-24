@@ -1,2 +1,3 @@
-DELETE FROM manufacturer
+DELETE
+FROM manufacturer
 WHERE id = ?
