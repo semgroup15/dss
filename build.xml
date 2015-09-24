@@ -12,7 +12,7 @@
 
     <!-- Run -->
     <target name="run">
-        <java jar="${proj.build.jar}" fork="true"/>
+        <java jar="${proj.build.jar}" fork="true" args="${command}"/>
     </target>
 
     <!-- Build -->

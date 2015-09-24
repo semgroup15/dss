@@ -3,7 +3,9 @@
 ## Build
 
 * Build with `ant build`
-* Run with `ant run`
+* Migrate the database with `ant run -Dcommand=migrate`
+* Start input client with `ant run -Dcommand=input`
+* Start output client with `ant run -Dcommand=output`
 
 ## Libraries
 
