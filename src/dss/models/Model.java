@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,6 +154,76 @@ public abstract class Model {
                     connection.prepareStatement(query);
                 configure(statement);
                 return statement;
+            }
+        }
+    }
+
+    /**
+     * Database migration
+     */
+    public static interface Migration {
+        /**
+         * Make change
+         */
+        public void forward();
+
+        /**
+         * Undo change
+         */
+        public void backward();
+    }
+
+    /**
+     * Migration with an underlying sequence of several other migrations.
+     */
+    public static class CompositeMigration implements Migration {
+        private List<Migration> migrations;
+
+        /**
+         * Initialize {@code CompositeMigration} with a list of migrations.
+         * @param migrations Sequence of migrations
+         */
+        public CompositeMigration(List<Migration> migrations) {
+            this.migrations = migrations;
+        }
+
+        /**
+         * Initialize {@code CompositeMigration} with an array of migrations.
+         * @param migrations Sequence of migrations
+         */
+        public CompositeMigration(Migration... migrations) {
+            this(Arrays.asList(migrations));
+        }
+
+        /**
+         * Get list of {@code Migration} called with {@code forward()}.
+         * @return List of migrations
+         */
+        private List<Migration> getForwardMigrations() {
+            return this.migrations;
+        }
+
+        /**
+         * Get list of {@code Migration} called with {@code backward()}.
+         * @return List of migrations
+         */
+        private List<Migration> getBackwardMigrations() {
+            List<Migration> reversed = new ArrayList<Migration>(migrations);
+            Collections.reverse(reversed);
+            return reversed;
+        }
+
+        @Override
+        public void forward() {
+            for (Migration migration : getForwardMigrations()) {
+                migration.forward();
+            }
+        }
+
+        @Override
+        public void backward() {
+            for (Migration migration : getBackwardMigrations()) {
+                migration.backward();
             }
         }
     }
