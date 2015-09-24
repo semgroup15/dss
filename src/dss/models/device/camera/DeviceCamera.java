@@ -9,7 +9,6 @@ public class DeviceCamera extends Model {
     public static class Primary {
 
         public int mp;
-
         public int width;
         public int height;
     }
@@ -18,7 +17,6 @@ public class DeviceCamera extends Model {
 
         public boolean has;
         public int mp;
-
         public long videoId;
     }
 

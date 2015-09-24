@@ -1,0 +1,1 @@
+DROP TABLE platform_cpu_type

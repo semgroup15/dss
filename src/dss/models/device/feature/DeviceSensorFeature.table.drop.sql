@@ -1,0 +1,1 @@
+DROP TABLE device_sensor_feature

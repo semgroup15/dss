@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<String, Runnable> commands = new HashMap<>();
-
     public static void main(String[] args) {
+        Map<String, Runnable> commands = new HashMap<>();
+
         commands.put("migrate", new Runnable() {
             @Override
             public void run() {
