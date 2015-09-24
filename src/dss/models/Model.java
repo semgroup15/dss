@@ -340,16 +340,32 @@ public abstract class Model {
             this.queryLoader = new QueryLoader<T>(type);
         }
 
+        /**
+         * Add meaningful manager information to {@code SQLException}.
+         * @param exception Exception to wrap
+         * @param name Query name
+         * @return Wrapped {@code SQLException}
+         */
+        private SQLException wrap(SQLException exception, String name) {
+            String message = String.format(
+                    "%s '%s' %s", type.getSimpleName(), name,
+                    exception.getMessage());
+            return new SQLException(message, exception);
+        }
+
         /*
          * Table create and drop
          */
+
+        private static final String QUERY_TABLE_CREATE = "table.create";
+        private static final String QUERY_TABLE_DROP = "table.drop";
 
         /**
          * Get {@code CREATE TABLE} query.
          * @return SQL
          */
         private String getTableCreateQuery() {
-            return queryLoader.get("table.create");
+            return queryLoader.get(QUERY_TABLE_CREATE);
         }
 
         /**
@@ -357,7 +373,7 @@ public abstract class Model {
          * @return SQL
          */
         private String getTableDropQuery() {
-            return queryLoader.get("table.drop");
+            return queryLoader.get(QUERY_TABLE_DROP);
         }
 
         /**
@@ -370,7 +386,12 @@ public abstract class Model {
                         throws SQLException {
 
                     Statement statement = context.statement();
-                    return statement.executeUpdate(getTableCreateQuery());
+
+                    try {
+                        return statement.executeUpdate(getTableCreateQuery());
+                    } catch (SQLException exception) {
+                        throw wrap(exception, QUERY_TABLE_CREATE);
+                    }
                 }
             });
         }
@@ -385,7 +406,12 @@ public abstract class Model {
                         throws SQLException {
 
                     Statement statement = context.statement();
-                    return statement.executeUpdate(getTableDropQuery());
+
+                    try {
+                        return statement.executeUpdate(getTableDropQuery());
+                    } catch (SQLException exception) {
+                        throw wrap(exception, QUERY_TABLE_DROP);
+                    }
                 }
             });
         }
@@ -394,12 +420,16 @@ public abstract class Model {
          * Row insert and update.
          */
 
+        private static final String QUERY_ROW_INSERT = "row.insert";
+        private static final String QUERY_ROW_UPDATE = "row.update";
+        private static final String QUERY_ROW_DELETE = "row.delete";
+
         /**
          * Get {@code INSERT} query.
          * @return SQL
          */
         private String getRowInsertQuery() {
-            return queryLoader.get("row.insert");
+            return queryLoader.get(QUERY_ROW_INSERT);
         }
 
         /**
@@ -407,7 +437,7 @@ public abstract class Model {
          * @return SQL
          */
         private String getRowUpdateQuery() {
-            return queryLoader.get("row.update");
+            return queryLoader.get(QUERY_ROW_UPDATE);
         }
 
         /**
@@ -415,7 +445,7 @@ public abstract class Model {
          * @return SQL
          */
         private String getRowDeleteQuery() {
-            return queryLoader.get("row.delete");
+            return queryLoader.get(QUERY_ROW_DELETE);
         }
 
         /**
@@ -434,7 +464,12 @@ public abstract class Model {
                         row.prepareInsert(new RestrictedStatement(statement));
                         statement.addBatch();
                     }
-                    return statement.executeBatch()[0];
+
+                    try {
+                        return statement.executeBatch()[0];
+                    } catch (SQLException exception) {
+                        throw wrap(exception, QUERY_ROW_INSERT);
+                    }
                 }
             });
         }
@@ -455,7 +490,12 @@ public abstract class Model {
                         row.prepareUpdate(new RestrictedStatement(statement));
                         statement.addBatch();
                     }
-                    return statement.executeBatch()[0];
+
+                    try {
+                        return statement.executeBatch()[0];
+                    } catch (SQLException exception) {
+                        throw wrap(exception, QUERY_ROW_UPDATE);
+                    }
                 }
             });
         }
@@ -476,7 +516,12 @@ public abstract class Model {
                         row.prepareDelete(new RestrictedStatement(statement));
                         statement.addBatch();
                     }
-                    return statement.executeBatch()[0];
+
+                    try {
+                        return statement.executeBatch()[0];
+                    } catch (SQLException exception) {
+                        throw wrap(exception, QUERY_ROW_DELETE);
+                    }
                 }
             });
         }
@@ -486,11 +531,21 @@ public abstract class Model {
          */
 
         /**
+         * Get full name for {@code SELECT} query.
+         * @param name Select query name
+         * @return Full name
+         */
+        private static String getSelectQueryName(String name) {
+            return String.format("select.%s", name);
+        }
+
+        /**
          * Get {@code SELECT} query.
+         * @param name Select query name
          * @return SQL
          */
         private String getSelectQuery(String name) {
-            return queryLoader.get("select." + name);
+            return queryLoader.get(getSelectQueryName(name));
         }
 
         /**
@@ -514,21 +569,25 @@ public abstract class Model {
 
                     // Populate objects with row data
                     List<T> rows = new ArrayList<T>();
-                    ResultSet result = statement.executeQuery();
-                    while (result.next()) {
-                        T row;
-                        try {
-                            row = type.newInstance();
-                            row.exists = true;
-                        } catch (InstantiationException exception) {
-                            throw new RuntimeException(exception);
-                        } catch (IllegalAccessException exception) {
-                            throw new RuntimeException(exception);
+                    try {
+                        ResultSet result = statement.executeQuery();
+                        while (result.next()) {
+                            T row;
+                            try {
+                                row = type.newInstance();
+                                row.exists = true;
+                            } catch (InstantiationException exception) {
+                                throw new RuntimeException(exception);
+                            } catch (IllegalAccessException exception) {
+                                throw new RuntimeException(exception);
+                            }
+                            row.syncResultSet(new RestrictedResult(result));
+                            rows.add(row);
                         }
-                        row.syncResultSet(new RestrictedResult(result));
-                        rows.add(row);
+                        result.close();
+                    } catch (SQLException exception) {
+                        throw wrap(exception, getSelectQueryName(name));
                     }
-                    result.close();
 
                     return rows;
                 }
