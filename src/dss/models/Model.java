@@ -157,6 +157,43 @@ public abstract class Model {
     }
 
     /**
+     * {@code Exception} thrown when an instance is not found.
+     */
+    public static class DoesNotExist extends Exception {
+
+        private static final long serialVersionUID = 1L;
+
+        private Class<?> type;
+        private String name;
+        private Object[] parameters;
+
+        /**
+         * Initialize {@code DoesNotExist} exception.
+         * @param type Type of model.
+         * @param name Query name or description.
+         * @param parameters Query parameters.
+         */
+        public DoesNotExist(Class<?> type, String name, Object[] parameters) {
+            super();
+
+            this.type = type;
+            this.name = name;
+            this.parameters = parameters;
+        }
+
+        public String toString() {
+            String[] parameters = new String[this.parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                parameters[i] = this.parameters[i].toString();
+            }
+
+            return String.format(
+                    "%s with parameters %s(%s) does not exist",
+                    this.type, this.name, String.join(", ", parameters));
+        }
+    }
+
+    /**
      * Manager for general operations.
      *
      * <ul>
@@ -445,7 +482,7 @@ public abstract class Model {
         }
 
         /*
-         * Custom query
+         * {@code SELECT} query execution
          */
 
         /**
@@ -464,7 +501,6 @@ public abstract class Model {
          */
         public List<T> select(final String name, Object... parameters) {
             return DB.execute(new DB.Task<List<T>>() {
-
                 @Override
                 public List<T> execute(DB.Context context)
                         throws SQLException {
@@ -498,13 +534,23 @@ public abstract class Model {
                 }
             });
         }
-    }
 
-    /**
-     * Get default manager for this model.
-     * @return Default manager.
-     */
-    protected abstract Manager<?> getManager();
+        /**
+         * {@code SELECT} a single instance.
+         * @param name Select query name
+         * @param parameters Query parameters
+         * @return Query result
+         */
+        public T get(final String name, Object... parameters)
+                throws DoesNotExist {
+
+            List<T> rows = select(name, parameters);
+            if (rows.isEmpty()) {
+                throw new DoesNotExist(this.type, name, parameters);
+            }
+            return rows.get(0);
+        }
+    }
 
     protected boolean exists = false;
 
@@ -521,6 +567,16 @@ public abstract class Model {
     }
 
     /**
+     * Get default manager for this model.
+     * @return Default manager.
+     */
+    protected abstract Manager<?> getManager();
+
+    /*
+     * Sync with {@code Manager.RestrictedResult}
+     */
+
+    /**
      * Update the model with a generated key.
      * @param result Generated key
      * @throws SQLException
@@ -534,6 +590,10 @@ public abstract class Model {
      */
     protected abstract void syncResultSet(
             Manager.RestrictedResult result) throws SQLException;
+
+    /*
+     * Prepare with {@code Manager.RestrictedStatement}
+     */
 
     /**
      * Prepare for {@code INSERT} usually providing parameters.
@@ -558,6 +618,10 @@ public abstract class Model {
      */
     protected abstract void prepareDelete(
             Manager.RestrictedStatement statement) throws SQLException;
+
+    /*
+     * Query execution
+     */
 
     /**
      * {@code INSERT} this model instance.
