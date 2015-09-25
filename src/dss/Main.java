@@ -11,7 +11,7 @@ public class Main {
         commands.put("migrate", new Runnable() {
             @Override
             public void run() {
-                new dss.models.PackageMigration().forward();
+                new dss.models.PackageMigration().doForward();
             }
         });
 

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.sqlite.SQLiteConfig;
 
 /**
@@ -161,22 +162,48 @@ public abstract class Model {
     /**
      * Database migration
      */
-    public static interface Migration {
+    public static abstract class Migration {
+
+        private static final int INDENT = 4;
+
+        protected static int level = 0;
+
+        protected void write(String message) {
+            Class<?> type = getClass();
+            if (type.isAnonymousClass()) {
+                type = type.getEnclosingClass();
+            }
+
+            System.out.println(String.format(
+                    "%s [%s] %s", StringUtils.repeat(" ", level * INDENT),
+                    message, type.getPackage().getName()));
+        }
+
         /**
          * Make change
          */
-        public void forward();
+        protected abstract void forward();
+
+        public void doForward() {
+            write("forward");
+            forward();
+        }
 
         /**
          * Undo change
          */
-        public void backward();
+        protected abstract void backward();
+
+        public void doBackward() {
+            write("backward");
+            backward();
+        }
     }
 
     /**
      * Migration with an underlying sequence of several other migrations.
      */
-    public static class CompositeMigration implements Migration {
+    public static class CompositeMigration extends Migration {
         private List<Migration> migrations;
 
         /**
@@ -215,16 +242,24 @@ public abstract class Model {
 
         @Override
         public void forward() {
+            Migration.level++;
+
             for (Migration migration : getForwardMigrations()) {
-                migration.forward();
+                migration.doForward();
             }
+
+            Migration.level--;
         }
 
         @Override
         public void backward() {
+            Migration.level++;
+
             for (Migration migration : getBackwardMigrations()) {
-                migration.backward();
+                migration.doBackward();
             }
+
+            Migration.level--;
         }
     }
 
