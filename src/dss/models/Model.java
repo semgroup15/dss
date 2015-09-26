@@ -230,6 +230,12 @@ public abstract class Model {
                 statement.setLong(position, value);
             }
 
+            public void setInt(int position, int value) 
+                    throws SQLException {
+
+                statement.setInt(position, value);
+            }
+
             public void setString(int position, String value)
                     throws SQLException {
 
@@ -254,6 +260,10 @@ public abstract class Model {
 
             public long getLong(int position) throws SQLException {
                 return result.getLong(position);
+            }
+
+            public int getInt(int position) throws SQLException {
+                return result.getInt(position);
             }
 
             public String getString(int position) throws SQLException {
@@ -346,7 +356,7 @@ public abstract class Model {
          * @param name Query name
          * @return Wrapped {@code SQLException}
          */
-        private SQLException wrap(SQLException exception, String name) {
+        protected SQLException wrap(SQLException exception, String name) {
             String message = String.format(
                     "%s '%s' %s", type.getSimpleName(), name,
                     exception.getMessage());
@@ -357,8 +367,8 @@ public abstract class Model {
          * Table create and drop
          */
 
-        private static final String QUERY_TABLE_CREATE = "table.create";
-        private static final String QUERY_TABLE_DROP = "table.drop";
+        protected static final String QUERY_TABLE_CREATE = "table.create";
+        protected static final String QUERY_TABLE_DROP = "table.drop";
 
         /**
          * Get {@code CREATE TABLE} query.
@@ -689,20 +699,26 @@ public abstract class Model {
         DB.execute(new DB.Task<Integer>() {
             @Override
             public Integer execute(DB.Context context) throws SQLException {
+                Manager<?> manager = getManager();
+
                 PreparedStatement statement =
-                        context.prepared(getManager().getRowInsertQuery());
+                        context.prepared(manager.getRowInsertQuery());
                 prepareInsert(new Manager.RestrictedStatement(statement));
 
-                int result = statement.executeUpdate();
-                if (result > 0) {
-                    // Update model with generated key
-                    ResultSet key = statement.getGeneratedKeys();
-                    if (key.next()) {
-                        syncGeneratedKey(new Manager.RestrictedResult(key));
+                try {
+                    int result = statement.executeUpdate();
+                    if (result > 0) {
+                        // Update model with generated key
+                        ResultSet key = statement.getGeneratedKeys();
+                        if (key.next()) {
+                            syncGeneratedKey(new Manager.RestrictedResult(key));
+                        }
+                        key.close();
                     }
-                    key.close();
+                    return result;
+                } catch (SQLException exception) {
+                    throw manager.wrap(exception, Manager.QUERY_ROW_INSERT);
                 }
-                return result;
             }
         });
     }
@@ -714,10 +730,17 @@ public abstract class Model {
         DB.execute(new DB.Task<Integer>() {
             @Override
             public Integer execute(DB.Context context) throws SQLException {
+                Manager<?> manager = getManager();
+
                 PreparedStatement statement =
                         context.prepared(getManager().getRowUpdateQuery());
                 prepareUpdate(new Manager.RestrictedStatement(statement));
-                return statement.executeUpdate();
+
+                try {
+                    return statement.executeUpdate();
+                } catch (SQLException exception) {
+                    throw manager.wrap(exception, Manager.QUERY_ROW_UPDATE);
+                }
             }
         });
     }
@@ -729,10 +752,17 @@ public abstract class Model {
         DB.execute(new DB.Task<Integer>() {
             @Override
             public Integer execute(DB.Context context) throws SQLException {
+                Manager<?> manager = getManager();
+
                 PreparedStatement statement =
                         context.prepared(getManager().getRowDeleteQuery());
                 prepareDelete(new Manager.RestrictedStatement(statement));
-                return statement.executeUpdate();
+
+                try {
+                    return statement.executeUpdate();
+                } catch (SQLException exception) {
+                    throw manager.wrap(exception, Manager.QUERY_ROW_DELETE);
+                }
             }
         });
     }

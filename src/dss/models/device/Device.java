@@ -36,11 +36,20 @@ public class Device extends Model {
     @Override
     protected void syncGeneratedKey(Manager.RestrictedResult result)
             throws SQLException {
+
+        id = result.getLong(1);
     }
 
     @Override
     protected void syncResultSet(Manager.RestrictedResult result)
             throws SQLException {
+
+        id = result.getLong(1);
+
+        name = result.getString(2);
+        year = result.getInt(3);
+
+        manufacturerId = result.getLong(4);
     }
 
     /*
@@ -50,16 +59,30 @@ public class Device extends Model {
     @Override
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setString(1, name);
+        statement.setInt(2, year);
+
+        statement.setLong(3, manufacturerId);
     }
 
     @Override
     protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setString(1, name);
+        statement.setInt(2, year);
+
+        statement.setLong(3, manufacturerId);
+
+        statement.setLong(4, id);
     }
 
     @Override
     protected void prepareDelete(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setLong(1, id);
     }
 
     /*

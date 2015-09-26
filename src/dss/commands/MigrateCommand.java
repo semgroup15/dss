@@ -42,7 +42,7 @@ public class MigrateCommand implements Runnable {
          * Main models
          */
 
-        System.out.println("* Migrating main models");
+        System.out.println("* Main models");
 
         Manufacturer.manager.createTable();
         Device.manager.createTable();
@@ -51,7 +51,7 @@ public class MigrateCommand implements Runnable {
          * Generic choices
          */
 
-        System.out.println("* Migrating generic choices");
+        System.out.println("* Generic choices");
 
         SIMType.manager.createTable();
         CameraFeature.manager.createTable();
@@ -69,7 +69,7 @@ public class MigrateCommand implements Runnable {
          * Platform information
          */
 
-        System.out.println("* Migrating platform information");
+        System.out.println("* Platform information");
 
         PlatformChipset.manager.createTable();
         PlatformCPUType.manager.createTable();
@@ -81,7 +81,7 @@ public class MigrateCommand implements Runnable {
          * Device relations
          */
 
-        System.out.println("* Migrating device relations");
+        System.out.println("* Device relations");
 
         DeviceBattery.manager.createTable();
         DeviceBody.manager.createTable();
