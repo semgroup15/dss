@@ -10,14 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.sqlite.SQLiteConfig;
 
 /**
@@ -156,110 +153,6 @@ public abstract class Model {
                 configure(statement);
                 return statement;
             }
-        }
-    }
-
-    /**
-     * Database migration
-     */
-    public static abstract class Migration {
-
-        private static final int INDENT = 4;
-
-        protected static int level = 0;
-
-        protected void write(String message) {
-            Class<?> type = getClass();
-            if (type.isAnonymousClass()) {
-                type = type.getEnclosingClass();
-            }
-
-            System.out.println(String.format(
-                    "%s [%s] %s", StringUtils.repeat(" ", level * INDENT),
-                    message, type.getPackage().getName()));
-        }
-
-        /**
-         * Make change
-         */
-        protected abstract void forward();
-
-        public void doForward() {
-            write("forward");
-            forward();
-        }
-
-        /**
-         * Undo change
-         */
-        protected abstract void backward();
-
-        public void doBackward() {
-            write("backward");
-            backward();
-        }
-    }
-
-    /**
-     * Migration with an underlying sequence of several other migrations.
-     */
-    public static class CompositeMigration extends Migration {
-        private List<Migration> migrations;
-
-        /**
-         * Initialize {@code CompositeMigration} with a list of migrations.
-         * @param migrations Sequence of migrations
-         */
-        public CompositeMigration(List<Migration> migrations) {
-            this.migrations = migrations;
-        }
-
-        /**
-         * Initialize {@code CompositeMigration} with an array of migrations.
-         * @param migrations Sequence of migrations
-         */
-        public CompositeMigration(Migration... migrations) {
-            this(Arrays.asList(migrations));
-        }
-
-        /**
-         * Get list of {@code Migration} called with {@code forward()}.
-         * @return List of migrations
-         */
-        private List<Migration> getForwardMigrations() {
-            return this.migrations;
-        }
-
-        /**
-         * Get list of {@code Migration} called with {@code backward()}.
-         * @return List of migrations
-         */
-        private List<Migration> getBackwardMigrations() {
-            List<Migration> reversed = new ArrayList<Migration>(migrations);
-            Collections.reverse(reversed);
-            return reversed;
-        }
-
-        @Override
-        public void forward() {
-            Migration.level++;
-
-            for (Migration migration : getForwardMigrations()) {
-                migration.doForward();
-            }
-
-            Migration.level--;
-        }
-
-        @Override
-        public void backward() {
-            Migration.level++;
-
-            for (Migration migration : getBackwardMigrations()) {
-                migration.doBackward();
-            }
-
-            Migration.level--;
         }
     }
 

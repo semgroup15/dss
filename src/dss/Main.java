@@ -3,31 +3,18 @@ package dss;
 import java.util.HashMap;
 import java.util.Map;
 
+import dss.commands.InputClientCommand;
+import dss.commands.MigrateCommand;
+import dss.commands.OutputClientCommand;
+
 public class Main {
 
     public static void main(String[] args) {
         Map<String, Runnable> commands = new HashMap<>();
 
-        commands.put("migrate", new Runnable() {
-            @Override
-            public void run() {
-                new dss.models.PackageMigration().doForward();
-            }
-        });
-
-        commands.put("input", new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("DSS Input Client");
-            }
-        });
-
-        commands.put("output", new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("DSS Output Client");
-            }
-        });
+        commands.put("migrate", new MigrateCommand());
+        commands.put("input", new InputClientCommand());
+        commands.put("output", new OutputClientCommand());
 
         if (args.length == 1) {
             Runnable command = commands.get(args[0]);
