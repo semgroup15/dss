@@ -1,4 +1,4 @@
-package dss.commands;
+package dss.commands.dss;
 
 public class OutputClientCommand implements Runnable {
     @Override

@@ -1,4 +1,4 @@
-package dss.commands;
+package dss.commands.dss;
 
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;

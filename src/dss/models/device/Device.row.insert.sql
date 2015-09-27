@@ -1,3 +1,3 @@
 INSERT
-INTO device (name, year, manufacturer_id)
-VALUES (?, ?, ?)
+INTO device (id, name, year, manufacturer_id)
+VALUES (?, ?, ?, ?)

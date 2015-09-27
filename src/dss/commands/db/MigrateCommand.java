@@ -1,4 +1,4 @@
-package dss.commands;
+package dss.commands.db;
 
 import dss.models.device.Device;
 import dss.models.device.battery.DeviceBattery;
@@ -100,6 +100,6 @@ public class MigrateCommand implements Runnable {
         DevicePlatform.manager.createTable();
         DeviceSound.manager.createTable();
 
-        System.out.println("Finished");
+        System.out.println("Done");
     }
 }

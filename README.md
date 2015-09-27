@@ -3,9 +3,25 @@
 ## Build
 
 * Build with `ant build`
-* Migrate the database with `ant run -Dcommand=migrate`
-* Start input client with `ant run -Dcommand=input`
-* Start output client with `ant run -Dcommand=output`
+
+## Commands
+
+### DB
+
+* `ant run -Dcommand=db.migrate` Migrate
+
+
+### DSS
+
+* `ant run -Dcommand=dss.input` Input client
+* `ant run -Dcommand=dss.output` Output client
+
+
+### GSMArena
+
+* `ant run -Dcommand=gsmarena.quicksearch` Load initial device list
+* `ant run -Dcommand=gsmarena.device` Load full data for existing devices
+
 
 ## Libraries
 

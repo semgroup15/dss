@@ -37,7 +37,7 @@ public class Device extends Model {
     protected void syncGeneratedKey(Manager.RestrictedResult result)
             throws SQLException {
 
-        id = result.getLong(1);
+        throw new Model.NotApplicable();
     }
 
     @Override
@@ -60,10 +60,12 @@ public class Device extends Model {
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setString(1, name);
-        statement.setInt(2, year);
+        statement.setLong(1, id);
 
-        statement.setLong(3, manufacturerId);
+        statement.setString(2, name);
+        statement.setInt(3, year);
+
+        statement.setLong(4, manufacturerId);
     }
 
     @Override

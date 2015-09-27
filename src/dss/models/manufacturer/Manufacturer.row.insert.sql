@@ -1,3 +1,3 @@
 INSERT
-INTO manufacturer (name)
-VALUES (?)
+INTO manufacturer (id, name)
+VALUES (?, ?)

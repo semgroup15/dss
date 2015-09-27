@@ -29,7 +29,7 @@ public class Manufacturer extends Model {
     protected void syncGeneratedKey(Manager.RestrictedResult result)
             throws SQLException {
 
-        id = result.getLong(1);
+        throw new Model.NotApplicable();
     }
 
     @Override
@@ -48,7 +48,8 @@ public class Manufacturer extends Model {
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setString(1, name);
+        statement.setLong(1, id);
+        statement.setString(2, name);
     }
 
     @Override
