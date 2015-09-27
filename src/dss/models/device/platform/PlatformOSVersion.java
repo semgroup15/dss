@@ -8,6 +8,7 @@ public class PlatformOSVersion extends Model {
 
     public long id;
     public String name;
+    public long osId;
 
     /*
      * Manager
@@ -38,6 +39,7 @@ public class PlatformOSVersion extends Model {
 
         id = result.getLong(1);
         name = result.getString(2);
+        osId = result.getLong(3);
     }
 
     /*
@@ -49,6 +51,7 @@ public class PlatformOSVersion extends Model {
             throws SQLException {
 
         statement.setString(1, name);
+        statement.setLong(2, osId);
     }
 
     @Override
@@ -56,7 +59,8 @@ public class PlatformOSVersion extends Model {
             throws SQLException {
 
         statement.setString(1, name);
-        statement.setLong(2, id);
+        statement.setLong(2, osId);
+        statement.setLong(3, id);
     }
 
     @Override
@@ -70,5 +74,6 @@ public class PlatformOSVersion extends Model {
      * Queries
      */
 
+    public static final String SELECT_ALL = "all";
     public static final String SELECT_ID = "id";
 }
