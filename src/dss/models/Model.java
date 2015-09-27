@@ -247,10 +247,22 @@ public abstract class Model {
                 statement.setInt(position, value);
             }
 
+            public void setDouble(int position, double value)
+                    throws SQLException {
+
+                statement.setDouble(position, value);
+            }
+
             public void setString(int position, String value)
                     throws SQLException {
 
                 statement.setString(position, value);
+            }
+
+            public void setBoolean(int position, boolean value)
+                    throws SQLException {
+
+                statement.setBoolean(position, value);
             }
         }
 
@@ -277,8 +289,16 @@ public abstract class Model {
                 return result.getInt(position);
             }
 
+            public double getDouble(int position) throws SQLException {
+                return result.getDouble(position);
+            }
+
             public String getString(int position) throws SQLException {
                 return result.getString(position);
+            }
+
+            public boolean getBoolean(int position) throws SQLException {
+                return result.getBoolean(position);
             }
         }
 
@@ -793,12 +813,7 @@ public abstract class Model {
                     if (result > 0) {
                         ResultSet key = statement.getGeneratedKeys();
                         if (key.next()) {
-                            try {
-                                syncGeneratedKey(
-                                        new Manager.RestrictedResult(key));
-                            } catch (NotApplicable exception) {
-                                exception.printStackTrace();
-                            }
+                            syncGeneratedKey(new Manager.RestrictedResult(key));
                         }
                         key.close();
                     }

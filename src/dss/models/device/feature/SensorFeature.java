@@ -70,5 +70,6 @@ public class SensorFeature extends Model {
      * Queries
      */
 
+    public static final String SELECT_ALL = "all";
     public static final String SELECT_ID = "id";
 }

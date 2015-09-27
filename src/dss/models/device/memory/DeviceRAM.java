@@ -29,11 +29,17 @@ public class DeviceRAM extends Model {
     @Override
     protected void syncGeneratedKey(Manager.RestrictedResult result)
             throws SQLException {
+
+        throw new Model.NotApplicable();
     }
 
     @Override
     protected void syncResultSet(Manager.RestrictedResult result)
             throws SQLException {
+
+        deviceId = result.getLong(1);
+
+        size = result.getInt(2);
     }
 
     /*
@@ -43,21 +49,25 @@ public class DeviceRAM extends Model {
     @Override
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setLong(1, deviceId);
+
+        statement.setInt(2, size);
     }
 
     @Override
     protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setInt(1, size);
+
+        statement.setLong(2, deviceId);
     }
 
     @Override
     protected void prepareDelete(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setLong(1, deviceId);
     }
-
-    /*
-     * Queries
-     */
-
-    public static final String SELECT_ID = "id";
 }
