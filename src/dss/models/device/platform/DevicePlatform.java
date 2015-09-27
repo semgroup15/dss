@@ -6,24 +6,27 @@ import dss.models.Model;
 
 public class DevicePlatform extends Model {
 
-    public static class CPU {
-
-        public long platformCPUTypeId;
-
-        public double freq;
-        public String raw;
-    }
-
     public long deviceId;
 
     public long platformOSId;
     public long platformOSCurrentVersionId;
-    public long platformOSUpagradeVersionId;
+    public long platformOSUpgradeVersionId;
 
     public long platformChipsetId;
     public long platformGPUId;
 
+    public static class CPU {
+
+        public long platformCPUTypeId;
+        public double freq;
+        public String raw;
+    }
+
     public CPU cpu;
+
+    public DevicePlatform() {
+        cpu = new CPU();
+    }
 
     /*
      * Manager
@@ -44,11 +47,26 @@ public class DevicePlatform extends Model {
     @Override
     protected void syncGeneratedKey(Manager.RestrictedResult result)
             throws SQLException {
+
+        throw new Model.NotApplicable();
     }
 
     @Override
     protected void syncResultSet(Manager.RestrictedResult result)
             throws SQLException {
+
+        deviceId = result.getLong(1);
+
+        platformOSId = result.getLong(2);
+        platformOSCurrentVersionId = result.getLong(3);
+        platformOSUpgradeVersionId = result.getLong(4);
+
+        platformChipsetId = result.getLong(5);
+        platformGPUId = result.getLong(6);
+
+        cpu.platformCPUTypeId = result.getLong(7);
+        cpu.freq = result.getDouble(8);
+        cpu.raw = result.getString(9);
     }
 
     /*
@@ -58,16 +76,44 @@ public class DevicePlatform extends Model {
     @Override
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setLong(1, deviceId);
+
+        statement.setLong(2, platformOSId);
+        statement.setLong(3, platformOSCurrentVersionId);
+        statement.setLong(4, platformOSUpgradeVersionId);
+
+        statement.setLong(5, platformChipsetId);
+        statement.setLong(6, platformGPUId);
+
+        statement.setLong(7, cpu.platformCPUTypeId);
+        statement.setDouble(8, cpu.freq);
+        statement.setString(9, cpu.raw);
     }
 
     @Override
     protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setLong(1, platformOSId);
+        statement.setLong(2, platformOSCurrentVersionId);
+        statement.setLong(3, platformOSUpgradeVersionId);
+
+        statement.setLong(4, platformChipsetId);
+        statement.setLong(5, platformGPUId);
+
+        statement.setLong(6, cpu.platformCPUTypeId);
+        statement.setDouble(7, cpu.freq);
+        statement.setString(8, cpu.raw);
+
+        statement.setLong(9, deviceId);
     }
 
     @Override
     protected void prepareDelete(Manager.RestrictedStatement statement)
             throws SQLException {
+
+        statement.setLong(1, deviceId);
     }
 
     /*
