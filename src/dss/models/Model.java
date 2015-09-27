@@ -10,12 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.sqlite.SQLiteConfig;
+
+import dss.models.Model.DB.Context;
 
 /**
  * Base data model
@@ -272,6 +275,36 @@ public abstract class Model {
         }
 
         /**
+         * Query generated programmatically.
+         */
+        public static class QueryProvider {
+
+            private List<Object> parameters = new ArrayList<Object>();
+            private String query;
+
+            /**
+             * Initialize {@code QueryProvider}.
+             */
+            public QueryProvider() {}
+
+            /**
+             * Append a piece of SQL.
+             * @param part SQL to append
+             */
+            public void add(String part) {
+                this.query += part;
+            }
+
+            /**
+             * Append query parameter.
+             * @param object Parameter
+             */
+            public void add(Object... parameters) {
+                this.parameters.addAll(Arrays.asList(parameters));
+            }
+        }
+
+        /**
          * Loader and cache for SQL files.
          * @param <T> Model class
          */
@@ -361,6 +394,31 @@ public abstract class Model {
                     "%s '%s' %s", type.getSimpleName(), name,
                     exception.getMessage());
             return new SQLException(message, exception);
+        }
+
+        /**
+         * Load a SQL {@code ResultSet} into a model list.
+         * @param result Query result
+         * @param rows Model list
+         * @throws SQLException
+         */
+        public void load(ResultSet result, List<T> rows) throws SQLException {
+            while (result.next()) {
+                T row;
+
+                try {
+                    row = type.newInstance();
+                    row.exists = true;
+                } catch (InstantiationException exception) {
+                    throw new RuntimeException(exception);
+                } catch (IllegalAccessException exception) {
+                    throw new RuntimeException(exception);
+                }
+
+                row.syncResultSet(new RestrictedResult(result));
+                rows.add(row);
+            }
+            result.close();
         }
 
         /*
@@ -570,31 +628,16 @@ public abstract class Model {
                 public List<T> execute(DB.Context context)
                         throws SQLException {
 
-                    // Prepare statement
                     PreparedStatement statement =
                             context.prepared(getSelectQuery(name));
                     for (int i = 0; i < parameters.length; i++) {
                         statement.setObject(i + 1, parameters[i]);
                     }
 
-                    // Populate objects with row data
-                    List<T> rows = new ArrayList<T>();
+                    List<T> rows = new ArrayList<>();
                     try {
                         ResultSet result = statement.executeQuery();
-                        while (result.next()) {
-                            T row;
-                            try {
-                                row = type.newInstance();
-                                row.exists = true;
-                            } catch (InstantiationException exception) {
-                                throw new RuntimeException(exception);
-                            } catch (IllegalAccessException exception) {
-                                throw new RuntimeException(exception);
-                            }
-                            row.syncResultSet(new RestrictedResult(result));
-                            rows.add(row);
-                        }
-                        result.close();
+                        load(result, rows);
                     } catch (SQLException exception) {
                         throw wrap(exception, getSelectQueryName(name));
                     }
@@ -618,6 +661,38 @@ public abstract class Model {
                 throw new DoesNotExist(this.type, name, parameters);
             }
             return rows.get(0);
+        }
+
+        private static final String QUERY_PROGRAMMATIC = "programmatic";
+
+        /**
+         * {@code SELECT} instances with a query generated at runtime.
+         * @param provider {@code QueryProvider}
+         * @return Query result.
+         */
+        public List<T> select(final QueryProvider provider) {
+            return DB.execute(new DB.Task<List<T>>() {
+                @Override
+                public List<T> execute(Context context)
+                        throws SQLException {
+
+                    PreparedStatement statement =
+                            context.prepared(provider.query);
+                    for (int i = 0; i < provider.parameters.size(); i++) {
+                        statement.setObject(i + 1, provider.parameters.get(i));
+                    }
+
+                    List<T> rows = new ArrayList<>();
+                    try {
+                        ResultSet result = statement.executeQuery();
+                        load(result, rows);
+                    } catch (SQLException exception) {
+                        throw wrap(exception, QUERY_PROGRAMMATIC);
+                    }
+
+                    return rows;
+                }
+            });
         }
     }
 
