@@ -160,6 +160,14 @@ public abstract class Model {
     }
 
     /**
+     * {@code Exception} thrown when a model method is not applicable.
+     */
+    public static class NotApplicable extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+    }
+
+    /**
      * {@code Exception} thrown when an instance is not found.
      */
     public static class DoesNotExist extends Exception {
@@ -783,10 +791,14 @@ public abstract class Model {
                 try {
                     int result = statement.executeUpdate();
                     if (result > 0) {
-                        // Update model with generated key
                         ResultSet key = statement.getGeneratedKeys();
                         if (key.next()) {
-                            syncGeneratedKey(new Manager.RestrictedResult(key));
+                            try {
+                                syncGeneratedKey(
+                                        new Manager.RestrictedResult(key));
+                            } catch (NotApplicable exception) {
+                                exception.printStackTrace();
+                            }
                         }
                         key.close();
                     }
