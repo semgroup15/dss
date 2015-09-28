@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
 import org.sqlite.SQLiteConfig;
@@ -721,6 +722,53 @@ public abstract class Model {
                     return rows;
                 }
             });
+        }
+    }
+
+    /**
+     * Generic object cache.
+     * @param <T> Model type
+     * @param <K> Key type
+     */
+    public static class Cache<T extends Model, K> {
+
+        /**
+         * Object loader.
+         * @param <T> Model type
+         * @param <K> Key type
+         */
+        public static interface Loader<T, K> {
+            T load(K key) throws DoesNotExist;
+            T create();
+        }
+
+        private Map<K, T> cache = new TreeMap<>();
+        private Loader<T, K> loader;
+
+        /**
+         * Initialize {@code Cache}.
+         * @param loader Object loader
+         */
+        public Cache(Loader<T, K> loader) {
+            this.loader = loader;
+        }
+
+        /**
+         * Get the specified object by key
+         * @param key Object key
+         * @return Object
+         */
+        public T get(K key) {
+            T object = cache.get(key);
+            if (object == null) {
+                try {
+                    object = loader.load(key);
+                } catch (DoesNotExist exception) {
+                    object = loader.create();
+                }
+                cache.put(key, object);
+            }
+            return object;
         }
     }
 

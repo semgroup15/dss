@@ -92,4 +92,5 @@ public class Device extends Model {
      */
 
     public static final String SELECT_ID = "id";
+    public static final String SELECT_ALL = "all";
 }

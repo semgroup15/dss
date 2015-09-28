@@ -13,6 +13,7 @@ public class DeviceDisplay extends Model {
 
     public int width;
     public int height;
+    public int density;
 
     public boolean multitouch;
 
@@ -53,11 +54,12 @@ public class DeviceDisplay extends Model {
 
         width = result.getInt(4);
         height = result.getInt(5);
+        density = result.getInt(6);
 
-        multitouch = result.getBoolean(6);
+        multitouch = result.getBoolean(7);
 
-        typeId = result.getLong(7);
-        protectionId = result.getLong(8);
+        typeId = result.getLong(8);
+        protectionId = result.getLong(9);
     }
 
     /*
@@ -75,11 +77,12 @@ public class DeviceDisplay extends Model {
 
         statement.setInt(4, width);
         statement.setInt(5, height);
+        statement.setInt(6, density);
 
-        statement.setBoolean(6, multitouch);
+        statement.setBoolean(7, multitouch);
 
-        statement.setLong(7, typeId);
-        statement.setLong(8, protectionId);
+        statement.setLong(8, typeId);
+        statement.setLong(9, protectionId);
     }
 
     @Override
@@ -91,13 +94,14 @@ public class DeviceDisplay extends Model {
 
         statement.setInt(3, width);
         statement.setInt(4, height);
+        statement.setInt(5, density);
 
-        statement.setBoolean(5, multitouch);
+        statement.setBoolean(6, multitouch);
 
-        statement.setLong(6, typeId);
-        statement.setLong(7, protectionId);
+        statement.setLong(7, typeId);
+        statement.setLong(8, protectionId);
 
-        statement.setLong(8, deviceId);
+        statement.setLong(9, deviceId);
     }
 
     @Override

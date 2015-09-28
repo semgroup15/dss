@@ -21,6 +21,21 @@ public class Manufacturer extends Model {
         return manager;
     }
 
+    public static Cache.Loader<Manufacturer, Long> loader =
+            new Cache.Loader<Manufacturer, Long>() {
+                @Override
+                public Manufacturer load(Long key) throws Model.DoesNotExist {
+                    return manager.get(SELECT_ID, key);
+                }
+
+                @Override
+                public Manufacturer create() {
+                    return new Manufacturer();
+                }
+            };
+
+    public static Cache<Manufacturer, Long> cache = new Cache<>(loader);
+
     /*
      * Sync
      */

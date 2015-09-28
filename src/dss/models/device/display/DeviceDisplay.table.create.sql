@@ -6,6 +6,7 @@ CREATE TABLE device_display (
 
     width INTEGER,
     height INTEGER,
+    density INTEGER,
 
     multitouch BOOLEAN,
 

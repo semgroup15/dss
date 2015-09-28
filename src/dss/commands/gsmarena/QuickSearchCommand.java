@@ -1,7 +1,6 @@
 package dss.commands.gsmarena;
 
 import dss.interop.gsmarena.API;
-import dss.interop.gsmarena.API.Exception;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
@@ -15,7 +14,7 @@ public class QuickSearchCommand implements Runnable {
         API.QuickSearchResult result;
         try {
             result = API.getQuickSearch();
-        } catch (Exception exception) {
+        } catch (API.Exception exception) {
             exception.printStackTrace();
             return;
         }
