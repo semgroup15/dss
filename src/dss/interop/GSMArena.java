@@ -1,4 +1,4 @@
-package dss.interop.gsmarena;
+package dss.interop;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ import dss.models.manufacturer.Manufacturer;
 /**
  * GSMArena data extraction.
  */
-public class API {
+public class GSMArena {
 
     private static final String ENCODING = "UTF-8";
 

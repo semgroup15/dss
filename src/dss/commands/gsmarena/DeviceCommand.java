@@ -2,8 +2,8 @@ package dss.commands.gsmarena;
 
 import java.util.List;
 
-import dss.interop.gsmarena.API;
-import dss.interop.gsmarena.API.DeviceResult;
+import dss.interop.GSMArena;
+import dss.interop.GSMArena.DeviceResult;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
@@ -24,8 +24,8 @@ public class DeviceCommand implements Runnable {
                     "Requesting %s %s", manufacturer.name, device.name));
 
             try {
-                DeviceResult result = API.getDevice(device.id);
-            } catch (API.Exception exception) {
+                DeviceResult result = GSMArena.getDevice(device.id);
+            } catch (GSMArena.Exception exception) {
                 System.out.println("Exception retrieving device information");
             }
 

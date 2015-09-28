@@ -1,6 +1,6 @@
 package dss.commands.gsmarena;
 
-import dss.interop.gsmarena.API;
+import dss.interop.GSMArena;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
@@ -11,10 +11,10 @@ public class QuickSearchCommand implements Runnable {
 
         System.out.println("Requesting device list");
 
-        API.QuickSearchResult result;
+        GSMArena.QuickSearchResult result;
         try {
-            result = API.getQuickSearch();
-        } catch (API.Exception exception) {
+            result = GSMArena.getQuickSearch();
+        } catch (GSMArena.Exception exception) {
             exception.printStackTrace();
             return;
         }
