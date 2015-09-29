@@ -4,6 +4,7 @@ import java.util.List;
 
 import dss.interop.GSMArena;
 import dss.interop.GSMArena.DeviceResult;
+import dss.models.Model;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
@@ -13,12 +14,12 @@ public class DeviceCommand implements Runnable {
     public void run() {
         System.out.println("GSMArena Device");
 
-        //List<Device> devices = Device.manager.select(Device.SELECT_ALL);
-        List<Device> devices = Device.manager.select(Device.SELECT_ID, 6506);
+        List<Device> devices = Device.manager.select(Device.SELECT_ALL);
+        Model.Cache<Manufacturer, Long> cache =
+                new Model.Cache<>(new Manufacturer.Loader());
 
         for (Device device : devices) {
-            Manufacturer manufacturer =
-                    Manufacturer.cache.get(device.manufacturerId);
+            Manufacturer manufacturer = cache.get(device.manufacturerId);
 
             System.out.println(String.format(
                     "Requesting %s %s", manufacturer.name, device.name));
@@ -28,8 +29,6 @@ public class DeviceCommand implements Runnable {
             } catch (GSMArena.Exception exception) {
                 System.out.println("Exception retrieving device information");
             }
-
-            return;
         }
 
         System.out.println(devices.size());

@@ -29,6 +29,18 @@ public class Device extends Model {
         return manager;
     }
 
+    public static class Loader implements Cache.Loader<Device, Long> {
+        @Override
+        public Device load(Long key) throws DoesNotExist {
+            return manager.get(SELECT_ID, key);
+        }
+
+        @Override
+        public Device create() {
+            return new Device();
+        }
+    }
+
     /*
      * Sync
      */
