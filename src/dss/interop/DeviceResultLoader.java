@@ -7,7 +7,14 @@ import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
 /**
- * Helper for loading devices provided by a {@code DeviceResultExtractor}.
+ * Device normalization and loading compatible with
+ * {@code DeviceResultExtractor}.
+ *
+ * <ul>
+ *   <li>Extract device information</li>
+ *   <li>Normalize data provided by extractor</li>
+ *   <li>Store normalized data</li>
+ * </ul>
  */
 public class DeviceResultLoader {
 
@@ -41,6 +48,12 @@ public class DeviceResultLoader {
 
     private DeviceResultExtractor extractor;
 
+    /**
+     * Initialize {@code DeviceResultLoader}.
+     * @param cache Model cache
+     * @param handler Loader listener
+     * @param extractor Third-party provider
+     */
     public DeviceResultLoader(
             Cache cache, Handler handler,
             DeviceResultExtractor extractor) {
@@ -51,12 +64,20 @@ public class DeviceResultLoader {
         this.extractor = extractor;
     }
 
+    /**
+     * Load all the devices specified
+     * @param devices Devices to load
+     */
     public void loadAll(List<Device> devices) {
         for (Device device : devices) {
             load(device);
         }
     }
 
+    /**
+     * Load the specified device
+     * @param device Device to load
+     */
     public void load(Device device) {
         handler.onStart(device);
 

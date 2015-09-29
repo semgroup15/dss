@@ -31,7 +31,7 @@ import dss.models.device.sound.DeviceSound;
 import dss.models.manufacturer.Manufacturer;
 
 /**
- * Not-yet-normalized device information.
+ * Device information pending normalization.
  */
 public class DeviceResult {
 
