@@ -35,7 +35,7 @@ import dss.models.manufacturer.Manufacturer;
 /**
  * GSMArena data extraction.
  */
-public class GSMArena implements DeviceResultExtractor {
+public class GSMArena implements DeviceResultLoader.Extractor {
 
     private static final String ENCODING = "UTF-8";
 
@@ -133,6 +133,7 @@ public class GSMArena implements DeviceResultExtractor {
         return result;
     }
 
+    @Override
     public DeviceResult getDevice(long id) throws Exception {
         DeviceResult result = new DeviceResult();
 

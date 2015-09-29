@@ -34,7 +34,7 @@ public class ExpandCommand implements Runnable {
         System.out.println(String.format("%d devices", devices.size()));
 
         DeviceResultLoader loader =
-                new DeviceResultLoader(cache, handler, new GSMArena());
+                new DeviceResultLoader(cache, new GSMArena(), handler);
         loader.loadAll(devices);
     }
 }

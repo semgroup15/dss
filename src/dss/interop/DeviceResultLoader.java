@@ -27,6 +27,19 @@ public class DeviceResultLoader {
     }
 
     /**
+     * Information source capable of providing a {@code DeviceResult}.
+     */
+    public interface Extractor {
+        /**
+         * Request device information.
+         * @param id Device id
+         * @return {@code DeviceResult}
+         * @throws Exception
+         */
+        DeviceResult getDevice(long id) throws Exception;
+    }
+
+    /**
      * Loader listener
      */
     public static interface Handler {
@@ -44,24 +57,21 @@ public class DeviceResultLoader {
     }
 
     private Cache cache;
+    private Extractor extractor;
     private Handler handler;
-
-    private DeviceResultExtractor extractor;
 
     /**
      * Initialize {@code DeviceResultLoader}.
      * @param cache Model cache
-     * @param handler Loader listener
      * @param extractor Third-party provider
+     * @param handler Loader listener
      */
     public DeviceResultLoader(
-            Cache cache, Handler handler,
-            DeviceResultExtractor extractor) {
+            Cache cache, Extractor extractor, Handler handler) {
 
         this.cache = cache;
-        this.handler = handler;
-
         this.extractor = extractor;
+        this.handler = handler;
     }
 
     /**
