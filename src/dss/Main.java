@@ -6,8 +6,8 @@ import java.util.Map;
 import dss.commands.db.MigrateCommand;
 import dss.commands.dss.InputClientCommand;
 import dss.commands.dss.OutputClientCommand;
-import dss.commands.gsmarena.DeviceCommand;
-import dss.commands.gsmarena.QuickSearchCommand;
+import dss.commands.interop.ExpandCommand;
+import dss.commands.interop.InitCommand;
 
 public class Main {
 
@@ -19,8 +19,8 @@ public class Main {
         commands.put("dss.input", new InputClientCommand());
         commands.put("dss.output", new OutputClientCommand());
 
-        commands.put("gsmarena.quicksearch", new QuickSearchCommand());
-        commands.put("gsmarena.device", new DeviceCommand());
+        commands.put("interop.init", new InitCommand());
+        commands.put("interop.expand", new ExpandCommand());
 
         if (args.length == 1) {
             Runnable command = commands.get(args[0]);

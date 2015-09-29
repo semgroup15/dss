@@ -19,8 +19,8 @@
 
 ### GSMArena
 
-* `ant run -Dcommand=gsmarena.quicksearch` Load initial device list
-* `ant run -Dcommand=gsmarena.device` Load full data for existing devices
+* `ant run -Dcommand=interop.init` Initialize with minimal device list
+* `ant run -Dcommand=interop.expand` Expand current database with details
 
 
 ## Libraries

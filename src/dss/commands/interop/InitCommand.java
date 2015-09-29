@@ -1,19 +1,18 @@
-package dss.commands.gsmarena;
+package dss.commands.interop;
 
 import dss.interop.GSMArena;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
-public class QuickSearchCommand implements Runnable {
+public class InitCommand implements Runnable {
     @Override
     public void run() {
-        System.out.println("GSMArena Quick Search");
-
-        System.out.println("Requesting device list");
+        System.out.println("GSMArena");
+        System.out.println("Initializing with minimal device list");
 
         GSMArena.QuickSearchResult result;
         try {
-            result = GSMArena.getQuickSearch();
+            result = new GSMArena().getQuickSearch();
         } catch (GSMArena.Exception exception) {
             exception.printStackTrace();
             return;
