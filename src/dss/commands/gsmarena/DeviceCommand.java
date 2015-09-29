@@ -14,7 +14,7 @@ public class DeviceCommand implements Runnable {
         System.out.println("GSMArena Device");
 
         //List<Device> devices = Device.manager.select(Device.SELECT_ALL);
-        List<Device> devices = Device.manager.select(Device.SELECT_ID, 6033);
+        List<Device> devices = Device.manager.select(Device.SELECT_ID, 6506);
 
         for (Device device : devices) {
             Manufacturer manufacturer =

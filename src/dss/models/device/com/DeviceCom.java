@@ -13,6 +13,7 @@ public class DeviceCom extends Model {
     public boolean gps;
     public boolean radio;
     public boolean usb;
+    public boolean nfc;
 
     /*
      * Manager
@@ -47,6 +48,7 @@ public class DeviceCom extends Model {
         gps = result.getBoolean(4);
         radio = result.getBoolean(5);
         usb = result.getBoolean(6);
+        nfc = result.getBoolean(7);
     }
 
     /*
@@ -64,6 +66,7 @@ public class DeviceCom extends Model {
         statement.setBoolean(4, gps);
         statement.setBoolean(5, radio);
         statement.setBoolean(6, usb);
+        statement.setBoolean(7, nfc);
     }
 
     @Override
@@ -75,8 +78,9 @@ public class DeviceCom extends Model {
         statement.setBoolean(3, gps);
         statement.setBoolean(4, radio);
         statement.setBoolean(5, usb);
+        statement.setBoolean(6, nfc);
 
-        statement.setLong(6, deviceId);
+        statement.setLong(7, deviceId);
     }
 
     @Override

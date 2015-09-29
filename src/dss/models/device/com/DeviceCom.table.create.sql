@@ -4,5 +4,6 @@ CREATE TABLE device_com (
     bluetooth BOOLEAN,
     gps BOOLEAN,
     radio BOOLEAN,
-    usb BOOLEAN
+    usb BOOLEAN,
+    nfc BOOLEAN
 )
