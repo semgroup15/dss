@@ -204,39 +204,42 @@ public class GSMArena implements DeviceResultLoader.Extractor {
      * Extraction methods
      */
 
-    private static void extractDeviceYear(
+    private void extractDeviceYear(
             Document document, DeviceResult result) {
 
         // Device -> Year
         Matcher matcher = extractFieldRegex(
                 document, "announced", "^([0-9]*)");
         if (matcher != null) {
-            result.device.year = Integer.parseInt(matcher.group(1));
+            try {
+                result.year = Integer.parseInt(matcher.group(1));
+            } catch (NumberFormatException e) {
+            }
         }
     }
 
-    private static void extractSIMType(
+    private void extractSIMType(
             Document document, DeviceResult result) {
 
         // SIM type
         result.simType.name = extractField(document, "sim");
     }
 
-    private static void extractDisplayType(
+    private void extractDisplayType(
             Document document, DeviceResult result) {
 
         // Display type
         result.displayType.name = extractField(document, "type");
     }
 
-    private static void extractDisplayProtection(
+    private void extractDisplayProtection(
             Document document, DeviceResult result) {
 
         // Display protection
         result.displayProtection.name = extractField(document, "protection");
     }
 
-    private static void extractCameraFeature(
+    private void extractCameraFeature(
             Document document, DeviceResult result) {
 
         // CameraFeature
@@ -248,7 +251,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractCameraVideo(
+    private void extractCameraVideo(
             Document document, DeviceResult result) {
 
         // CameraVideo
@@ -261,7 +264,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractInternalMemory(
+    private void extractInternalMemory(
             Document document, DeviceResult result) {
 
         // InternalMemory, DeviceRAM
@@ -276,14 +279,17 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 result.internalMemory.add(internalMemory);
             }
 
-            int ram = Integer.parseInt(matcher.group(3));
-            unit = matcher.group(4);
-            if (unit.equals("GB")) ram *= 1000;
-            result.ram.size = ram;
+            try {
+                int ram = Integer.parseInt(matcher.group(3));
+                unit = matcher.group(4);
+                if (unit.equals("GB")) ram *= 1000;
+                result.ram.size = ram;
+            } catch (NumberFormatException e) {
+            }
         }
     }
 
-    private static void extractMemorySlot(
+    private void extractMemorySlot(
             Document document, DeviceResult result) {
 
         // MemorySlot
@@ -299,7 +305,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractColor(
+    private void extractColor(
             Document document, DeviceResult result) {
 
         // Color
@@ -311,7 +317,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractNetworkTechnology(
+    private void extractNetworkTechnology(
             Document document, DeviceResult result) {
 
         // NetworkTechnology
@@ -323,14 +329,14 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractPlatformChipset(
+    private void extractPlatformChipset(
             Document document, DeviceResult result) {
 
         // PlatformChipset
         result.chipset.name = extractField(document, "chipset");
     }
 
-    private static void extractPlatformCPUType(
+    private void extractPlatformCPUType(
             Document document, DeviceResult result) {
 
         // PlatformCPUType
@@ -341,27 +347,30 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         if (matcher != null) {
             result.cpuType.name = matcher.group(1).trim();
 
-            double freq = Double.parseDouble(matcher.group(2));
-            String unit = matcher.group(3);
-            if (unit.equals("MHz")) freq /= 1000;
-            result.platform.cpu.freq = freq;
+            try {
+                double freq = Double.parseDouble(matcher.group(2));
+                String unit = matcher.group(3);
+                if (unit.equals("MHz")) freq /= 1000;
+                result.platform.cpu.freq = freq;
+            } catch (NumberFormatException e) {
+            }
         }
     }
 
-    private static void extractPlatformGPU(
+    private void extractPlatformGPU(
             Document document, DeviceResult result) {
 
         // PlatformGPU
         result.gpu.name = extractField(document, "gpu");
     }
 
-    private static void extractPlatformOS(
+    private void extractPlatformOS(
             Document document, DeviceResult result) {
 
         // PlatformOS, PlatformOSVersion
         Matcher matcher = extractFieldRegex(
                 document, "os",
-                "([a-zA-Z ]*)([^,]*)?," +
+                "([a-zA-Z]*)([^,]*)?," +
                 "( ([^,^u]*),?)?( ?upgradable to (.*))?");
         if (matcher != null) {
             result.os.name = matcher.group(1);
@@ -370,7 +379,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractDeviceBattery(
+    private void extractDeviceBattery(
             Document document, DeviceResult result) {
 
         Matcher matcher;
@@ -390,7 +399,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractDeviceBody(
+    private void extractDeviceBody(
             Document document, DeviceResult result) {
 
         // DeviceBody -> height, width, depth
@@ -398,19 +407,25 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 document, "dimensions",
                 "([0-9]*.?[0-9]*) x ([0-9]*.?[0-9]*) x ([0-9]*.?[0-9]*) mm");
         if (matcher != null) {
-            result.body.height = Double.parseDouble(matcher.group(1));
-            result.body.width = Double.parseDouble(matcher.group(2));
-            result.body.depth = Double.parseDouble(matcher.group(3));
+            try {
+                result.body.height = Double.parseDouble(matcher.group(1));
+                result.body.width = Double.parseDouble(matcher.group(2));
+                result.body.depth = Double.parseDouble(matcher.group(3));
+            } catch (NumberFormatException e) {
+            }
         }
 
         // DeviceBody -> weight
         matcher = extractFieldRegex(document, "weight", "([0-9]*.?[0-9]*) g");
         if (matcher != null) {
-            result.body.weight = Double.parseDouble(matcher.group(1));
+            try {
+                result.body.weight = Double.parseDouble(matcher.group(1));
+            } catch (NumberFormatException e) {
+            }
         }
     }
 
-    private static void extractPrimaryDeviceCamera(
+    private void extractPrimaryDeviceCamera(
             Document document, DeviceResult result) {
 
         // DeviceCamera -> primary
@@ -418,13 +433,16 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 document, "primary",
                 "([0-9]*) MP, ([0-9]*) x ([0-9]*) pixels");
         if (matcher != null) {
-            result.camera.primary.mp = Integer.parseInt(matcher.group(1));
-            result.camera.primary.width = Integer.parseInt(matcher.group(2));
-            result.camera.primary.height = Integer.parseInt(matcher.group(3));
+            try {
+                result.camera.primary.mp = Integer.parseInt(matcher.group(1));
+                result.camera.primary.width = Integer.parseInt(matcher.group(2));
+                result.camera.primary.height = Integer.parseInt(matcher.group(3));
+            } catch (NumberFormatException e) {
+            }
         }
     }
 
-    private static void extractSecondaryDeviceCamera(
+    private void extractSecondaryDeviceCamera(
             Document document, DeviceResult result) {
 
         // DeviceCamera -> secondary
@@ -437,7 +455,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         }
     }
 
-    private static void extractMessagingFeature(
+    private void extractMessagingFeature(
             Document document, DeviceResult result) {
 
         // MessagingFeature
@@ -479,7 +497,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 document, "usb").trim().toLowerCase().equals("no");
     }
 
-    private static void extractDeviceDisplay(
+    private void extractDeviceDisplay(
             Document document, DeviceResult result) {
 
         Matcher matcher;
@@ -490,8 +508,11 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 "([0-9]*.[0-9]*) inches " +
                 "\\(~?([0-9]*.[0-9]*)% screen-to-body ratio\\)");
         if (matcher != null) {
-            result.display.size = Double.parseDouble(matcher.group(1));
-            result.display.ratio = Double.parseDouble(matcher.group(2));
+            try {
+                result.display.size = Double.parseDouble(matcher.group(1));
+                result.display.ratio = Double.parseDouble(matcher.group(2));
+            } catch (NumberFormatException e) {
+            }
         }
 
         // DeviceDisplay -> width, height
@@ -500,9 +521,12 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 "([0-9]*) x ([0-9]*) pixels " +
                 "\\(~([0-9]*) ppi pixel density\\)");
         if (matcher != null) {
-            result.display.width = Integer.parseInt(matcher.group(1));
-            result.display.height = Integer.parseInt(matcher.group(2));
-            result.display.density = Integer.parseInt(matcher.group(3));
+            try {
+                result.display.width = Integer.parseInt(matcher.group(1));
+                result.display.height = Integer.parseInt(matcher.group(2));
+                result.display.density = Integer.parseInt(matcher.group(3));
+            } catch (NumberFormatException e) {
+            }
         }
 
         // DeviceDisplay -> multitouch
@@ -510,7 +534,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 document, "multitouch").trim().toLowerCase().equals("yes");
     }
 
-    private static void extractDeviceSound(
+    private void extractDeviceSound(
             Document document, DeviceResult result) {
 
         // DeviceSound

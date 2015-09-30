@@ -20,6 +20,18 @@ public class SIMType extends Model {
         return manager;
     }
 
+    public static class Loader implements Cache.Loader<SIMType, Long> {
+        @Override
+        public SIMType load(Long key) throws DoesNotExist {
+            return manager.get(SELECT_ID, key);
+        }
+
+        @Override
+        public SIMType create(Long key) {
+            return new SIMType();
+        }
+    }
+
     /*
      * Sync
      */
@@ -71,4 +83,5 @@ public class SIMType extends Model {
 
     public static final String SELECT_ALL = "all";
     public static final String SELECT_ID = "id";
+    public static final String SELECT_NAME = "name";
 }

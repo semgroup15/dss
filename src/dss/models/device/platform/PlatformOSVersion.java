@@ -77,4 +77,5 @@ public class PlatformOSVersion extends Model {
     public static final String SELECT_ALL = "all";
     public static final String SELECT_OS = "os";
     public static final String SELECT_ID = "id";
+    public static final String SELECT_NAME = "name";
 }

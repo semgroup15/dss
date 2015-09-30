@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
 import org.sqlite.SQLiteConfig;
@@ -550,9 +549,9 @@ public abstract class Model {
          * @param rows Instances to insert.
          */
         public void insert(List<T> rows) {
-            DB.execute(new DB.Task<Integer>() {
+            DB.execute(new DB.Task<Void>() {
                 @Override
-                public Integer execute(DB.Context context)
+                public Void execute(DB.Context context)
                         throws SQLException {
 
                     PreparedStatement statement =
@@ -563,10 +562,12 @@ public abstract class Model {
                     }
 
                     try {
-                        return statement.executeBatch()[0];
+                        statement.executeBatch();
                     } catch (SQLException exception) {
                         throw wrap(exception, QUERY_ROW_INSERT);
                     }
+
+                    return null;
                 }
             });
         }
@@ -576,9 +577,9 @@ public abstract class Model {
          * @param rows Instances to update.
          */
         public void update(List<T> rows) {
-            DB.execute(new DB.Task<Integer>() {
+            DB.execute(new DB.Task<Void>() {
                 @Override
-                public Integer execute(DB.Context context)
+                public Void execute(DB.Context context)
                         throws SQLException {
 
                     PreparedStatement statement =
@@ -589,10 +590,12 @@ public abstract class Model {
                     }
 
                     try {
-                        return statement.executeBatch()[0];
+                        statement.executeBatch();
                     } catch (SQLException exception) {
                         throw wrap(exception, QUERY_ROW_UPDATE);
                     }
+
+                    return null;
                 }
             });
         }
@@ -602,9 +605,9 @@ public abstract class Model {
          * @param rows Instances to delete.
          */
         public void delete(List<T> rows) {
-            DB.execute(new DB.Task<Integer>() {
+            DB.execute(new DB.Task<Void>() {
                 @Override
-                public Integer execute(DB.Context context)
+                public Void execute(DB.Context context)
                         throws SQLException {
 
                     PreparedStatement statement =
@@ -615,14 +618,15 @@ public abstract class Model {
                     }
 
                     try {
-                        int result = statement.executeBatch()[0];
+                        statement.executeBatch();
                         for (T row : rows) {
                             row.exists = false;
                         }
-                        return result;
                     } catch (SQLException exception) {
                         throw wrap(exception, QUERY_ROW_DELETE);
                     }
+
+                    return null;
                 }
             });
         }
@@ -743,10 +747,10 @@ public abstract class Model {
          */
         public static interface Loader<T, K> {
             T load(K key) throws DoesNotExist;
-            T create();
+            T create(K key);
         }
 
-        private Map<K, T> cache = new TreeMap<>();
+        private Map<K, T> cache = new HashMap<>();
         private Loader<T, K> loader;
 
         /**
@@ -768,7 +772,7 @@ public abstract class Model {
                 try {
                     object = loader.load(key);
                 } catch (DoesNotExist exception) {
-                    object = loader.create();
+                    object = loader.create(key);
                 }
                 cache.put(key, object);
             }
@@ -851,9 +855,9 @@ public abstract class Model {
      * {@code INSERT} this model instance.
      */
     private void insert() {
-        DB.execute(new DB.Task<Integer>() {
+        DB.execute(new DB.Task<Void>() {
             @Override
-            public Integer execute(DB.Context context) throws SQLException {
+            public Void execute(DB.Context context) throws SQLException {
                 Manager<?> manager = getManager();
 
                 PreparedStatement statement =
@@ -865,14 +869,19 @@ public abstract class Model {
                     if (result > 0) {
                         ResultSet key = statement.getGeneratedKeys();
                         if (key.next()) {
-                            syncGeneratedKey(new Manager.RestrictedResult(key));
+                            try {
+                                syncGeneratedKey(
+                                        new Manager.RestrictedResult(key));
+                            } catch (Model.NotApplicable exception) {
+                            }
                         }
                         key.close();
                     }
-                    return result;
                 } catch (SQLException exception) {
                     throw manager.wrap(exception, Manager.QUERY_ROW_INSERT);
                 }
+
+                return null;
             }
         });
     }
@@ -881,9 +890,9 @@ public abstract class Model {
      * {@code UPDATE} this model instance.
      */
     private void update() {
-        DB.execute(new DB.Task<Integer>() {
+        DB.execute(new DB.Task<Void>() {
             @Override
-            public Integer execute(DB.Context context) throws SQLException {
+            public Void execute(DB.Context context) throws SQLException {
                 Manager<?> manager = getManager();
 
                 PreparedStatement statement =
@@ -891,10 +900,12 @@ public abstract class Model {
                 prepareUpdate(new Manager.RestrictedStatement(statement));
 
                 try {
-                    return statement.executeUpdate();
+                    statement.executeUpdate();
                 } catch (SQLException exception) {
                     throw manager.wrap(exception, Manager.QUERY_ROW_UPDATE);
                 }
+
+                return null;
             }
         });
     }
@@ -903,9 +914,9 @@ public abstract class Model {
      * {@code DELETE} this model instance.
      */
     public void delete() {
-        DB.execute(new DB.Task<Integer>() {
+        DB.execute(new DB.Task<Void>() {
             @Override
-            public Integer execute(DB.Context context) throws SQLException {
+            public Void execute(DB.Context context) throws SQLException {
                 Manager<?> manager = getManager();
 
                 PreparedStatement statement =
@@ -913,12 +924,13 @@ public abstract class Model {
                 prepareDelete(new Manager.RestrictedStatement(statement));
 
                 try {
-                    int result = statement.executeUpdate();
+                    statement.executeUpdate();
                     exists = false;
-                    return result;
                 } catch (SQLException exception) {
                     throw manager.wrap(exception, Manager.QUERY_ROW_DELETE);
                 }
+
+                return null;
             }
         });
     }

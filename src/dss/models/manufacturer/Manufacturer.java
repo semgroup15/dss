@@ -28,7 +28,7 @@ public class Manufacturer extends Model {
         }
 
         @Override
-        public Manufacturer create() {
+        public Manufacturer create(Long key) {
             return new Manufacturer();
         }
     }

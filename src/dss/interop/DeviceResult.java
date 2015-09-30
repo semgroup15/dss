@@ -3,7 +3,6 @@ package dss.interop;
 import java.util.ArrayList;
 import java.util.List;
 
-import dss.models.device.Device;
 import dss.models.device.battery.DeviceBattery;
 import dss.models.device.body.DeviceBody;
 import dss.models.device.body.SIMType;
@@ -28,15 +27,13 @@ import dss.models.device.platform.PlatformGPU;
 import dss.models.device.platform.PlatformOS;
 import dss.models.device.platform.PlatformOSVersion;
 import dss.models.device.sound.DeviceSound;
-import dss.models.manufacturer.Manufacturer;
 
 /**
  * Device information pending normalization.
  */
 public class DeviceResult {
 
-    Manufacturer manufacturer = new Manufacturer();
-    Device device = new Device();
+    int year;
 
     SIMType simType = new SIMType();
 

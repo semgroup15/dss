@@ -36,7 +36,7 @@ public class Device extends Model {
         }
 
         @Override
-        public Device create() {
+        public Device create(Long key) {
             return new Device();
         }
     }
