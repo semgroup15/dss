@@ -615,7 +615,11 @@ public abstract class Model {
                     }
 
                     try {
-                        return statement.executeBatch()[0];
+                        int result = statement.executeBatch()[0];
+                        for (T row : rows) {
+                            row.exists = false;
+                        }
+                        return result;
                     } catch (SQLException exception) {
                         throw wrap(exception, QUERY_ROW_DELETE);
                     }
@@ -909,7 +913,9 @@ public abstract class Model {
                 prepareDelete(new Manager.RestrictedStatement(statement));
 
                 try {
-                    return statement.executeUpdate();
+                    int result = statement.executeUpdate();
+                    exists = false;
+                    return result;
                 } catch (SQLException exception) {
                     throw manager.wrap(exception, Manager.QUERY_ROW_DELETE);
                 }
