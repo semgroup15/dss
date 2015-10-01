@@ -3,7 +3,7 @@ package dss.commands.interop;
 import java.util.List;
 
 import dss.interop.GSMArena;
-import dss.interop.DeviceResultLoader;
+import dss.interop.DeviceLoader;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
@@ -13,9 +13,9 @@ public class ExpandCommand implements Runnable {
         System.out.println("GSMArena");
         System.out.println("Expanding current database with device details");
 
-        DeviceResultLoader.Cache cache = new DeviceResultLoader.Cache();
+        DeviceLoader.Cache cache = new DeviceLoader.Cache();
 
-        DeviceResultLoader.Handler handler = new DeviceResultLoader.Handler() {
+        DeviceLoader.Handler handler = new DeviceLoader.Handler() {
             @Override
             public void onStart(Device device) {
                 Manufacturer manufacturer =
@@ -33,8 +33,8 @@ public class ExpandCommand implements Runnable {
         List<Device> devices = Device.manager.select(Device.SELECT_ALL);
         System.out.println(String.format("%d devices", devices.size()));
 
-        DeviceResultLoader loader =
-                new DeviceResultLoader(cache, new GSMArena(), handler);
+        DeviceLoader loader =
+                new DeviceLoader(cache, new GSMArena(), handler);
         loader.loadAll(devices);
     }
 }

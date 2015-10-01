@@ -8,6 +8,7 @@ public class InternalMemory extends Model {
 
     public long id;
     public String name;
+    public int size;
 
     /*
      * Manager
@@ -38,6 +39,7 @@ public class InternalMemory extends Model {
 
         id = result.getLong(1);
         name = result.getString(2);
+        size = result.getInt(3);
     }
 
     /*
@@ -49,6 +51,7 @@ public class InternalMemory extends Model {
             throws SQLException {
 
         statement.setString(1, name);
+        statement.setInt(2, size);
     }
 
     @Override
@@ -56,7 +59,8 @@ public class InternalMemory extends Model {
             throws SQLException {
 
         statement.setString(1, name);
-        statement.setLong(2, id);
+        statement.setInt(2, size);
+        statement.setLong(3, id);
     }
 
     @Override

@@ -35,8 +35,7 @@ import dss.models.device.platform.PlatformOSVersion;
 import dss.models.manufacturer.Manufacturer;
 
 /**
- * Device normalization and loading compatible with
- * {@code DeviceResultExtractor}.
+ * Device normalization and loading.
  *
  * <ul>
  *   <li>Extract device information</li>
@@ -44,12 +43,13 @@ import dss.models.manufacturer.Manufacturer;
  *   <li>Store normalized data</li>
  * </ul>
  */
-public class DeviceResultLoader {
+public class DeviceLoader {
 
     /**
-     * Model cache
+     * Model cache.
      */
     public static class Cache {
+
         public Model.Cache<Manufacturer, Long> manufacturer =
                 new Model.Cache<>(new Manufacturer.Loader());
 
@@ -194,11 +194,14 @@ public class DeviceResultLoader {
                     }
                 });
 
-        public Model.Cache<InternalMemory, String> internalMemory =
+        public Model.Cache<
+                InternalMemory, Pair<String, Integer>> internalMemory =
             new Model.Cache<>(
-                new Model.Cache.Loader<InternalMemory, String>() {
+                new Model.Cache.Loader<
+                        InternalMemory, Pair<String, Integer>>() {
+
                     @Override
-                    public InternalMemory load(String key)
+                    public InternalMemory load(Pair<String, Integer> key)
                             throws DoesNotExist {
 
                         return InternalMemory.manager.get(
@@ -206,9 +209,10 @@ public class DeviceResultLoader {
                     }
 
                     @Override
-                    public InternalMemory create(String key) {
+                    public InternalMemory create(Pair<String, Integer> key) {
                         InternalMemory internalMemory = new InternalMemory();
-                        internalMemory.name = key;
+                        internalMemory.name = key.getLeft();
+                        internalMemory.size = key.getRight();
                         internalMemory.save();
                         return internalMemory;
                     }
@@ -424,7 +428,7 @@ public class DeviceResultLoader {
      * @param extractor Third-party provider
      * @param handler Loader listener
      */
-    public DeviceResultLoader(
+    public DeviceLoader(
             Cache cache, Extractor extractor, Handler handler) {
 
         this.cache = cache;
@@ -456,6 +460,10 @@ public class DeviceResultLoader {
             throw new RuntimeException(exception);
         }
 
+        /*
+         * Device information
+         */
+
         // Device
         device.year = result.year;
         device.save();
@@ -466,13 +474,13 @@ public class DeviceResultLoader {
 
         // DeviceBody
         result.body.deviceId = device.id;
-        result.body.simTypeId = cache.simType.get(result.simType.name).id;
+        result.body.simTypeId = cache.simType.get(result.simTypeName).id;
         result.body.save();
 
         // DeviceCamera
         result.camera.deviceId = device.id;
         result.camera.secondary.videoId =
-                cache.cameraVideo.get(result.secondaryCameraVideo.name).id;
+                cache.cameraVideo.get(result.secondaryCameraVideoName).id;
         result.camera.save();
 
         // DeviceCom
@@ -482,33 +490,38 @@ public class DeviceResultLoader {
         // DeviceDisplay
         result.display.deviceId = device.id;
         result.display.typeId =
-                cache.displayType.get(result.displayType.name).id;
+                cache.displayType.get(result.displayTypeName).id;
         result.display.protectionId =
-                cache.displayProtection.get(result.displayProtection.name).id;
+                cache.displayProtection.get(result.displayProtectionName).id;
         result.display.save();
 
         // DeviceRAM
         result.ram.deviceId = device.id;
         result.ram.save();
 
-        // DevicePlatform
+        /*
+         * Platform information
+         */
+
         result.platform.deviceId = device.id;
+
         result.platform.platformChipsetId =
-                cache.platformChipset.get(result.chipset.name).id;
+                cache.platformChipset.get(result.chipsetName).id;
         result.platform.cpu.platformCPUTypeId =
-                cache.platformCPUType.get(result.cpuType.name).id;
+                cache.platformCPUType.get(result.cpuTypeName).id;
         result.platform.platformGPUId =
-                cache.platformGPU.get(result.gpu.name).id;
+                cache.platformGPU.get(result.gpuName).id;
+
         result.platform.platformOSId =
-                cache.platformOS.get(result.os.name).id;
+                cache.platformOS.get(result.osName).id;
         result.platform.platformOSCurrentVersionId =
                 cache.platformOSVersion.get(Pair.of(
                         result.platform.platformOSId,
-                        result.currentVersion.name)).id;
+                        result.osCurrentVersionName)).id;
         result.platform.platformOSUpgradeVersionId =
                 cache.platformOSVersion.get(Pair.of(
                         result.platform.platformOSId,
-                        result.upgradeVersion.name)).id;
+                        result.osUpgradeVersionName)).id;
         result.platform.save();
 
         // DeviceSound
@@ -521,61 +534,62 @@ public class DeviceResultLoader {
 
         // CameraFeature
         List<DeviceCameraPrimaryFeature> primaryFeature = new ArrayList<>();
-        for (CameraFeature cameraFeature : result.cameraFeature) {
+        for (String cameraFeatureName : result.cameraFeatureNames) {
             DeviceCameraPrimaryFeature rel = new DeviceCameraPrimaryFeature();
             rel.deviceId = device.id;
-            rel.featureId = cache.cameraFeature.get(cameraFeature.name).id;
+            rel.featureId = cache.cameraFeature.get(cameraFeatureName).id;
             primaryFeature.add(rel);
         }
         DeviceCameraPrimaryFeature.manager.insert(primaryFeature);
 
         // CameraVideo
         List<DeviceCameraPrimaryVideo> primaryVideo = new ArrayList<>();
-        for (CameraVideo cameraVideo : result.cameraVideo) {
+        for (String cameraVideoName : result.cameraVideoNames) {
             DeviceCameraPrimaryVideo rel = new DeviceCameraPrimaryVideo();
             rel.deviceId = device.id;
-            rel.videoId = cache.cameraVideo.get(cameraVideo.name).id;
+            rel.videoId = cache.cameraVideo.get(cameraVideoName).id;
             primaryVideo.add(rel);
         }
         DeviceCameraPrimaryVideo.manager.insert(primaryVideo);
 
         // MessagingFeature
         List<DeviceMessagingFeature> messagingFeature = new ArrayList<>();
-        for (MessagingFeature feature : result.messagingFeature) {
+        for (String messagingFeatureName : result.messagingFeatureNames) {
             DeviceMessagingFeature rel = new DeviceMessagingFeature();
             rel.deviceId = device.id;
             rel.messagingFeatureId =
-                    cache.messagingFeature.get(feature.name).id;
+                    cache.messagingFeature.get(messagingFeatureName).id;
             messagingFeature.add(rel);
         }
         DeviceMessagingFeature.manager.insert(messagingFeature);
 
         // SensorFeature
         List<DeviceSensorFeature> sensorFeature = new ArrayList<>();
-        for (SensorFeature feature : result.sensorFeature) {
+        for (String sensorFeatureName : result.sensorFeatureNames) {
             DeviceSensorFeature rel = new DeviceSensorFeature();
             rel.deviceId = device.id;
-            rel.sensorFeatureId = cache.sensorFeature.get(feature.name).id;
+            rel.sensorFeatureId =
+                    cache.sensorFeature.get(sensorFeatureName).id;
             sensorFeature.add(rel);
         }
         DeviceSensorFeature.manager.insert(sensorFeature);
 
         // InternalMemory
         List<DeviceInternalMemory> internalMemory = new ArrayList<>();
-        for (InternalMemory memory : result.internalMemory) {
+        for (Pair<String, Integer> memoryPair : result.internalMemoryPairs) {
             DeviceInternalMemory rel = new DeviceInternalMemory();
             rel.deviceId = device.id;
-            rel.internalMemoryId = cache.internalMemory.get(memory.name).id;
+            rel.internalMemoryId = cache.internalMemory.get(memoryPair).id;
             internalMemory.add(rel);
         }
         DeviceInternalMemory.manager.insert(internalMemory);
 
         // MemorySlot
         List<DeviceMemorySlot> memorySlot = new ArrayList<>();
-        for (MemorySlot slot : result.memorySlot) {
+        for (String memorySlotName : result.memorySlotNames) {
             DeviceMemorySlot rel = new DeviceMemorySlot();
             rel.deviceId = device.id;
-            rel.memorySlotId = cache.memorySlot.get(slot.name).id;
+            rel.memorySlotId = cache.memorySlot.get(memorySlotName).id;
             memorySlot.add(rel);
         }
         DeviceMemorySlot.manager.insert(memorySlot);
@@ -583,10 +597,10 @@ public class DeviceResultLoader {
         // Color
         List<DeviceColor> deviceColor = new ArrayList<>();
         List<Long> colorIds = new ArrayList<>();
-        for (Color color : result.color) {
+        for (String colorName : result.colorNames) {
             DeviceColor rel = new DeviceColor();
             rel.deviceId = device.id;
-            rel.colorId = cache.color.get(color.name).id;
+            rel.colorId = cache.color.get(colorName).id;
             if (!colorIds.contains(rel.colorId)) {
                 colorIds.add(rel.colorId);
                 deviceColor.add(rel);
@@ -596,11 +610,11 @@ public class DeviceResultLoader {
 
         // NetworkTechnology
         List<DeviceNetworkTechnology> networkTechnology = new ArrayList<>();
-        for (NetworkTechnology network : result.networkTechnology) {
+        for (String networkTechnologyName : result.networkTechnologyNames) {
             DeviceNetworkTechnology rel = new DeviceNetworkTechnology();
             rel.deviceId = device.id;
             rel.networkTechnologyId =
-                    cache.networkTechnology.get(network.name).id;
+                    cache.networkTechnology.get(networkTechnologyName).id;
             networkTechnology.add(rel);
         }
         DeviceNetworkTechnology.manager.insert(networkTechnology);

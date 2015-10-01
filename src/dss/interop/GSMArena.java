@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -22,20 +23,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import dss.models.device.Device;
-import dss.models.device.camera.CameraFeature;
-import dss.models.device.camera.CameraVideo;
-import dss.models.device.feature.MessagingFeature;
-import dss.models.device.feature.SensorFeature;
-import dss.models.device.memory.InternalMemory;
-import dss.models.device.memory.MemorySlot;
-import dss.models.device.misc.Color;
-import dss.models.device.network.NetworkTechnology;
 import dss.models.manufacturer.Manufacturer;
 
 /**
  * GSMArena data extraction.
  */
-public class GSMArena implements DeviceResultLoader.Extractor {
+public class GSMArena implements DeviceLoader.Extractor {
 
     private static final String ENCODING = "UTF-8";
 
@@ -222,21 +215,21 @@ public class GSMArena implements DeviceResultLoader.Extractor {
             Document document, DeviceResult result) {
 
         // SIM type
-        result.simType.name = extractField(document, "sim");
+        result.simTypeName = extractField(document, "sim");
     }
 
     private void extractDisplayType(
             Document document, DeviceResult result) {
 
         // Display type
-        result.displayType.name = extractField(document, "type");
+        result.displayTypeName = extractField(document, "type");
     }
 
     private void extractDisplayProtection(
             Document document, DeviceResult result) {
 
         // Display protection
-        result.displayProtection.name = extractField(document, "protection");
+        result.displayProtectionName = extractField(document, "protection");
     }
 
     private void extractCameraFeature(
@@ -245,9 +238,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         // CameraFeature
         String field = extractField(document, "features");
         for (String value : field.split(",")) {
-            CameraFeature cameraFeature = new CameraFeature();
-            cameraFeature.name = value.trim().toLowerCase();
-            result.cameraFeature.add(cameraFeature);
+            result.cameraFeatureNames.add(value.trim().toLowerCase());
         }
     }
 
@@ -257,10 +248,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         // CameraVideo
         String field = extractField(document, "video");
         for (String value : field.split(",")) {
-            if (value.contains("check quality")) continue;
-            CameraVideo cameraVideo = new CameraVideo();
-            cameraVideo.name = value.trim().toLowerCase();
-            result.cameraVideo.add(cameraVideo);
+            result.cameraVideoNames.add(value.trim().toLowerCase());
         }
     }
 
@@ -274,9 +262,9 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         if (matcher != null) {
             String unit = matcher.group(2);
             for (String value : matcher.group(1).split("/")) {
-                InternalMemory internalMemory = new InternalMemory();
-                internalMemory.name = value + " " + unit;
-                result.internalMemory.add(internalMemory);
+                int mb = Integer.valueOf(value);
+                if (unit.equals("GB")) mb *= 1000;
+                result.internalMemoryPairs.add(Pair.of(value + " " + unit, mb));
             }
 
             try {
@@ -298,9 +286,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         if (matcher != null) {
             String field = matcher.group(1).trim();
             if (!field.toLowerCase().equals("no")) {
-                MemorySlot memorySlot = new MemorySlot();
-                memorySlot.name = field;
-                result.memorySlot.add(memorySlot);
+                result.memorySlotNames.add(field);
             }
         }
     }
@@ -311,9 +297,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         // Color
         String field = extractField(document, "colors");
         for (String value : field.split(",")) {
-            Color color = new Color();
-            color.name = value.trim().toLowerCase();
-            result.color.add(color);
+            result.colorNames.add(value.trim().toLowerCase());
         }
     }
 
@@ -323,9 +307,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         // NetworkTechnology
         String field = extractField(document, "technology");
         for (String value : field.split("/")) {
-            NetworkTechnology networkTechnology = new NetworkTechnology();
-            networkTechnology.name = value.trim().toLowerCase();
-            result.networkTechnology.add(networkTechnology);
+            result.networkTechnologyNames.add(value.trim().toLowerCase());
         }
     }
 
@@ -333,7 +315,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
             Document document, DeviceResult result) {
 
         // PlatformChipset
-        result.chipset.name = extractField(document, "chipset");
+        result.chipsetName = extractField(document, "chipset");
     }
 
     private void extractPlatformCPUType(
@@ -345,7 +327,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 document, "cpu",
                 "([a-zA-Z\\- ]*)([0-9]*.[0-9]) (GHz|MHz)");
         if (matcher != null) {
-            result.cpuType.name = matcher.group(1).trim();
+            result.cpuTypeName = matcher.group(1).trim();
 
             try {
                 double freq = Double.parseDouble(matcher.group(2));
@@ -361,7 +343,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
             Document document, DeviceResult result) {
 
         // PlatformGPU
-        result.gpu.name = extractField(document, "gpu");
+        result.gpuName = extractField(document, "gpu");
     }
 
     private void extractPlatformOS(
@@ -373,9 +355,9 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 "([a-zA-Z]*)([^,]*)?," +
                 "( ([^,^u]*),?)?( ?upgradable to (.*))?");
         if (matcher != null) {
-            result.os.name = matcher.group(1);
-            result.currentVersion.name = matcher.group(4);
-            result.upgradeVersion.name = matcher.group(6);
+            result.osName = matcher.group(1);
+            result.osCurrentVersionName = matcher.group(4);
+            result.osUpgradeVersionName = matcher.group(6);
         }
     }
 
@@ -434,9 +416,12 @@ public class GSMArena implements DeviceResultLoader.Extractor {
                 "([0-9]*) MP, ([0-9]*) x ([0-9]*) pixels");
         if (matcher != null) {
             try {
-                result.camera.primary.mp = Integer.parseInt(matcher.group(1));
-                result.camera.primary.width = Integer.parseInt(matcher.group(2));
-                result.camera.primary.height = Integer.parseInt(matcher.group(3));
+                result.camera.primary.mp =
+                        Integer.parseInt(matcher.group(1));
+                result.camera.primary.width =
+                        Integer.parseInt(matcher.group(2));
+                result.camera.primary.height =
+                        Integer.parseInt(matcher.group(3));
             } catch (NumberFormatException e) {
             }
         }
@@ -451,7 +436,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         if (matcher != null) {
             result.camera.secondary.mp = Integer.valueOf(matcher.group(1));
             result.camera.secondary.has = result.camera.secondary.mp > 0;
-            result.secondaryCameraVideo.name = matcher.group(3);
+            result.secondaryCameraVideoName = matcher.group(3);
         }
     }
 
@@ -461,9 +446,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         // MessagingFeature
         String field = extractField(document, "messaging");
         for (String value : field.split(",")) {
-            MessagingFeature messagingFeature = new MessagingFeature();
-            messagingFeature.name = value.trim().toLowerCase();
-            result.messagingFeature.add(messagingFeature);
+            result.messagingFeatureNames.add(value.trim().toLowerCase());
         }
     }
 
@@ -473,9 +456,7 @@ public class GSMArena implements DeviceResultLoader.Extractor {
         // SensorFeature
         String field = extractField(document, "sensors");
         for (String value : field.split(",")) {
-            SensorFeature sensorFeature = new SensorFeature();
-            sensorFeature.name = value.trim().toLowerCase();
-            result.sensorFeature.add(sensorFeature);
+            result.sensorFeatureNames.add(value.trim().toLowerCase());
         }
     }
 

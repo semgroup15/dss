@@ -1,3 +1,3 @@
 UPDATE internal_memory
-SET name = ?
+SET name = ?, size = ?
 WHERE id = ?
