@@ -457,7 +457,8 @@ public class DeviceLoader {
         try {
             result = extractor.getDevice(device.id);
         } catch (Exception exception) {
-            throw new RuntimeException(exception);
+            exception.printStackTrace(System.err);
+            return;
         }
 
         /*

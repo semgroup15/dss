@@ -262,9 +262,13 @@ public class GSMArena implements DeviceLoader.Extractor {
         if (matcher != null) {
             String unit = matcher.group(2);
             for (String value : matcher.group(1).split("/")) {
-                int mb = Integer.valueOf(value);
-                if (unit.equals("GB")) mb *= 1000;
-                result.internalMemoryPairs.add(Pair.of(value + " " + unit, mb));
+                try {
+                    int mb = Integer.parseInt(value);
+                    if (unit.equals("GB")) mb *= 1000;
+                    result.internalMemoryPairs.add(
+                            Pair.of(value + " " + unit, mb));
+                } catch (NumberFormatException e) {
+                }
             }
 
             try {
