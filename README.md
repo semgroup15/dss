@@ -22,6 +22,10 @@
 * `ant run -Dcommand=interop.init` Initialize with minimal device list
 * `ant run -Dcommand=interop.expand` Expand current database with details
 
+### Media
+
+* `ant run -Dcommand=media.fetch` Fetch missing device images
+
 
 ## Libraries
 

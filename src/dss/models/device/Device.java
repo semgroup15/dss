@@ -1,6 +1,17 @@
 package dss.models.device;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import dss.models.Model;
 import dss.models.manufacturer.Manufacturer;
@@ -17,6 +28,67 @@ public class Device extends Model {
 
     public Manufacturer getManufacturer() throws Model.DoesNotExist {
         return Manufacturer.manager.get(Manufacturer.SELECT_ID, manufacturerId);
+    }
+
+    /*
+     * Images
+     */
+
+    private static final String IMAGE_BASE_PATH = "./media";
+    private static final String[] IMAGE_EXTENSIONS =
+        {"gif", "jpeg", "jpg", "png", "bmp"};
+
+    private String getImageFilePath(String extension) {
+        return String.format("%s/%d.%s", IMAGE_BASE_PATH, id, extension);
+    }
+
+    public File getImageFile() {
+        File imageFile;
+
+        for (String extension : IMAGE_EXTENSIONS) {
+            imageFile = new File(getImageFilePath(extension));
+            if (imageFile.exists()) {
+                return imageFile;
+            }
+        }
+
+        return null;
+    }
+
+    public void fetchImageFile() {
+        for (String extension : IMAGE_EXTENSIONS) {
+            if (imageUrl.endsWith(extension)) {
+                String path = getImageFilePath(extension);
+
+                CloseableHttpClient client = HttpClients.createDefault();
+                HttpGet request = new HttpGet(imageUrl);
+
+                CloseableHttpResponse response = null;
+                try {
+                    response = client.execute(request);
+                } catch (ClientProtocolException exception) {
+                    exception.printStackTrace(System.err);
+                    return;
+                } catch (IOException exception) {
+                    exception.printStackTrace(System.err);
+                    return;
+                }
+
+                try {
+                    InputStream httpStream = response.getEntity().getContent();
+                    FileOutputStream fileStream =
+                            new FileOutputStream(new File(path));
+                    IOUtils.copy(httpStream, fileStream);
+                    fileStream.close();
+                    client.close();
+                } catch (IOException exception) {
+                    exception.printStackTrace(System.err);
+                    return;
+                }
+
+                return;
+            }
+        }
     }
 
     /*
