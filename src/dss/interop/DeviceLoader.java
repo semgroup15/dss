@@ -205,7 +205,7 @@ public class DeviceLoader {
                             throws DoesNotExist {
 
                         return InternalMemory.manager.get(
-                                InternalMemory.SELECT_NAME, key);
+                                InternalMemory.SELECT_NAME, key.getLeft());
                     }
 
                     @Override
