@@ -133,6 +133,7 @@ public class GSMArena implements DeviceLoader.Extractor {
         String content = get(String.format(DEVICE_URL, id));
         Document document = Jsoup.parse(content);
 
+        extractDeviceImage(document, result);
         extractDeviceYear(document, result);
         extractSIMType(document, result);
         extractDisplayType(document, result);
@@ -196,6 +197,13 @@ public class GSMArena implements DeviceLoader.Extractor {
     /*
      * Extraction methods
      */
+
+    private void extractDeviceImage(
+            Document document, DeviceResult result) {
+
+        String url = document.select(".specs-photo-main img").attr("src");
+        result.imageUrl = url;
+    }
 
     private void extractDeviceYear(
             Document document, DeviceResult result) {

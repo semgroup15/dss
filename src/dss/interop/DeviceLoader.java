@@ -466,6 +466,7 @@ public class DeviceLoader {
          */
 
         // Device
+        device.imageUrl = result.imageUrl;
         device.year = result.year;
         device.save();
 

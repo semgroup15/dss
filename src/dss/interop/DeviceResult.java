@@ -21,6 +21,8 @@ public class DeviceResult {
 
     int year;
 
+    String imageUrl;
+
     String simTypeName;
 
     String displayTypeName;

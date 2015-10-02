@@ -10,6 +10,7 @@ public class Device extends Model {
     public long id;
 
     public String name;
+    public String imageUrl;
     public int year;
 
     public long manufacturerId;
@@ -59,9 +60,10 @@ public class Device extends Model {
         id = result.getLong(1);
 
         name = result.getString(2);
-        year = result.getInt(3);
+        imageUrl = result.getString(3);
+        year = result.getInt(4);
 
-        manufacturerId = result.getLong(4);
+        manufacturerId = result.getLong(5);
     }
 
     /*
@@ -75,9 +77,10 @@ public class Device extends Model {
         statement.setLong(1, id);
 
         statement.setString(2, name);
-        statement.setInt(3, year);
+        statement.setString(3, imageUrl);
+        statement.setInt(4, year);
 
-        statement.setLong(4, manufacturerId);
+        statement.setLong(5, manufacturerId);
     }
 
     @Override
@@ -85,11 +88,12 @@ public class Device extends Model {
             throws SQLException {
 
         statement.setString(1, name);
-        statement.setInt(2, year);
+        statement.setString(2, imageUrl);
+        statement.setInt(3, year);
 
-        statement.setLong(3, manufacturerId);
+        statement.setLong(4, manufacturerId);
 
-        statement.setLong(4, id);
+        statement.setLong(5, id);
     }
 
     @Override
