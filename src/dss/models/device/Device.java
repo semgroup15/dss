@@ -14,6 +14,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import dss.models.Model;
+import dss.models.device.battery.DeviceBattery;
+import dss.models.device.body.DeviceBody;
+import dss.models.device.camera.DeviceCamera;
+import dss.models.device.com.DeviceCom;
+import dss.models.device.display.DeviceDisplay;
+import dss.models.device.memory.DeviceRAM;
+import dss.models.device.platform.DevicePlatform;
+import dss.models.device.sound.DeviceSound;
 import dss.models.manufacturer.Manufacturer;
 
 public class Device extends Model {
@@ -28,6 +36,38 @@ public class Device extends Model {
 
     public Manufacturer getManufacturer() throws Model.DoesNotExist {
         return Manufacturer.manager.get(Manufacturer.SELECT_ID, manufacturerId);
+    }
+
+    public DeviceBattery getDeviceBattery() throws Model.DoesNotExist {
+        return DeviceBattery.manager.get(DeviceBattery.SELECT_ID, id);
+    }
+
+    public DeviceBody getDeviceBody() throws Model.DoesNotExist {
+        return DeviceBody.manager.get(DeviceBody.SELECT_ID, id);
+    }
+
+    public DeviceCamera getDeviceCamera() throws Model.DoesNotExist {
+        return DeviceCamera.manager.get(DeviceCamera.SELECT_ID, id);
+    }
+
+    public DeviceCom getDeviceCom() throws Model.DoesNotExist {
+        return DeviceCom.manager.get(DeviceCom.SELECT_ID, id);
+    }
+
+    public DeviceDisplay getDeviceDisplay() throws Model.DoesNotExist {
+        return DeviceDisplay.manager.get(DeviceDisplay.SELECT_ID, id);
+    }
+
+    public DeviceRAM getDeviceRAM() throws Model.DoesNotExist {
+        return DeviceRAM.manager.get(DeviceRAM.SELECT_ID, id);
+    }
+
+    public DevicePlatform getDevicePlatform() throws Model.DoesNotExist {
+        return DevicePlatform.manager.get(DevicePlatform.SELECT_ID, id);
+    }
+
+    public DeviceSound getDeviceSound() throws Model.DoesNotExist {
+        return DeviceSound.manager.get(DeviceSound.SELECT_ID, id);
     }
 
     /*

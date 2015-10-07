@@ -70,4 +70,10 @@ public class DeviceRAM extends Model {
 
         statement.setLong(1, deviceId);
     }
+
+    /*
+     * Queries
+     */
+
+    public static final String SELECT_ID = "id";
 }
