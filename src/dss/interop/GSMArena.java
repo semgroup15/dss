@@ -531,9 +531,9 @@ public class GSMArena implements DeviceLoader.Extractor {
             Document document, DeviceResult result) {
 
         // DeviceSound
-        result.sound.loudspeaker = extractField(
-                document, "loudspeaker").trim().toLowerCase().equals("yes");
-        result.sound.jack35 = extractField(
-                document, "3.5mm jack").trim().toLowerCase().equals("yes");
+        result.sound.loudspeaker = !extractField(
+                document, "loudspeaker").trim().toLowerCase().equals("no");
+        result.sound.jack35 = !extractField(
+                document, "3.5mm jack").trim().toLowerCase().equals("no");
     }
 }
