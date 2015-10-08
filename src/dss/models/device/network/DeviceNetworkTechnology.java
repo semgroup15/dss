@@ -9,6 +9,11 @@ public class DeviceNetworkTechnology extends Model {
     public long deviceId;
     public long networkTechnologyId;
 
+    public NetworkTechnology getNetworkTechnology() throws Model.DoesNotExist {
+        return NetworkTechnology.manager.get(
+                NetworkTechnology.SELECT_ID, networkTechnologyId);
+    }
+
     /*
      * Manager
      */

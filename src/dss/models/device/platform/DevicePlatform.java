@@ -15,11 +15,43 @@ public class DevicePlatform extends Model {
     public long platformChipsetId;
     public long platformGPUId;
 
+    public PlatformOS getPlatformOS() throws Model.DoesNotExist {
+        return PlatformOS.manager.get(PlatformOS.SELECT_ID, platformOSId);
+    }
+
+    public PlatformOSVersion getPlatformOSCurrentVersion()
+            throws Model.DoesNotExist {
+
+        return PlatformOSVersion.manager.get(
+                PlatformOSVersion.SELECT_ID, platformOSCurrentVersionId);
+    }
+
+    public PlatformOSVersion getPlatformOSUpgradeVersion()
+            throws Model.DoesNotExist {
+
+        return PlatformOSVersion.manager.get(
+                PlatformOSVersion.SELECT_ID, platformOSUpgradeVersionId);
+    }
+
+    public PlatformChipset getPlatformChipset() throws Model.DoesNotExist {
+        return PlatformChipset.manager.get(
+                PlatformChipset.SELECT_ID, platformChipsetId);
+    }
+
+    public PlatformGPU getPlatformGPU() throws Model.DoesNotExist {
+        return PlatformGPU.manager.get(PlatformGPU.SELECT_ID, platformGPUId);
+    }
+
     public static class CPU {
 
         public long platformCPUTypeId;
         public double freq;
         public String raw;
+
+        public PlatformCPUType getPlatformCPUType() throws Model.DoesNotExist {
+            return PlatformCPUType.manager.get(
+                    PlatformCPUType.SELECT_ID, platformCPUTypeId);
+        }
     }
 
     public CPU cpu;

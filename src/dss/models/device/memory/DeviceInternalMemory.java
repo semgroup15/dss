@@ -9,6 +9,11 @@ public class DeviceInternalMemory extends Model {
     public long deviceId;
     public long internalMemoryId;
 
+    public InternalMemory getInternalMemory() throws Model.DoesNotExist {
+        return InternalMemory.manager.get(
+                InternalMemory.SELECT_ID, internalMemoryId);
+    }
+
     /*
      * Manager
      */

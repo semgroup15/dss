@@ -9,6 +9,10 @@ public class DeviceColor extends Model {
     public long deviceId;
     public long colorId;
 
+    public Color getColor() throws Model.DoesNotExist {
+        return Color.manager.get(Color.SELECT_ID, colorId);
+    }
+
     /*
      * Manager
      */

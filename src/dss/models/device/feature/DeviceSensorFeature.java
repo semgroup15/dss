@@ -9,6 +9,11 @@ public class DeviceSensorFeature extends Model {
     public long deviceId;
     public long sensorFeatureId;
 
+    public SensorFeature getSensorFeature() throws Model.DoesNotExist {
+        return SensorFeature.manager.get(
+                SensorFeature.SELECT_ID, sensorFeatureId);
+    }
+
     /*
      * Manager
      */

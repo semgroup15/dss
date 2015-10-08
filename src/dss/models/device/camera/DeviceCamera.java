@@ -22,6 +22,10 @@ public class DeviceCamera extends Model {
         public boolean has;
         public int mp;
         public long videoId;
+
+        public CameraVideo getCameraVideo() throws Model.DoesNotExist {
+            return CameraVideo.manager.get(CameraVideo.SELECT_ID, videoId);
+        }
     }
 
     public Secondary secondary;

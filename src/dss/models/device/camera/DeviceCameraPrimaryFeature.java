@@ -9,6 +9,10 @@ public class DeviceCameraPrimaryFeature extends Model {
     public long deviceId;
     public long featureId;
 
+    public CameraFeature getCameraFeature() throws Model.DoesNotExist {
+        return CameraFeature.manager.get(CameraFeature.SELECT_ID, featureId);
+    }
+
     /*
      * Manager
      */

@@ -9,6 +9,10 @@ public class DeviceMemorySlot extends Model {
     public long deviceId;
     public long memorySlotId;
 
+    public MemorySlot getMemorySlot() throws Model.DoesNotExist {
+        return MemorySlot.manager.get(MemorySlot.SELECT_ID, memorySlotId);
+    }
+
     /*
      * Manager
      */

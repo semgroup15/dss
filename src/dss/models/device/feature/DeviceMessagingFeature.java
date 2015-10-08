@@ -9,6 +9,11 @@ public class DeviceMessagingFeature extends Model {
     public long deviceId;
     public long messagingFeatureId;
 
+    public MessagingFeature getMessagingFeature() throws Model.DoesNotExist {
+        return MessagingFeature.manager.get(
+                MessagingFeature.SELECT_ID, messagingFeatureId);
+    }
+
     /*
      * Manager
      */

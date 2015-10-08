@@ -9,6 +9,10 @@ public class DeviceCameraPrimaryVideo extends Model {
     public long deviceId;
     public long videoId;
 
+    public CameraVideo getCameraVideo() throws Model.DoesNotExist {
+        return CameraVideo.manager.get(CameraVideo.SELECT_ID, videoId);
+    }
+
     /*
      * Manager
      */

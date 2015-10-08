@@ -20,6 +20,15 @@ public class DeviceDisplay extends Model {
     public long typeId;
     public long protectionId;
 
+    public DisplayType getDisplayType() throws Model.DoesNotExist {
+        return DisplayType.manager.get(DisplayType.SELECT_ID, typeId);
+    }
+
+    public DisplayProtection getDisplayProtection() throws Model.DoesNotExist {
+        return DisplayProtection.manager.get(
+                DisplayProtection.SELECT_ID, protectionId);
+    }
+
     /*
      * Manager
      */

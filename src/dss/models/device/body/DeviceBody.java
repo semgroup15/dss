@@ -16,6 +16,10 @@ public class DeviceBody extends Model {
 
     public long simTypeId;
 
+    public SIMType getSIMType() throws Model.DoesNotExist {
+        return SIMType.manager.get(SIMType.SELECT_ID, simTypeId);
+    }
+
     /*
      * Manager
      */
