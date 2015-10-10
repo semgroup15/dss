@@ -266,7 +266,7 @@ public class GSMArena implements DeviceLoader.Extractor {
         // InternalMemory, DeviceRAM
         Matcher matcher = extractFieldRegex(
                 document, "internal",
-                "([0-9\\/]*) (GB|MB), ([0-9]*) (GB|MB) RAM");
+                "([0-9\\/?]*) (GB|MB), ([0-9]*) (GB|MB) RAM");
         if (matcher != null) {
             String unit = matcher.group(2);
             for (String value : matcher.group(1).split("/")) {

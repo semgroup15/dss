@@ -305,30 +305,102 @@ public abstract class Model {
         /**
          * Query generated programmatically.
          */
-        public static class QueryProvider {
+        public static class QueryBuilder {
 
-            private List<Object> parameters = new ArrayList<Object>();
-            private String query;
+            public static interface Section {
+                Section add(String part, Object... parameters);
+                QueryBuilder done();
 
-            /**
-             * Initialize {@code QueryProvider}.
-             */
-            public QueryProvider() {}
-
-            /**
-             * Append a piece of SQL.
-             * @param part SQL to append
-             */
-            public void add(String part) {
-                this.query += part;
+                String getQuery();
+                List<Object> getParameters();
             }
 
+            public static class BaseSection implements Section {
+
+                private QueryBuilder queryBuilder;
+
+                protected List<String> parts = new ArrayList<>();
+                protected List<Object> parameters = new ArrayList<>();
+
+                protected BaseSection(QueryBuilder queryBuilder) {
+                    this.queryBuilder = queryBuilder;
+                }
+
+                public Section add(String part, Object... parameters) {
+                    this.parts.add(part);
+                    this.parameters.addAll(Arrays.asList(parameters));
+                    return this;
+                }
+
+                public QueryBuilder done() {
+                    return this.queryBuilder;
+                }
+
+                protected String[] getPartsAsArray() {
+                    String[] parts = new String[this.parts.size()];
+                    parts = this.parts.toArray(parts);
+                    return parts;
+                }
+
+                public String getQuery() {
+                    return String.join(" ", getPartsAsArray());
+                }
+
+                public List<Object> getParameters() {
+                    return parameters;
+                }
+            }
+
+            private static class WhereSection extends BaseSection {
+
+                protected WhereSection(QueryBuilder queryBuilder) {
+                    super(queryBuilder);
+                }
+
+                public String getQuery() {
+                    String[] parts = getPartsAsArray();
+                    for (int i = 0; i < parts.length; i++) {
+                        parts[i] = String.format("(%s)", parts[i]);
+                    }
+                    return "WHERE " + String.join(" AND ", parts);
+                }
+            }
+
+            protected Section select = new BaseSection(this);
+            protected Section join = new BaseSection(this);
+            protected Section where = new WhereSection(this);
+
             /**
-             * Append query parameter.
-             * @param object Parameter
+             * Initialize {@code QueryBuilder}.
              */
-            public void add(Object... parameters) {
-                this.parameters.addAll(Arrays.asList(parameters));
+            public QueryBuilder() {}
+
+            public Section select() {
+                return select;
+            }
+
+            public Section join() {
+                return join;
+            }
+
+            public Section where() {
+                return where;
+            }
+
+            public String getQuery() {
+                return String.join(" ", new String[] {
+                    select.getQuery(),
+                    join.getQuery(),
+                    where.getQuery(),
+                });
+            }
+
+            public List<Object> getParameters() {
+                List<Object> parameters = new ArrayList<Object>();
+                parameters.addAll(select.getParameters());
+                parameters.addAll(join.getParameters());
+                parameters.addAll(where.getParameters());
+                return parameters;
             }
         }
 
@@ -700,23 +772,24 @@ public abstract class Model {
             return rows.get(0);
         }
 
-        private static final String QUERY_PROGRAMMATIC = "programmatic";
+        private static final String QUERY_BUILDER = "BUILDER";
 
         /**
          * {@code SELECT} instances with a query generated at runtime.
-         * @param provider {@code QueryProvider}
+         * @param provider {@code QueryBuilder}
          * @return Query result.
          */
-        public List<T> select(final QueryProvider provider) {
+        public List<T> select(final QueryBuilder builder) {
             return DB.execute(new DB.Task<List<T>>() {
                 @Override
                 public List<T> execute(Context context)
                         throws SQLException {
 
                     PreparedStatement statement =
-                            context.prepared(provider.query);
-                    for (int i = 0; i < provider.parameters.size(); i++) {
-                        statement.setObject(i + 1, provider.parameters.get(i));
+                            context.prepared(builder.getQuery());
+                    List<Object> parameters = builder.getParameters();
+                    for (int i = 0; i < parameters.size(); i++) {
+                        statement.setObject(i + 1, parameters.get(i));
                     }
 
                     List<T> rows = new ArrayList<>();
@@ -724,7 +797,7 @@ public abstract class Model {
                         ResultSet result = statement.executeQuery();
                         load(result, rows);
                     } catch (SQLException exception) {
-                        throw wrap(exception, QUERY_PROGRAMMATIC);
+                        throw wrap(exception, QUERY_BUILDER);
                     }
 
                     return rows;

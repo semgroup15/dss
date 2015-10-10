@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.ClientProtocolException;
@@ -16,10 +17,18 @@ import org.apache.http.impl.client.HttpClients;
 import dss.models.Model;
 import dss.models.device.battery.DeviceBattery;
 import dss.models.device.body.DeviceBody;
+import dss.models.device.camera.CameraFeature;
+import dss.models.device.camera.CameraVideo;
 import dss.models.device.camera.DeviceCamera;
 import dss.models.device.com.DeviceCom;
 import dss.models.device.display.DeviceDisplay;
+import dss.models.device.feature.MessagingFeature;
+import dss.models.device.feature.SensorFeature;
 import dss.models.device.memory.DeviceRAM;
+import dss.models.device.memory.InternalMemory;
+import dss.models.device.memory.MemorySlot;
+import dss.models.device.misc.Color;
+import dss.models.device.network.NetworkTechnology;
 import dss.models.device.platform.DevicePlatform;
 import dss.models.device.sound.DeviceSound;
 import dss.models.manufacturer.Manufacturer;
@@ -33,6 +42,62 @@ public class Device extends Model {
     public int year;
 
     public long manufacturerId;
+
+    /*
+     * Query
+     */
+
+    public static class QueryBuilder extends Manager.QueryBuilder {
+
+        public QueryBuilder() {
+            super();
+
+            this
+                .select().add("SELECT * FROM device").done();
+        }
+
+        public QueryBuilder byName(String name) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("device.name LIKE ?", "%" + name + "%")
+                        .done();
+        }
+
+        public QueryBuilder byManufacturerId(long manufacturerId) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("device.manufacturer_id = ?", manufacturerId)
+                        .done();
+        }
+
+        public QueryBuilder byManufacturerName(String name) {
+            return (QueryBuilder) this
+                    .joinManufacturer()
+                    .where()
+                        .add("manufacturer.name LIKE ?", "%" + name + "%")
+                        .done();
+        }
+
+        /*
+         * Join
+         */
+
+        private boolean joinManufacturer = false;
+
+        public QueryBuilder joinManufacturer() {
+            if (!joinManufacturer) {
+                join().add(
+                        "JOIN manufacturer " +
+                        "ON manufacturer.id = device.manufacturer_id");
+            }
+            joinManufacturer = true;
+            return this;
+        }
+    }
+
+    /*
+     * FK
+     */
 
     public Manufacturer getManufacturer() throws Model.DoesNotExist {
         return Manufacturer.manager.get(Manufacturer.SELECT_ID, manufacturerId);
@@ -68,6 +133,49 @@ public class Device extends Model {
 
     public DeviceSound getDeviceSound() throws Model.DoesNotExist {
         return DeviceSound.manager.get(DeviceSound.SELECT_ID, id);
+    }
+
+    /*
+     * M2M
+     */
+
+    public List<CameraFeature> getCameraPrimaryFeature() {
+        return CameraFeature.manager.select(
+                CameraFeature.SELECT_DEVICE_PRIMARY, id);
+    }
+
+    public List<CameraVideo> getCameraPrimaryVideo() {
+        return CameraVideo.manager.select(
+                CameraVideo.SELECT_DEVICE_PRIMARY, id);
+    }
+
+    public List<MessagingFeature> getMessagingFeature() {
+        return MessagingFeature.manager.select(
+                MessagingFeature.SELECT_DEVICE, id);
+    }
+
+    public List<SensorFeature> getSensorFeature() {
+        return SensorFeature.manager.select(
+                SensorFeature.SELECT_DEVICE, id);
+    }
+
+    public List<InternalMemory> getInternalMemory() {
+        return InternalMemory.manager.select(
+                InternalMemory.SELECT_DEVICE, id);
+    }
+
+    public List<MemorySlot> getMemorySlot() {
+        return MemorySlot.manager.select(
+                MemorySlot.SELECT_DEVICE, id);
+    }
+
+    public List<NetworkTechnology> getNetworkTechnology() {
+        return NetworkTechnology.manager.select(
+                NetworkTechnology.SELECT_DEVICE, id);
+    }
+
+    public List<Color> getColor() {
+        return Color.manager.select(Color.SELECT_DEVICE, id);
     }
 
     /*
