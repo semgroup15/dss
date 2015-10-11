@@ -9,6 +9,7 @@ import dss.commands.dss.OutputClientCommand;
 import dss.commands.interop.ExpandCommand;
 import dss.commands.interop.InitCommand;
 import dss.commands.media.FetchCommand;
+import dss.view.MainView;
 
 public class Main {
 
@@ -33,5 +34,8 @@ public class Main {
                 command.run();
             }
         }
+
+        // Launch the view window
+        MainView.launch(args);
     }
 }
