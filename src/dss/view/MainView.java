@@ -31,6 +31,12 @@ public class MainView extends Application {
 
     }
 
+    public static void launchApp()
+    {
+
+        MainView.launch();
+    }
+
     /**
      * Returns the data as an observable list of Devices.
      * @return

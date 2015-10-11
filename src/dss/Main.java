@@ -36,6 +36,6 @@ public class Main {
         }
 
         // Launch the view window
-        MainView.launch(args);
+        MainView.launchApp();
     }
 }
