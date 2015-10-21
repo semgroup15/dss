@@ -13,7 +13,7 @@ public class ExpandCommand implements Runnable {
         System.out.println("GSMArena");
         System.out.println("Expanding current database with device details");
 
-        DeviceLoader.Cache cache = new DeviceLoader.Cache();
+        final DeviceLoader.Cache cache = new DeviceLoader.Cache();
 
         DeviceLoader.Handler handler = new DeviceLoader.Handler() {
             @Override

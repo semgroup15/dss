@@ -620,7 +620,7 @@ public abstract class Model {
          * {@code INSERT} multiple instances.
          * @param rows Instances to insert.
          */
-        public void insert(List<T> rows) {
+        public void insert(final List<T> rows) {
             DB.execute(new DB.Task<Void>() {
                 @Override
                 public Void execute(DB.Context context)
@@ -648,7 +648,7 @@ public abstract class Model {
          * {@code UPDATE} multiple instances.
          * @param rows Instances to update.
          */
-        public void update(List<T> rows) {
+        public void update(final List<T> rows) {
             DB.execute(new DB.Task<Void>() {
                 @Override
                 public Void execute(DB.Context context)
@@ -676,7 +676,7 @@ public abstract class Model {
          * {@code DELETE} multiple instances.
          * @param rows Instances to delete.
          */
-        public void delete(List<T> rows) {
+        public void delete(final List<T> rows) {
             DB.execute(new DB.Task<Void>() {
                 @Override
                 public Void execute(DB.Context context)
@@ -731,7 +731,7 @@ public abstract class Model {
          * @param parameters Query parameters
          * @return Query result
          */
-        public List<T> select(final String name, Object... parameters) {
+        public List<T> select(final String name, final Object... parameters) {
             return DB.execute(new DB.Task<List<T>>() {
                 @Override
                 public List<T> execute(DB.Context context)
