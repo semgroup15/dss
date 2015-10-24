@@ -8,7 +8,13 @@
 
 ### DB
 
-* `ant run -Dcommand=db.migrate` Migrate
+* `ant run -Dcommand=db.init` Create tables
+
+
+### GSMArena
+
+* `ant run -Dcommand=ga.init` Initialize with minimal device list
+* `ant run -Dcommand=ga.expand` Expand current database with details
 
 
 ### DSS
@@ -16,11 +22,6 @@
 * `ant run -Dcommand=dss.input` Input client
 * `ant run -Dcommand=dss.output` Output client
 
-
-### GSMArena
-
-* `ant run -Dcommand=interop.init` Initialize with minimal device list
-* `ant run -Dcommand=interop.expand` Expand current database with details
 
 ### Media
 

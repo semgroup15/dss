@@ -225,6 +225,7 @@ public abstract class Model {
          */
         public static class RestrictedStatement {
 
+            private int next = 1;
             private PreparedStatement statement;
 
             /**
@@ -235,13 +236,17 @@ public abstract class Model {
                 this.statement = statement;
             }
 
+            /*
+             * set<>
+             */
+
             public void setLong(int position, long value)
                     throws SQLException {
 
                 statement.setLong(position, value);
             }
 
-            public void setInt(int position, int value) 
+            public void setInt(int position, int value)
                     throws SQLException {
 
                 statement.setInt(position, value);
@@ -264,6 +269,30 @@ public abstract class Model {
 
                 statement.setBoolean(position, value);
             }
+
+            /*
+             * setNext<>
+             */
+
+            public void setNextLong(long value) throws SQLException {
+                statement.setLong(next++, value);
+            }
+
+            public void setNextInt(int value) throws SQLException {
+                statement.setInt(next++, value);
+            }
+
+            public void setNextDouble(double value) throws SQLException {
+                statement.setDouble(next++, value);
+            }
+
+            public void setNextString(String value) throws SQLException {
+                statement.setString(next++, value);
+            }
+
+            public void setNextBoolean(boolean value) throws SQLException {
+                statement.setBoolean(next++, value);
+            }
         }
 
         /**
@@ -271,6 +300,7 @@ public abstract class Model {
          */
         public static class RestrictedResult {
 
+            private int next = 1;
             private ResultSet result;
 
             /**
@@ -280,6 +310,10 @@ public abstract class Model {
             public RestrictedResult(ResultSet result) {
                 this.result = result;
             }
+
+            /*
+             * get<>
+             */
 
             public long getLong(int position) throws SQLException {
                 return result.getLong(position);
@@ -299,6 +333,30 @@ public abstract class Model {
 
             public boolean getBoolean(int position) throws SQLException {
                 return result.getBoolean(position);
+            }
+
+            /*
+             * next<>
+             */
+
+            public long nextLong() throws SQLException {
+                return getLong(next++);
+            }
+
+            public int nextInt() throws SQLException {
+                return getInt(next++);
+            }
+
+            public double nextDouble() throws SQLException {
+                return getDouble(next++);
+            }
+
+            public String nextString() throws SQLException {
+                return getString(next++);
+            }
+
+            public boolean nextBoolean() throws SQLException {
+                return getBoolean(next++);
             }
         }
 
@@ -776,7 +834,7 @@ public abstract class Model {
 
         /**
          * {@code SELECT} instances with a query generated at runtime.
-         * @param provider {@code QueryBuilder}
+         * @param builder {@code QueryBuilder}
          * @return Query result.
          */
         public List<T> select(final QueryBuilder builder) {

@@ -1,1 +1,0 @@
-DROP TABLE device_messaging_feature

@@ -5,35 +5,133 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import dss.models.Model;
-import dss.models.device.battery.DeviceBattery;
-import dss.models.device.body.DeviceBody;
-import dss.models.device.camera.CameraFeature;
-import dss.models.device.camera.CameraVideo;
-import dss.models.device.camera.DeviceCamera;
-import dss.models.device.com.DeviceCom;
-import dss.models.device.display.DeviceDisplay;
-import dss.models.device.feature.MessagingFeature;
-import dss.models.device.feature.SensorFeature;
-import dss.models.device.memory.DeviceRAM;
-import dss.models.device.memory.InternalMemory;
-import dss.models.device.memory.MemorySlot;
-import dss.models.device.misc.Color;
-import dss.models.device.network.NetworkTechnology;
-import dss.models.device.platform.DevicePlatform;
-import dss.models.device.sound.DeviceSound;
 import dss.models.manufacturer.Manufacturer;
 
 public class Device extends Model {
+
+    public static class Battery {
+        public int sleep;
+        public int talk;
+        public int music;
+    }
+
+    public static class Body {
+        public double width;
+        public double height;
+        public double depth;
+        public double weight;
+    }
+
+    public static class Camera {
+
+        public static class Primary {
+            public int mp;
+            public int width;
+            public int height;
+        }
+
+        public static class Secondary {
+            public boolean has;
+            public int mp;
+        }
+
+        public Primary primary = new Primary();
+        public Secondary secondary = new Secondary();
+    }
+
+    public static class Com {
+        public boolean wlan;
+        public boolean bluetooth;
+        public boolean gps;
+        public boolean radio;
+        public boolean usb;
+        public boolean nfc;
+    }
+
+    public static class Sensor {
+        public boolean accelerometer;
+        public boolean barometer;
+        public boolean compass;
+        public boolean gyro;
+        public boolean magnetometer;
+        public boolean proximity;
+    }
+
+    public static class Memory {
+        public long ramSize;
+        public long internalSize;
+
+        public boolean sd;
+        public boolean microSD;
+        public boolean microSDHC;
+        public boolean mmc;
+        public boolean mmcMobile;
+    }
+
+    public static class Network {
+        public boolean gsm;
+        public boolean umts;
+        public boolean hspa;
+        public boolean evdo;
+        public boolean cdma;
+        public boolean lte;
+    }
+
+    public static class Sound {
+        public boolean loudspeaker;
+        public boolean jack35;
+    }
+
+    public static class Display {
+        public double size;
+        public double ratio;
+
+        public int width;
+        public int height;
+        public int density;
+
+        public boolean multitouch;
+
+        public String type;
+        public String protection;
+    }
+
+    public static class Color {
+        public boolean black;
+        public boolean white;
+        public boolean blue;
+        public boolean red;
+        public boolean pink;
+        public boolean silver;
+        public boolean gray;
+        public boolean yellow;
+        public boolean green;
+        public boolean gold;
+        public boolean orange;
+    }
+
+    public enum SIMType {
+        UNKNOWN,
+        FULL_SIZE,
+        MINI_SIM,
+        MICRO_SIM,
+        NANO_SIM;
+    }
+
+    public enum Platform {
+        UNKNOWN,
+        ANDROID,
+        IOS,
+        WINDOWS;
+    }
 
     public long id;
 
@@ -42,6 +140,20 @@ public class Device extends Model {
     public int year;
 
     public long manufacturerId;
+
+    public Battery battery = new Battery();
+    public Body body = new Body();
+    public Camera camera = new Camera();
+    public Com com = new Com();
+    public Sensor sensor = new Sensor();
+    public Memory memory = new Memory();
+    public Network network = new Network();
+    public Sound sound = new Sound();
+    public Display display = new Display();
+    public Color color = new Color();
+
+    public SIMType simType = SIMType.UNKNOWN;
+    public Platform platform = Platform.UNKNOWN;
 
     /*
      * Query
@@ -52,8 +164,7 @@ public class Device extends Model {
         public QueryBuilder() {
             super();
 
-            this
-                .select().add("SELECT * FROM device").done();
+            this.select().add("SELECT * FROM device").done();
         }
 
         public QueryBuilder byName(String name) {
@@ -95,87 +206,8 @@ public class Device extends Model {
         }
     }
 
-    /*
-     * FK
-     */
-
-    public Manufacturer getManufacturer() throws Model.DoesNotExist {
-        return Manufacturer.manager.get(Manufacturer.SELECT_ID, manufacturerId);
-    }
-
-    public DeviceBattery getDeviceBattery() throws Model.DoesNotExist {
-        return DeviceBattery.manager.get(DeviceBattery.SELECT_ID, id);
-    }
-
-    public DeviceBody getDeviceBody() throws Model.DoesNotExist {
-        return DeviceBody.manager.get(DeviceBody.SELECT_ID, id);
-    }
-
-    public DeviceCamera getDeviceCamera() throws Model.DoesNotExist {
-        return DeviceCamera.manager.get(DeviceCamera.SELECT_ID, id);
-    }
-
-    public DeviceCom getDeviceCom() throws Model.DoesNotExist {
-        return DeviceCom.manager.get(DeviceCom.SELECT_ID, id);
-    }
-
-    public DeviceDisplay getDeviceDisplay() throws Model.DoesNotExist {
-        return DeviceDisplay.manager.get(DeviceDisplay.SELECT_ID, id);
-    }
-
-    public DeviceRAM getDeviceRAM() throws Model.DoesNotExist {
-        return DeviceRAM.manager.get(DeviceRAM.SELECT_ID, id);
-    }
-
-    public DevicePlatform getDevicePlatform() throws Model.DoesNotExist {
-        return DevicePlatform.manager.get(DevicePlatform.SELECT_ID, id);
-    }
-
-    public DeviceSound getDeviceSound() throws Model.DoesNotExist {
-        return DeviceSound.manager.get(DeviceSound.SELECT_ID, id);
-    }
-
-    /*
-     * M2M
-     */
-
-    public List<CameraFeature> getCameraPrimaryFeature() {
-        return CameraFeature.manager.select(
-                CameraFeature.SELECT_DEVICE_PRIMARY, id);
-    }
-
-    public List<CameraVideo> getCameraPrimaryVideo() {
-        return CameraVideo.manager.select(
-                CameraVideo.SELECT_DEVICE_PRIMARY, id);
-    }
-
-    public List<MessagingFeature> getMessagingFeature() {
-        return MessagingFeature.manager.select(
-                MessagingFeature.SELECT_DEVICE, id);
-    }
-
-    public List<SensorFeature> getSensorFeature() {
-        return SensorFeature.manager.select(
-                SensorFeature.SELECT_DEVICE, id);
-    }
-
-    public List<InternalMemory> getInternalMemory() {
-        return InternalMemory.manager.select(
-                InternalMemory.SELECT_DEVICE, id);
-    }
-
-    public List<MemorySlot> getMemorySlot() {
-        return MemorySlot.manager.select(
-                MemorySlot.SELECT_DEVICE, id);
-    }
-
-    public List<NetworkTechnology> getNetworkTechnology() {
-        return NetworkTechnology.manager.select(
-                NetworkTechnology.SELECT_DEVICE, id);
-    }
-
-    public List<Color> getColor() {
-        return Color.manager.select(Color.SELECT_DEVICE, id);
+    public Manufacturer getManufacturer() {
+        return Manufacturer.cache.get(manufacturerId);
     }
 
     /*
@@ -214,9 +246,6 @@ public class Device extends Model {
                 CloseableHttpResponse response = null;
                 try {
                     response = client.execute(request);
-                } catch (ClientProtocolException exception) {
-                    exception.printStackTrace(System.err);
-                    return;
                 } catch (IOException exception) {
                     exception.printStackTrace(System.err);
                     return;
@@ -262,6 +291,9 @@ public class Device extends Model {
         }
     }
 
+    public static Model.Cache<Device, Long> cache =
+            new Model.Cache<>(new Loader());
+
     /*
      * Sync
      */
@@ -277,50 +309,292 @@ public class Device extends Model {
     protected void syncResultSet(Manager.RestrictedResult result)
             throws SQLException {
 
-        id = result.getLong(1);
+        id = result.nextLong();
 
-        name = result.getString(2);
-        imageUrl = result.getString(3);
-        year = result.getInt(4);
+        name = result.nextString();
+        imageUrl = result.nextString();
+        year = result.nextInt();
 
-        manufacturerId = result.getLong(5);
+        manufacturerId = result.nextLong();
+
+        /*
+         * Battery
+         */
+
+        battery.sleep = result.nextInt();
+        battery.talk = result.nextInt();
+        battery.music = result.nextInt();
+
+        /*
+         * Body
+         */
+
+        body.width = result.nextDouble();
+        body.height = result.nextDouble();
+        body.depth = result.nextDouble();
+        body.weight = result.nextDouble();
+
+        /*
+         * Camera
+         */
+
+        camera.primary.mp = result.nextInt();
+        camera.primary.width = result.nextInt();
+        camera.primary.height = result.nextInt();
+
+        camera.secondary.has = result.nextBoolean();
+        camera.secondary.mp = result.nextInt();
+
+        /*
+         * Com
+         */
+
+        com.wlan = result.nextBoolean();
+        com.bluetooth = result.nextBoolean();
+        com.gps = result.nextBoolean();
+        com.radio = result.nextBoolean();
+        com.usb = result.nextBoolean();
+        com.nfc = result.nextBoolean();
+
+        /*
+         * Sensor
+         */
+
+        sensor.accelerometer = result.nextBoolean();
+        sensor.barometer = result.nextBoolean();
+        sensor.compass = result.nextBoolean();
+        sensor.gyro = result.nextBoolean();
+        sensor.magnetometer = result.nextBoolean();
+        sensor.proximity = result.nextBoolean();
+
+        /*
+         * Memory
+         */
+
+        memory.ramSize = result.nextLong();
+        memory.internalSize = result.nextLong();
+
+        memory.sd = result.nextBoolean();
+        memory.microSD = result.nextBoolean();
+        memory.microSDHC = result.nextBoolean();
+        memory.mmc = result.nextBoolean();
+        memory.mmcMobile = result.nextBoolean();
+
+        /*
+         * Network
+         */
+
+        network.gsm = result.nextBoolean();
+        network.umts = result.nextBoolean();
+        network.hspa = result.nextBoolean();
+        network.evdo = result.nextBoolean();
+        network.cdma = result.nextBoolean();
+        network.lte = result.nextBoolean();
+
+        /*
+         * Sound
+         */
+
+        sound.loudspeaker = result.nextBoolean();
+        sound.jack35 = result.nextBoolean();
+
+        /*
+         * Display
+         */
+
+        display.size = result.nextDouble();
+        display.ratio = result.nextDouble();
+
+        display.width = result.nextInt();
+        display.height = result.nextInt();
+        display.density = result.nextInt();
+
+        display.multitouch = result.nextBoolean();
+
+        display.type = result.nextString();
+        display.protection = result.nextString();
+
+        /*
+         * Color
+         */
+
+        color.black = result.nextBoolean();
+        color.white = result.nextBoolean();
+        color.blue = result.nextBoolean();
+        color.red = result.nextBoolean();
+        color.pink = result.nextBoolean();
+        color.silver = result.nextBoolean();
+        color.gray = result.nextBoolean();
+        color.yellow = result.nextBoolean();
+        color.green = result.nextBoolean();
+        color.gold = result.nextBoolean();
+        color.orange = result.nextBoolean();
+
+        /*
+         * Other
+         */
+
+        simType = SIMType.valueOf(result.nextString());
+        platform = Platform.valueOf(result.nextString());
     }
 
     /*
      * Prepare
      */
 
+    private void prepareCommon(Manager.RestrictedStatement statement)
+            throws SQLException {
+
+        statement.setNextString(name);
+        statement.setNextString(imageUrl);
+        statement.setNextInt(year);
+
+        statement.setNextLong(manufacturerId);
+
+        /*
+         * Battery
+         */
+
+        statement.setNextInt(battery.sleep);
+        statement.setNextInt(battery.talk);
+        statement.setNextInt(battery.music);
+
+        /*
+         * Body
+         */
+
+        statement.setNextDouble(body.width);
+        statement.setNextDouble(body.height);
+        statement.setNextDouble(body.depth);
+        statement.setNextDouble(body.weight);
+
+        /*
+         * Camera
+         */
+
+        statement.setNextInt(camera.primary.mp);
+        statement.setNextInt(camera.primary.width);
+        statement.setNextInt(camera.primary.height);
+
+        statement.setNextBoolean(camera.secondary.has);
+        statement.setNextInt(camera.secondary.mp);
+
+        /*
+         * Com
+         */
+
+        statement.setNextBoolean(com.wlan);
+        statement.setNextBoolean(com.bluetooth);
+        statement.setNextBoolean(com.gps);
+        statement.setNextBoolean(com.radio);
+        statement.setNextBoolean(com.usb);
+        statement.setNextBoolean(com.nfc);
+
+        /*
+         * Sensor
+         */
+
+        statement.setNextBoolean(sensor.accelerometer);
+        statement.setNextBoolean(sensor.barometer);
+        statement.setNextBoolean(sensor.compass);
+        statement.setNextBoolean(sensor.gyro);
+        statement.setNextBoolean(sensor.magnetometer);
+        statement.setNextBoolean(sensor.proximity);
+
+        /*
+         * Memory
+         */
+
+        statement.setNextLong(memory.ramSize);
+        statement.setNextLong(memory.internalSize);
+
+        statement.setNextBoolean(memory.sd);
+        statement.setNextBoolean(memory.microSD);
+        statement.setNextBoolean(memory.microSDHC);
+        statement.setNextBoolean(memory.mmc);
+        statement.setNextBoolean(memory.mmcMobile);
+
+        /*
+         * Network
+         */
+
+        statement.setNextBoolean(network.gsm);
+        statement.setNextBoolean(network.umts);
+        statement.setNextBoolean(network.hspa);
+        statement.setNextBoolean(network.evdo);
+        statement.setNextBoolean(network.cdma);
+        statement.setNextBoolean(network.lte);
+
+        /*
+         * Sound
+         */
+
+        statement.setNextBoolean(sound.loudspeaker);
+        statement.setNextBoolean(sound.jack35);
+
+        /*
+         * Display
+         */
+
+        statement.setNextDouble(display.size);
+        statement.setNextDouble(display.ratio);
+
+        statement.setNextInt(display.width);
+        statement.setNextInt(display.height);
+        statement.setNextInt(display.density);
+
+        statement.setNextBoolean(display.multitouch);
+
+        statement.setNextString(display.type);
+        statement.setNextString(display.protection);
+
+        /*
+         * Color
+         */
+
+        statement.setNextBoolean(color.black);
+        statement.setNextBoolean(color.white);
+        statement.setNextBoolean(color.blue);
+        statement.setNextBoolean(color.red);
+        statement.setNextBoolean(color.pink);
+        statement.setNextBoolean(color.silver);
+        statement.setNextBoolean(color.gray);
+        statement.setNextBoolean(color.yellow);
+        statement.setNextBoolean(color.green);
+        statement.setNextBoolean(color.gold);
+        statement.setNextBoolean(color.orange);
+
+        /*
+         * Other
+         */
+
+        statement.setNextString(simType.name());
+        statement.setNextString(platform.name());
+    }
+
     @Override
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setLong(1, id);
+        statement.setNextLong(id);
 
-        statement.setString(2, name);
-        statement.setString(3, imageUrl);
-        statement.setInt(4, year);
-
-        statement.setLong(5, manufacturerId);
+        prepareCommon(statement);
     }
 
     @Override
     protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setString(1, name);
-        statement.setString(2, imageUrl);
-        statement.setInt(3, year);
+        prepareCommon(statement);
 
-        statement.setLong(4, manufacturerId);
-
-        statement.setLong(5, id);
+        statement.setNextLong(id);
     }
 
     @Override
     protected void prepareDelete(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setLong(1, id);
+        statement.setNextLong(id);
     }
 
     /*

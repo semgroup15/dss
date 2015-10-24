@@ -1,1 +1,0 @@
-DROP TABLE display_protection

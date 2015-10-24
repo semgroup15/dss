@@ -33,6 +33,9 @@ public class Manufacturer extends Model {
         }
     }
 
+    public static Model.Cache<Manufacturer, Long> cache =
+            new Model.Cache<>(new Loader());
+
     /*
      * Sync
      */
@@ -48,8 +51,8 @@ public class Manufacturer extends Model {
     protected void syncResultSet(Manager.RestrictedResult result)
             throws SQLException {
 
-        id = result.getLong(1);
-        name = result.getString(2);
+        id = result.nextLong();
+        name = result.nextString();
     }
 
     /*
@@ -60,23 +63,23 @@ public class Manufacturer extends Model {
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setLong(1, id);
-        statement.setString(2, name);
+        statement.setNextLong(id);
+        statement.setNextString(name);
     }
 
     @Override
     protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setString(1, name);
-        statement.setLong(2, id);
+        statement.setNextString(name);
+        statement.setNextLong(id);
     }
 
     @Override
     protected void prepareDelete(Manager.RestrictedStatement statement)
             throws SQLException {
 
-        statement.setLong(1, id);
+        statement.setNextLong(id);
     }
 
     /*

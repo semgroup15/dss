@@ -1,4 +1,0 @@
-CREATE TABLE color (
-    id INTEGER PRIMARY KEY,
-    name VARCHAR
-)

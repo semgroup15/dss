@@ -3,27 +3,20 @@ package dss;
 import java.util.HashMap;
 import java.util.Map;
 
-import dss.commands.db.MigrateCommand;
-import dss.commands.dss.InputClientCommand;
-import dss.commands.dss.OutputClientCommand;
-import dss.commands.interop.ExpandCommand;
-import dss.commands.interop.InitCommand;
-import dss.commands.media.FetchCommand;
-
 public class Main {
 
     public static void main(String[] args) {
         Map<String, Runnable> commands = new HashMap<>();
 
-        commands.put("db.migrate", new MigrateCommand());
+        commands.put("db.init", new dss.commands.db.InitCommand());
 
-        commands.put("dss.input", new InputClientCommand());
-        commands.put("dss.output", new OutputClientCommand());
+        commands.put("dss.input", new dss.commands.dss.InputClientCommand());
+        commands.put("dss.output", new dss.commands.dss.OutputClientCommand());
 
-        commands.put("interop.init", new InitCommand());
-        commands.put("interop.expand", new ExpandCommand());
+        commands.put("ga.init", new dss.commands.ga.InitCommand());
+        commands.put("ga.expand", new dss.commands.ga.ExpandCommand());
 
-        commands.put("media.fetch", new FetchCommand());
+        commands.put("media.fetch", new dss.commands.media.FetchCommand());
 
         if (args.length == 1) {
             Runnable command = commands.get(args[0]);
