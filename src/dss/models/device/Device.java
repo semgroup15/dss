@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.List;
 
+import dss.models.price.Price;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -208,6 +210,10 @@ public class Device extends Model {
 
     public Manufacturer getManufacturer() {
         return Manufacturer.cache.get(manufacturerId);
+    }
+
+    public List<Price> getPrices() {
+        return Price.manager.select(Price.SELECT_DEVICE, id);
     }
 
     /*
