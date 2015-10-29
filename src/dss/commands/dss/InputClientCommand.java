@@ -9,11 +9,11 @@ public class InputClientCommand implements Runnable {
         System.out.println("DSS Input Client");
 
         Manufacturer manufacturer = new Manufacturer();
-        manufacturer.name = "Samsung";
+        manufacturer.name = "Apple";
         manufacturer.save();
 
         Device device = new Device();
-        device.name = "Galaxy S III";
+        device.name = "iPhone 5S";
         device.year = 2013;
         device.manufacturerId = manufacturer.id;
         device.save();
