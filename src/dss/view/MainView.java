@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -51,6 +52,7 @@ public class MainView extends Application {
         this.primaryStage.setTitle("Group 15 Smartphone DSS");
 
         initRootLayout();
+        showDeviceListLayout();
     }
 
     /**
@@ -70,6 +72,26 @@ public class MainView extends Application {
 
             // Give the controller access to the main app.
             ExampleController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDeviceListLayout() {
+        try {
+            // Load device overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainView.class.getResource("DeviceListLayout.fxml"));
+            // Store the layout gotten from the fxml document
+            ScrollPane deviceList = (ScrollPane) loader.load();
+
+            // Sub-components will be placed into RootLayout using this method
+            rootLayout.setCenter(deviceList);
+
+            // Give the controller access to the main app.
+            DeviceListController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
