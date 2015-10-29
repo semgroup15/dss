@@ -51,14 +51,14 @@ public class MainView extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Group 15 Smartphone DSS");
 
-        initRootLayout();
+        initLayouts();
         showDeviceListLayout();
     }
 
     /**
      * Initializes the root layout and hooks it up to the example controller.
      */
-    public void initRootLayout() {
+    public void initLayouts() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
@@ -71,6 +71,9 @@ public class MainView extends Application {
             primaryStage.show();
 
             // Give the controller access to the main app.
+            /**
+             * --
+             */
             ExampleController controller = loader.getController();
             controller.setMainApp(this);
 

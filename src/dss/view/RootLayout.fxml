@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.ExampleController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.MainController">
    <top>
       <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -17,4 +17,13 @@
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="DeviceListView" prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane fx:id="CompareView" prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane fx:id="DeviceDetailsView" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </StackPane>
+   </center>
 </BorderPane>
