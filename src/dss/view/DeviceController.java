@@ -1,24 +1,27 @@
 package dss.view;
 
+import dss.models.device.Device;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
-public class DeviceController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class DeviceController implements Initializable {
 
 	/* * *
 	 * View elements must be defined with the @FXML tag to be accessed
 	 */
     @FXML
-    private Label testLabel;
+    private Text modelNameText;
 
-    @FXML
-    private TextField searchBar;
-    @FXML
-    private Button searchButton;
 
     // Reference to the main view.
 	private MainView mainApp;
@@ -28,13 +31,13 @@ public class DeviceController {
      * after the fxml file has been loaded.
      */
     @FXML
-    private void initialize() {
-    	// Example for defining button behavior
-    	searchButton.setOnAction(new EventHandler<ActionEvent>(){
-    	    @Override public void handle(ActionEvent e) {
-    	    	testLabel.setText(searchBar.getText());
-    	    }
-    	});
+    public void initialize(URL location, ResourceBundle resourceBundle) {
+
+    }
+
+    public void loadDevice(Device device)
+    {
+        modelNameText.setText(device.getManufacturer().name + " " + device.name);
     }
 
     /**

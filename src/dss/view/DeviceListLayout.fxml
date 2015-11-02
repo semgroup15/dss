@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 
 <ScrollPane id="deviceListScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DeviceListController">
    <content>
-      <VBox id="deviceListVBox" prefWidth="400.0" />
+      <VBox fx:id="deviceListVBox" prefHeight="400" prefWidth="400.0" />
    </content>
 </ScrollPane>

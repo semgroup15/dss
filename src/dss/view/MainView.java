@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -86,12 +87,12 @@ public class MainView extends Application {
             loader.setLocation(MainView.class.getResource("DeviceListLayout.fxml"));
             // Store the layout gotten from the fxml document
             ScrollPane deviceList = (ScrollPane) loader.load();
+            DeviceListController controller = loader.getController();
 
             // Sub-components will be placed into RootLayout using this method
             rootLayout.setCenter(deviceList);
 
             // Give the controller access to the main app.
-            DeviceListController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {

@@ -1,41 +1,43 @@
 package dss.view;
 
 import dss.models.device.Device;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class DeviceListController {
     // Reference to the main view.
 	private MainView mainApp;
 
-    @FXML
-    private VBox deviceListVBox;
+    @FXML private URL location;
+    @FXML private VBox deviceListVBox;
 
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
     @FXML
-    private void initialize() {
-        displayDevice( Device.manager.select(new Device.QueryBuilder()
-                        .byManufacturerName("samsung")
-                        .byName("galaxy")).get(0));
+    public void initialize() {
+        displayDeviceList(Device.manager.select(new Device.QueryBuilder()
+                .byManufacturerName("samsung")
+                .byName("galaxy")));
     }
+
+
 
     public void displayDeviceList(List<Device> deviceList)
     {
-
+        for(Device device : deviceList)
+        {
+            displayDevice(device);
+        }
     }
 
     public void displayDevice(Device device)
@@ -46,7 +48,12 @@ public class DeviceListController {
             AnchorPane devicePane = loader.load();
 
             deviceListVBox.getChildren().add(devicePane);
+
             DeviceController controller = loader.getController();
+            controller.loadDevice(device);
+            controller.setMainApp(this.mainApp);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

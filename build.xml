@@ -26,6 +26,11 @@
     <!-- Build: Compile classes -->
     <target name="compile">
         <mkdir dir="${proj.build.classes}"/>
+        <copy todir="${proj.build.classes}">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
         <javac srcdir="src" destdir="${proj.build.classes}"
                includeantruntime="false">
             <classpath>

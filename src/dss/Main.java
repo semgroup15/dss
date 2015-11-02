@@ -1,5 +1,8 @@
 package dss;
 
+import dss.view.ExampleController;
+import dss.view.MainView;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,5 +29,7 @@ public class Main {
                 command.run();
             }
         }
+
+        MainView.launchApp();
     }
 }
