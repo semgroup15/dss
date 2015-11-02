@@ -4,6 +4,5 @@ CREATE TABLE review (
     responsiveness INTEGER,
     screen INTEGER,
     battery INTEGER,
-    text VARCHAR,
-
+    text VARCHAR
 )

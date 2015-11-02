@@ -1,3 +1,3 @@
 UPDATE review
-SET responsiveness = ?, screen  = ?, battery = ?, text =?
+SET device_id = ?, responsiveness = ?, screen  = ?, battery = ?, text = ?
 WHERE id = ?

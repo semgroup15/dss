@@ -5,13 +5,13 @@ import dss.models.Model;
 import java.sql.SQLException;
 
 public class Review extends Model{
+
     public long id;
     public long deviceId;
     public String text;
     public int responsiveness;
     public int screen;
     public int battery;
-
 
     /*
      * Manager
@@ -56,6 +56,7 @@ public class Review extends Model{
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
 
+        statement.setNextLong(deviceId);
         statement.setNextInt(responsiveness);
         statement.setNextInt(screen);
         statement.setNextInt(battery);
@@ -66,6 +67,7 @@ public class Review extends Model{
     protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
 
+        statement.setNextLong(deviceId);
         statement.setNextInt(responsiveness);
         statement.setNextInt(screen);
         statement.setNextInt(battery);
