@@ -1,6 +1,6 @@
 package dss;
 
-import dss.view.ExampleController;
+import dss.view.MainController;
 import dss.view.MainView;
 
 import java.util.HashMap;

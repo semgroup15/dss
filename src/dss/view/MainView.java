@@ -7,18 +7,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import dss.view.ExampleController;
+import dss.view.MainController;
 import dss.models.device.Device;
 
 public class MainView extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+
+    private MainController mainController;
 
     /**
      * The data as an observable list of Devices.
@@ -53,11 +57,12 @@ public class MainView extends Application {
         this.primaryStage.setTitle("Group 15 Smartphone DSS");
 
         initRootLayout();
-        showDeviceListLayout();
+        initializeDeviceList();
+        initializeDetails();
     }
 
     /**
-     * Initializes the root layout and hooks it up to the example controller.
+     * Initializes the root layout and hooks it up to the main controller.
      */
     public void initRootLayout() {
         try {
@@ -72,15 +77,15 @@ public class MainView extends Application {
             primaryStage.show();
 
             // Give the controller access to the main app.
-            ExampleController controller = loader.getController();
-            controller.setMainApp(this);
+            mainController = loader.getController();
+            mainController.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void showDeviceListLayout() {
+    public void initializeDeviceList() {
         try {
             // Load device overview.
             FXMLLoader loader = new FXMLLoader();
@@ -90,7 +95,28 @@ public class MainView extends Application {
             DeviceListController controller = loader.getController();
 
             // Sub-components will be placed into RootLayout using this method
-            rootLayout.setCenter(deviceList);
+            mainController.AddPaneToStack((Node)deviceList);
+
+            // Give the controller access to the main app.
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initializeDetails()
+    {
+        try {
+            // Load device overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainView.class.getResource("DetailsLayout.fxml"));
+            // Store the layout gotten from the fxml document
+            ScrollPane deviceList = (ScrollPane) loader.load();
+            DetailsController controller = loader.getController();
+
+            // Sub-components will be placed into RootLayout using this method
+            mainController.AddPaneToStack((Node)deviceList);
 
             // Give the controller access to the main app.
             controller.setMainApp(this);

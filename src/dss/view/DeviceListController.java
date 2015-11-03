@@ -27,7 +27,7 @@ public class DeviceListController {
     public void initialize() {
         displayDeviceList(Device.manager.select(new Device.QueryBuilder()
                 .byManufacturerName("samsung")
-                .byName("galaxy")));
+                .byName("galaxy s6")));
     }
 
 
