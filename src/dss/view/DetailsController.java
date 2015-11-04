@@ -3,6 +3,7 @@ package dss.view;
 import dss.models.device.Device;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -52,7 +53,8 @@ public class DetailsController {
         		device.display.width + " x " +
         		device.display.height);
 
-        this.bodyDimensions.setText(device.body.width + " mm x " +
+        this.bodyDimensions.setText("Body dimensions: " +
+        		device.body.width + " mm x " +
         		device.body.height + " mm x " +
         		device.body.depth + " mm");
 
@@ -76,5 +78,6 @@ public class DetailsController {
 
         this.colors.setText("Colors: " + colors);
         this.battery.setText("Idle battery life: " + device.battery.sleep + " hours");
+        //this.picture.setImage(device.getImageFile()); Todo
     }
 }
