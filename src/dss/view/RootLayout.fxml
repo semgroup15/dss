@@ -10,12 +10,10 @@
    <top>
       <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Text layoutX="24.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" />
-            <TextField fx:id="searchBar" layoutX="75.0" layoutY="10.0" promptText="Seach..." AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="10.0" />
-            <Button fx:id="searchButton" layoutX="525.0" layoutY="10.0" mnemonicParsing="false" text="Search" />
-            <Label fx:id="testLabel" layoutX="23.0" layoutY="31.0" text="Label" />
-            <Button fx:id="gotoDetails" layoutX="443.0" layoutY="10.0" mnemonicParsing="false" text="Details" />
-            <Button fx:id="gotoList" layoutX="300.0" layoutY="10.0" mnemonicParsing="false" text="List" />
+            <Text layoutX="24.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DSS" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" />
+            <ComboBox fx:id="manufacturerComboBox" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0" prefWidth="160.0"/>
+            <TextField fx:id="searchTextField" promptText="Search" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="10.0" />
+            <Button fx:id="searchButton" mnemonicParsing="false" text="Search"  AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
          </children>
       </AnchorPane>
    </top>

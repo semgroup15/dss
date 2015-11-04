@@ -394,14 +394,14 @@ public abstract class Model {
                     return this.queryBuilder;
                 }
 
-                protected String[] getPartsAsArray() {
+                protected String[] getPartsArray() {
                     String[] parts = new String[this.parts.size()];
                     parts = this.parts.toArray(parts);
                     return parts;
                 }
 
                 public String getQuery() {
-                    return String.join(" ", getPartsAsArray());
+                    return String.join(" ", getPartsArray());
                 }
 
                 public List<Object> getParameters() {
@@ -416,7 +416,7 @@ public abstract class Model {
                 }
 
                 public String getQuery() {
-                    String[] parts = getPartsAsArray();
+                    String[] parts = getPartsArray();
                     for (int i = 0; i < parts.length; i++) {
                         parts[i] = String.format("(%s)", parts[i]);
                     }
@@ -427,6 +427,7 @@ public abstract class Model {
             protected Section select = new BaseSection(this);
             protected Section join = new BaseSection(this);
             protected Section where = new WhereSection(this);
+            protected Section limit = new BaseSection(this);
 
             /**
              * Initialize {@code QueryBuilder}.
@@ -445,11 +446,16 @@ public abstract class Model {
                 return where;
             }
 
+            public Section limit() {
+                return limit;
+            }
+
             public String getQuery() {
                 return String.join(" ", new String[] {
                     select.getQuery(),
                     join.getQuery(),
                     where.getQuery(),
+                    limit.getQuery(),
                 });
             }
 

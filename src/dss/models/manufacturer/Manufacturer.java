@@ -9,6 +9,11 @@ public class Manufacturer extends Model {
     public long id;
     public String name;
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     /*
      * Manager
      */
@@ -89,5 +94,6 @@ public class Manufacturer extends Model {
     public static final String SELECT_ALL = "all";
     public static final String SELECT_ID = "id";
     public static final String SELECT_NAME = "name";
+    public static final String SELECT_COMMON = "common";
 }
 

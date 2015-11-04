@@ -169,6 +169,13 @@ public class Device extends Model {
             this.select().add("SELECT * FROM device").done();
         }
 
+        public QueryBuilder limit(int limit) {
+            return (QueryBuilder) this
+                    .limit()
+                        .add(String.format("LIMIT %d", limit))
+                        .done();
+        }
+
         public QueryBuilder byName(String name) {
             return (QueryBuilder) this
                     .where()

@@ -61,6 +61,8 @@ public class MainView extends Application {
         initRootLayout();
         initializeDeviceList();
         initializeDetails();
+
+        mainController.setScreen(MainController.Screen.List);
     }
 
     /**
@@ -98,6 +100,7 @@ public class MainView extends Application {
 
             // Sub-components will be placed into RootLayout using this method
             mainController.AddPaneToStack((Node)deviceList);
+            mainController.setDeviceListController(controller);
 
             // Give the controller access to the main app.
             controller.setMainApp(this);
@@ -122,6 +125,7 @@ public class MainView extends Application {
 
             // Sub-components will be placed into RootLayout using this method
             mainController.AddPaneToStack(deviceList);
+            mainController.setDetailsController(controller);
 
             // Give the controller access to the main app.
             controller.setMainApp(this);

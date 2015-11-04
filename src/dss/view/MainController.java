@@ -1,7 +1,10 @@
 package dss.view;
 
 import java.util.Collections;
+import java.util.List;
 
+import dss.models.device.Device;
+import dss.models.manufacturer.Manufacturer;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,21 +23,25 @@ public class MainController {
 	 * View elements must be defined with the @FXML tag to be accessed
 	 */
     @FXML
-    private Label testLabel;
+    private ComboBox<Manufacturer> manufacturerComboBox;
     @FXML
-    private TextField searchBar;
+    private TextField searchTextField;
     @FXML
     private Button searchButton;
-    @FXML
-    private Button gotoList; // Temp
-    @FXML
-    private Button gotoDetails; // Temp
     @FXML
     private StackPane screenSwitch;
 
 
 	private DetailsController detailsController;
 	private DeviceListController deviceListController;
+
+    public void setDetailsController(DetailsController controller) {
+        this.detailsController = controller;
+    }
+
+    public void setDeviceListController(DeviceListController controller) {
+        this.deviceListController = controller;
+    }
 
     // Reference to the main view.
 	private MainView mainApp;
@@ -52,24 +59,25 @@ public class MainController {
      */
     @FXML
     private void initialize() {
-    	// Example for defining button behavior
-    	searchButton.setOnAction(new EventHandler<ActionEvent>(){
-    	    @Override public void handle(ActionEvent e) {
-    	    	testLabel.setText(searchBar.getText());
-    	    }
-    	});
+        List<Manufacturer> manufacturers = Manufacturer.manager.select(Manufacturer.SELECT_COMMON);
+        manufacturerComboBox.setItems(FXCollections.observableArrayList(manufacturers));
 
-    	// Temporary for debugging
-    	gotoList.setOnAction(new EventHandler<ActionEvent>(){
-    	    @Override public void handle(ActionEvent e) {
-    	    	setScreen(Screen.List);
-    	    }
-    	});
-    	gotoDetails.setOnAction(new EventHandler<ActionEvent>(){
-    	    @Override public void handle(ActionEvent e) {
-    	    	setScreen(Screen.Details);
-    	    }
-    	});
+        searchButton.setOnAction(event -> {
+            Device.QueryBuilder queryBuilder = new Device.QueryBuilder();
+
+            Manufacturer manufacturer = manufacturerComboBox.getValue();
+            if (manufacturer != null) {
+                queryBuilder.byManufacturerId(manufacturer.id);
+            }
+
+            String query = searchTextField.getText().trim();
+            if (query != null && !query.isEmpty()) {
+                queryBuilder.byName(query);
+            }
+
+            List<Device> devices = Device.manager.select(queryBuilder.limit(10));
+            deviceListController.displayDeviceList(devices);
+        });
     }
 
     /**
