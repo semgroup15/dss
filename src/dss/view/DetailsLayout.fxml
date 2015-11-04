@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane id="detailsScrollPane" fx:id="Details" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DetailsController">
+<ScrollPane id="detailsScrollPane" fx:id="Details" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DetailsController">
    <content>
-      <VBox id="detailsScrollPane" fx:id="deviceListVBox" prefHeight="400" prefWidth="400.0">
+      <AnchorPane prefHeight="538.0" prefWidth="475.0">
          <children>
-            <Text fx:id="detailsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Details!" />
+            <ImageView fitHeight="206.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="model" layoutX="234.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="model" wrappingWidth="266.6513671875" />
+            <Text fx:id="manufacturer" layoutX="234.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="manufacturer" />
+            <Text fx:id="displayDimensions" layoutX="234.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="displayDimensions" />
+            <Text fx:id="bodyDimensions" layoutX="234.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bodyDimensions" />
+            <Text fx:id="colors" layoutX="237.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
+            <Text fx:id="battery" layoutX="234.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
          </children>
-      </VBox>
+      </AnchorPane>
    </content>
 </ScrollPane>
