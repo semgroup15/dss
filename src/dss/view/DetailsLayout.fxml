@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane id="detailsScrollPane" fx:id="Details" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DetailsController">
+<ScrollPane id="detailsScrollPane" fx:id="Details" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DetailsController">
    <content>
-      <VBox id="detailsScrollPane" fx:id="deviceListVBox" prefHeight="400" prefWidth="400.0">
+      <VBox id="detailsScrollPane" fillWidth="true" fx:id="deviceListVBox">
          <children>
             <Text fx:id="detailsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Details!" />
          </children>

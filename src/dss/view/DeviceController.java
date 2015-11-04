@@ -9,10 +9,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import org.apache.commons.lang3.ObjectUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,6 +36,8 @@ public class DeviceController implements Initializable {
     @FXML
     private Rectangle starRatingBackgroundBox;
 
+    @FXML
+    private ImageView deviceImageView;
     // Reference to the main view.
 	private MainView mainApp;
     private Device device;
@@ -50,6 +58,21 @@ public class DeviceController implements Initializable {
         DetailsController dc = this.mainApp.getMainController().getDetailsController();
         viewDetailsButton.setOnAction(actionEvent -> dc.displayDevice(this.device));
         starRatingBackgroundBox.setWidth((Math.ceil(Math.random()*5)) * 20);
+        try{
+            File deviceFile = device.getImageFile();
+            FileInputStream fis = new FileInputStream(deviceFile);
+            Image image = new Image(fis);
+            deviceImageView.setImage(image);
+        }
+        catch (NullPointerException e)
+        {
+            //continue
+        }
+        catch (FileNotFoundException e)
+        {
+            //continue;
+        }
+
     }
 
     /**
