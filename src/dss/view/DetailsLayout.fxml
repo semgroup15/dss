@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
 <ScrollPane id="detailsScrollPane" fx:id="Details" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DetailsController">
    <content>
       <VBox id="detailsScrollPane" fillWidth="true" fx:id="deviceListVBox">
@@ -18,6 +19,6 @@
             <Text fx:id="colors" layoutX="237.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
             <Text fx:id="battery" layoutX="234.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
          </children>
-      </AnchorPane>
+      </VBox>
    </content>
 </ScrollPane>

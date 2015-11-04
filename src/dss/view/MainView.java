@@ -59,11 +59,10 @@ public class MainView extends Application {
         this.primaryStage.setTitle("Group 15 Smartphone DSS");
 
         initRootLayout();
-        initializeDeviceList();
-        initializeDetails();
 
         mainController.setDeviceListController(initializeDeviceList());
         mainController.setDetailsController(initializeDetails());
+
         mainController.setScreen(MainController.Screen.List);
     }
 

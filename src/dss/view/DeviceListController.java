@@ -35,7 +35,6 @@ public class DeviceListController {
     public void displayDeviceList(List<Device> deviceList)
     {
         deviceListVBox.getChildren().clear();
-
         for(Device device : deviceList)
         {
             displayDevice(device);
