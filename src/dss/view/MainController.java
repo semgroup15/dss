@@ -32,8 +32,7 @@ public class MainController {
     @FXML
     private StackPane screenSwitch;
 
-
-	private DetailsController detailsController;
+    private DetailsController detailsController;
 	private DeviceListController deviceListController;
 
     // Reference to the main view.
@@ -108,6 +107,22 @@ public class MainController {
     			return i;
     	}
     	return 0;
+    }
+
+    public void setDetailsController(DetailsController detailsController) {
+        this.detailsController = detailsController;
+    }
+
+    public void setDeviceListController(DeviceListController deviceListController) {
+        this.deviceListController = deviceListController;
+    }
+
+    public DetailsController getDetailsController() {
+        return detailsController;
+    }
+
+    public DeviceListController getDeviceListController() {
+        return deviceListController;
     }
 
     // Don't look at this please
