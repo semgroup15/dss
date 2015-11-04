@@ -3,6 +3,7 @@ package dss.view;
 import dss.models.device.Device;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -17,8 +18,13 @@ public class DetailsController {
     // Reference to the main view.
 	private MainView mainApp;
 
-    @FXML private URL location;
-    @FXML private Text detailsText;
+    @FXML private ImageView picture;
+    @FXML private Text model;
+    @FXML private Text manufacturer;
+    @FXML private Text displayDimensions;
+    @FXML private Text bodyDimensions;
+    @FXML private Text colors;
+    @FXML private Text battery;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -40,6 +46,35 @@ public class DetailsController {
     public void displayDevice(Device device)
     {
         this.mainApp.getMainController().setScreen(MainController.Screen.Details);
-        detailsText.setText(device.name);
+        this.model.setText(device.name);
+        this.manufacturer.setText(device.getManufacturer().name);
+        this.displayDimensions.setText("Display dimensions: " +
+        		device.display.width + " x " +
+        		device.display.height);
+
+        this.bodyDimensions.setText(device.body.width + " mm x " +
+        		device.body.height + " mm x " +
+        		device.body.depth + " mm");
+
+        String colors = "";
+
+        colors += device.color.black ? "black, " : "";
+        colors += device.color.white ? "white, " : "";
+        colors += device.color.blue ? "blue, " : "";
+        colors += device.color.red ? "red, " : "";
+        colors += device.color.pink ? "pink, " : "";
+        colors += device.color.silver ? "silver, " : "";
+        colors += device.color.gray ? "gray, " : "";
+        colors += device.color.yellow ? "yellow, " : "";
+        colors += device.color.green ? "green, " : "";
+        colors += device.color.gold ? "gold, " : "";
+        colors += device.color.orange ? "orange, " : "";
+
+        // Remove last ", "
+        if(colors.length() > 0)
+        	colors = colors.substring(0, colors.length() - 2);
+
+        this.colors.setText("Colors: " + colors);
+        this.battery.setText("Idle battery life: " + device.battery.sleep + " hours");
     }
 }
