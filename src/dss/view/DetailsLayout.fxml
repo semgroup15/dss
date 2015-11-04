@@ -10,7 +10,8 @@
    <content>
       <VBox id="detailsScrollPane" fx:id="deviceListVBox" prefHeight="400" prefWidth="400.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Details!" />
-         </children></VBox>
+            <Text fx:id="detailsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Details!" />
+         </children>
+      </VBox>
    </content>
 </ScrollPane>

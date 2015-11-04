@@ -22,9 +22,12 @@ public class DeviceController implements Initializable {
     @FXML
     private Text modelNameText;
 
+    @FXML
+    private Button viewDetailsButton;
 
     // Reference to the main view.
 	private MainView mainApp;
+    private Device device;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -37,7 +40,9 @@ public class DeviceController implements Initializable {
 
     public void loadDevice(Device device)
     {
+        this.device = device;
         modelNameText.setText(device.getManufacturer().name + " " + device.name);
+        viewDetailsButton.setOnAction(actionEvent -> this.mainApp.getDetailsController().displayDevice(this.device));
     }
 
     /**

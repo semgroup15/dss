@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -23,8 +24,12 @@ public class DeviceListController {
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
+    private FXMLLoader loader;
+    private HashMap<Device,DeviceController> deviceListControllers;
+
     @FXML
     public void initialize() {
+        loader = new FXMLLoader(MainView.class.getResource("DeviceLayout.fxml"));
         displayDeviceList(Device.manager.select(new Device.QueryBuilder()
                 .byManufacturerName("samsung")
                 .byName("galaxy s6")));
@@ -43,16 +48,15 @@ public class DeviceListController {
     public void displayDevice(Device device)
     {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainView.class.getResource("DeviceLayout.fxml"));
             AnchorPane devicePane = loader.load();
-
             deviceListVBox.getChildren().add(devicePane);
 
             DeviceController controller = loader.getController();
             controller.loadDevice(device);
             controller.setMainApp(this.mainApp);
 
+            loader.setRoot(null);
+            loader.setController(null);
 
         } catch (IOException e) {
             e.printStackTrace();

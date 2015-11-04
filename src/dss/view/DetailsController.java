@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class DetailsController {
 	private MainView mainApp;
 
     @FXML private URL location;
-    @FXML private VBox deviceListVBox;
+    @FXML private Text detailsText;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -34,5 +35,11 @@ public class DetailsController {
      */
     public void setMainApp(MainView mainApp) {
         this.mainApp = mainApp;
+    }
+
+    public void displayDevice(Device device)
+    {
+        this.mainApp.getMainController().setScreen(MainController.Screen.Details);
+        detailsText.setText(device.name);
     }
 }

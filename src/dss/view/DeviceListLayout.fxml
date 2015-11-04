@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane id="deviceListScrollPane" fx:id="List" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DeviceListController">
+<ScrollPane id="deviceListScrollPane" fitToWidth="true" fx:id="List" maxHeight="-Infinity" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DeviceListController">
    <content>
-      <VBox fx:id="deviceListVBox" prefHeight="400" prefWidth="400.0" />
+      <VBox fx:id="deviceListVBox" fillWidth="true"/>
    </content>
 </ScrollPane>
