@@ -30,9 +30,6 @@ public class DeviceListController {
     @FXML
     public void initialize() {
         loader = new FXMLLoader(MainView.class.getResource("DeviceLayout.fxml"));
-        displayDeviceList(Device.manager.select(new Device.QueryBuilder()
-                .byManufacturerName("samsung")
-                .byName("galaxy s6")));
     }
 
     public void displayDeviceList(List<Device> deviceList)
@@ -50,9 +47,8 @@ public class DeviceListController {
             deviceListVBox.getChildren().add(devicePane);
 
             DeviceController controller = loader.getController();
-            controller.setMainApp(this.mainApp);
+            controller.setMainApp(this.mainApp);//This one
             controller.loadDevice(device);
-
 
             loader.setRoot(null);
             loader.setController(null);
@@ -68,6 +64,6 @@ public class DeviceListController {
      * @param mainApp
      */
     public void setMainApp(MainView mainApp) {
-        this.mainApp = mainApp;
+        this.mainApp = mainApp; //This one first
     }
 }

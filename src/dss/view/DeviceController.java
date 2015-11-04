@@ -42,8 +42,8 @@ public class DeviceController implements Initializable {
     {
         this.device = device;
         modelNameText.setText(device.getManufacturer().name + " " + device.name);
-        //DetailsController dc = this.mainApp.getDetailsController();
-        //viewDetailsButton.setOnAction(actionEvent -> dc.displayDevice(this.device));
+        DetailsController dc = this.mainApp.getMainController().getDetailsController();
+        viewDetailsButton.setOnAction(actionEvent -> dc.displayDevice(this.device));
     }
 
     /**

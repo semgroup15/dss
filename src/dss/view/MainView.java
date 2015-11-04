@@ -59,8 +59,12 @@ public class MainView extends Application {
         this.primaryStage.setTitle("Group 15 Smartphone DSS");
 
         initRootLayout();
-        initializeDeviceList();
-        initializeDetails();
+        mainController.setDeviceListController(initializeDeviceList());
+        mainController.setDetailsController(initializeDetails());
+
+        mainController.getDeviceListController().displayDeviceList(Device.manager.select(new Device.QueryBuilder()
+                .byManufacturerName("samsung")
+                .byName("galaxy s6")));
     }
 
     /**
@@ -95,12 +99,13 @@ public class MainView extends Application {
             // Store the layout gotten from the fxml document
             ScrollPane deviceList = (ScrollPane) loader.load();
             DeviceListController controller = loader.getController();
+            controller.setMainApp(this);
 
             // Sub-components will be placed into RootLayout using this method
             mainController.AddPaneToStack((Node)deviceList);
 
             // Give the controller access to the main app.
-            controller.setMainApp(this);
+
 
             return controller;
 
