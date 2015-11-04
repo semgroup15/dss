@@ -35,8 +35,6 @@ public class DeviceListController {
                 .byName("galaxy s6")));
     }
 
-
-
     public void displayDeviceList(List<Device> deviceList)
     {
         for(Device device : deviceList)
@@ -52,8 +50,9 @@ public class DeviceListController {
             deviceListVBox.getChildren().add(devicePane);
 
             DeviceController controller = loader.getController();
-            controller.loadDevice(device);
             controller.setMainApp(this.mainApp);
+            controller.loadDevice(device);
+
 
             loader.setRoot(null);
             loader.setController(null);
@@ -61,8 +60,6 @@ public class DeviceListController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     /**

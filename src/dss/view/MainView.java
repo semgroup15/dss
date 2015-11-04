@@ -26,8 +26,6 @@ public class MainView extends Application {
 
     private MainController mainController;
 
-    private DeviceListController deviceListController;
-    private DetailsController detailsController;
     /**
      * The data as an observable list of Devices.
      * Not necessary in main view. Will be located in the controller classes.
@@ -61,8 +59,8 @@ public class MainView extends Application {
         this.primaryStage.setTitle("Group 15 Smartphone DSS");
 
         initRootLayout();
-        this.deviceListController = initializeDeviceList();
-        this.detailsController = initializeDetails();
+        initializeDeviceList();
+        initializeDetails();
     }
 
     /**
@@ -134,16 +132,6 @@ public class MainView extends Application {
         }
 
         return null;
-    }
-
-    public DetailsController getDetailsController()
-    {
-        return this.detailsController;
-    }
-
-    public DeviceListController getDeviceListController()
-    {
-        return this.deviceListController;
     }
 
     public MainController getMainController()

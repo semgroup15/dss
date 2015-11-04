@@ -12,7 +12,7 @@
             <children>
                 <ImageView fx:id="deviceImageView" fitHeight="96.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@phone1.png" />
+                        <Image url="@img/phone1.png" />
                     </image>
                 </ImageView>
             </children>

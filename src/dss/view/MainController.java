@@ -32,6 +32,10 @@ public class MainController {
     @FXML
     private StackPane screenSwitch;
 
+
+	private DetailsController detailsController;
+	private DeviceListController deviceListController;
+
     // Reference to the main view.
 	private MainView mainApp;
 
