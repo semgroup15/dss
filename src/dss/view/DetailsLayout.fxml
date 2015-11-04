@@ -10,8 +10,14 @@
    <content>
       <VBox id="detailsScrollPane" fillWidth="true" fx:id="deviceListVBox">
          <children>
-            <Text fx:id="detailsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Details!" />
+            <ImageView fitHeight="206.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="model" layoutX="234.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="model" wrappingWidth="266.6513671875" />
+            <Text fx:id="manufacturer" layoutX="234.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="manufacturer" />
+            <Text fx:id="displayDimensions" layoutX="234.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="displayDimensions" />
+            <Text fx:id="bodyDimensions" layoutX="234.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bodyDimensions" />
+            <Text fx:id="colors" layoutX="237.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
+            <Text fx:id="battery" layoutX="234.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
          </children>
-      </VBox>
+      </AnchorPane>
    </content>
 </ScrollPane>
