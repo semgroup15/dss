@@ -31,8 +31,7 @@ public class MainController {
     @FXML
     private StackPane screenSwitch;
 
-
-	private DetailsController detailsController;
+    private DetailsController detailsController;
 	private DeviceListController deviceListController;
 
     public void setDetailsController(DetailsController controller) {
@@ -63,6 +62,8 @@ public class MainController {
         manufacturerComboBox.setItems(FXCollections.observableArrayList(manufacturers));
 
         searchButton.setOnAction(event -> {
+            mainApp.getMainController().setScreen(MainController.Screen.List);
+
             Device.QueryBuilder queryBuilder = new Device.QueryBuilder();
 
             Manufacturer manufacturer = manufacturerComboBox.getValue();
@@ -116,6 +117,14 @@ public class MainController {
     			return i;
     	}
     	return 0;
+    }
+
+    public DetailsController getDetailsController() {
+        return detailsController;
+    }
+
+    public DeviceListController getDeviceListController() {
+        return deviceListController;
     }
 
     // Don't look at this please

@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -24,6 +26,9 @@ public class DeviceController implements Initializable {
 
     @FXML
     private Button viewDetailsButton;
+
+    @FXML
+    private Rectangle starRatingBackgroundBox;
 
     // Reference to the main view.
 	private MainView mainApp;
@@ -42,8 +47,9 @@ public class DeviceController implements Initializable {
     {
         this.device = device;
         modelNameText.setText(device.getManufacturer().name + " " + device.name);
-        //DetailsController dc = this.mainApp.getDetailsController();
-        //viewDetailsButton.setOnAction(actionEvent -> dc.displayDevice(this.device));
+        DetailsController dc = this.mainApp.getMainController().getDetailsController();
+        viewDetailsButton.setOnAction(actionEvent -> dc.displayDevice(this.device));
+        starRatingBackgroundBox.setWidth((Math.ceil(Math.random()*5)) * 20);
     }
 
     /**

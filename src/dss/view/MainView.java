@@ -62,6 +62,8 @@ public class MainView extends Application {
         initializeDeviceList();
         initializeDetails();
 
+        mainController.setDeviceListController(initializeDeviceList());
+        mainController.setDetailsController(initializeDetails());
         mainController.setScreen(MainController.Screen.List);
     }
 
@@ -97,13 +99,14 @@ public class MainView extends Application {
             // Store the layout gotten from the fxml document
             ScrollPane deviceList = (ScrollPane) loader.load();
             DeviceListController controller = loader.getController();
+            controller.setMainApp(this);
 
             // Sub-components will be placed into RootLayout using this method
             mainController.AddPaneToStack((Node)deviceList);
             mainController.setDeviceListController(controller);
 
             // Give the controller access to the main app.
-            controller.setMainApp(this);
+
 
             return controller;
 
