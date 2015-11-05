@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
-<ScrollPane id="detailsScrollPane" fx:id="Details" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DetailsController">
+
+<ScrollPane id="detailsScrollPane" fx:id="Details" fitToHeight="true" fitToWidth="true" prefHeight="458.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DetailsController">
    <content>
-      <VBox id="detailsScrollPane" fillWidth="true" fx:id="deviceListVBox">
+      <AnchorPane>
          <children>
-            <ImageView fitHeight="206.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Text fx:id="model" layoutX="234.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="model" wrappingWidth="266.6513671875" />
-            <Text fx:id="manufacturer" layoutX="234.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="manufacturer" />
-            <Text fx:id="displayDimensions" layoutX="234.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="displayDimensions" />
-            <Text fx:id="bodyDimensions" layoutX="234.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bodyDimensions" />
-            <Text fx:id="colors" layoutX="237.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
-            <Text fx:id="battery" layoutX="234.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
+            <Text fx:id="model" layoutX="239.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="model" wrappingWidth="224.6513671875" AnchorPane.leftAnchor="239.0">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font></Text>
+            <Text fx:id="manufacturer" layoutX="239.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="manufacturer" AnchorPane.leftAnchor="239.0" />
+            <Text fx:id="displayDimensions" layoutX="29.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="displayDimensions" />
+            <Text fx:id="bodyDimensions" layoutX="29.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bodyDimensions" />
+            <Text fx:id="colors" layoutX="29.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
+            <Text fx:id="battery" layoutX="29.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
+            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
          </children>
-      </VBox>
+      </AnchorPane>
    </content>
 </ScrollPane>
