@@ -21,7 +21,7 @@
             <Text fx:id="bodyDimensions" layoutX="29.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bodyDimensions" />
             <Text fx:id="colors" layoutX="29.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
             <Text fx:id="battery" layoutX="29.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
-            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+            <ImageView fx:id="picture" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
          </children>
       </AnchorPane>
    </content>

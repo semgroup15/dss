@@ -10,6 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -78,6 +81,20 @@ public class DetailsController {
 
         this.colors.setText("Colors: " + colors);
         this.battery.setText("Idle battery life: " + device.battery.sleep + " hours");
-        //this.picture.setImage(device.getImageFile()); Todo
+
+        try{
+            File deviceFile = device.getImageFile();
+            FileInputStream fis = new FileInputStream(deviceFile);
+            Image image = new Image(fis);
+            picture.setImage(image);
+        }
+        catch (NullPointerException e)
+        {
+            //continue
+        }
+        catch (FileNotFoundException e)
+        {
+            //continue;
+        }
     }
 }
