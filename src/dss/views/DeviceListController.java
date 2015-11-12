@@ -1,4 +1,4 @@
-package dss.view;
+package dss.views;
 
 import dss.models.device.Device;
 import javafx.fxml.FXML;
@@ -6,15 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class DeviceListController {
-    // Reference to the main view.
+    // Reference to the main views.
 	private MainView mainApp;
 
     @FXML private URL location;

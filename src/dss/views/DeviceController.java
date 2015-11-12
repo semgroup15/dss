@@ -1,20 +1,13 @@
-package dss.view;
+package dss.views;
 
 import dss.models.device.Device;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Box;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +31,7 @@ public class DeviceController implements Initializable {
 
     @FXML
     private ImageView deviceImageView;
-    // Reference to the main view.
+    // Reference to the main views.
 	private MainView mainApp;
     private Device device;
 

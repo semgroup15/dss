@@ -1,4 +1,4 @@
-package dss.view;
+package dss.views;
 
 import java.io.IOException;
 
@@ -6,18 +6,12 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import dss.view.MainController;
 import dss.models.device.Device;
-
-import javax.xml.soap.Detail;
 
 public class MainView extends Application {
 
@@ -28,7 +22,7 @@ public class MainView extends Application {
 
     /**
      * The data as an observable list of Devices.
-     * Not necessary in main view. Will be located in the controller classes.
+     * Not necessary in main views. Will be located in the controller classes.
      */
     private ObservableList<Device> smartphoneData = FXCollections.observableArrayList();
 
@@ -153,7 +147,7 @@ public class MainView extends Application {
         try {
             // Load device overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/MyLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("views/MyLayout.fxml"));
             // Store the layout gotten from the fxml document
             AnchorPane myLayout = (AnchorPane) loader.load();
 

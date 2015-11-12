@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="110.0" style="-fx-background-color: #ddd; -fx-border-width: 1px 0 1px 0; -fx-border-style: solid; -fx-border-color: white transparent black transparent;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.view.DeviceController">
+<AnchorPane prefHeight="110.0" style="-fx-background-color: #ddd; -fx-border-width: 1px 0 1px 0; -fx-border-style: solid; -fx-border-color: white transparent black transparent;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.views.DeviceController">
     <children>
         <StackPane prefHeight="150.0" prefWidth="96.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>

@@ -1,17 +1,13 @@
-package dss.view;
+package dss.views;
 
-import java.util.Collections;
 import java.util.List;
 
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import javafx.collections.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 /* * *
@@ -42,7 +38,7 @@ public class MainController {
         this.deviceListController = controller;
     }
 
-    // Reference to the main view.
+    // Reference to the main views.
 	private MainView mainApp;
 
 	private Screen currentScreen;

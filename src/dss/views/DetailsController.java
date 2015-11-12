@@ -1,25 +1,17 @@
-package dss.view;
+package dss.views;
 
 import dss.models.device.Device;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class DetailsController {
-    // Reference to the main view.
+    // Reference to the main views.
 	private MainView mainApp;
 
     @FXML private ImageView picture;
