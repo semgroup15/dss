@@ -5,7 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import dss.models.price.Price;
 import org.apache.commons.io.IOUtils;
@@ -18,6 +21,13 @@ import dss.models.Model;
 import dss.models.manufacturer.Manufacturer;
 
 public class Device extends Model {
+
+    public static String join(Set<?> objects) {
+        return String.join(
+                ", ", objects.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.toList()));
+    }
 
     public static class Battery {
         public int sleep;
@@ -50,12 +60,48 @@ public class Device extends Model {
     }
 
     public static class Com {
+
         public boolean wlan;
         public boolean bluetooth;
         public boolean gps;
         public boolean radio;
         public boolean usb;
         public boolean nfc;
+
+        public enum Item {
+            WLAN("WiFi"),
+            BLUETOOTH("Bluetooth"),
+            GPS("GPS"),
+            RADIO("Radio"),
+            USB("USB"),
+            NFC("NFC");
+
+            private String name;
+
+            Item(String name) {
+                this.name = name;
+            }
+
+            public String getName() {
+                return name;
+            }
+        }
+
+        public Set<Item> get() {
+            Set<Item> items = new HashSet<>();
+            if (wlan) items.add(Item.WLAN);
+            if (bluetooth) items.add(Item.BLUETOOTH);
+            if (gps) items.add(Item.GPS);
+            if (radio) items.add(Item.RADIO);
+            if (usb) items.add(Item.USB);
+            if (nfc) items.add(Item.NFC);
+            return items;
+        }
+
+        @Override
+        public String toString() {
+            return join(get());
+        }
     }
 
     public static class Sensor {
@@ -65,6 +111,41 @@ public class Device extends Model {
         public boolean gyro;
         public boolean magnetometer;
         public boolean proximity;
+
+        public enum Item {
+            ACCELEROMETER("Accelerometer"),
+            BAROMETER("Barometer"),
+            COMPASS("Compass"),
+            GYRO("Gyro"),
+            MAGNETOMETER("Magnetometer"),
+            PROXIMITY("Proximity");
+
+            private String name;
+
+            Item(String name) {
+                this.name = name;
+            }
+
+            public String getName() {
+                return name;
+            }
+        }
+
+        public Set<Item> get() {
+            Set<Item> items = new HashSet<>();
+            if (accelerometer) items.add(Item.ACCELEROMETER);
+            if (barometer) items.add(Item.BAROMETER);
+            if (compass) items.add(Item.COMPASS);
+            if (gyro) items.add(Item.GYRO);
+            if (magnetometer) items.add(Item.MAGNETOMETER);
+            if (proximity) items.add(Item.PROXIMITY);
+            return items;
+        }
+
+        @Override
+        public String toString() {
+            return join(get());
+        }
     }
 
     public static class Memory {
@@ -76,6 +157,39 @@ public class Device extends Model {
         public boolean microSDHC;
         public boolean mmc;
         public boolean mmcMobile;
+
+        public enum Item {
+            SD("SD"),
+            MICRO_SD("MicroSD"),
+            MICRO_SDHC("MicroSDHC"),
+            MMC("MMC"),
+            MMC_MOBILE("MMC Mobile");
+
+            private String name;
+
+            Item(String name) {
+                this.name = name;
+            }
+
+            public String getName() {
+                return name;
+            }
+        }
+
+        public Set<Item> get() {
+            Set<Item> items = new HashSet<>();
+            if (sd) items.add(Item.SD);
+            if (microSD) items.add(Item.MICRO_SD);
+            if (microSDHC) items.add(Item.MICRO_SDHC);
+            if (mmc) items.add(Item.MMC);
+            if (mmcMobile) items.add(Item.MMC_MOBILE);
+            return items;
+        }
+
+        @Override
+        public String toString() {
+            return join(get());
+        }
     }
 
     public static class Network {
@@ -85,6 +199,41 @@ public class Device extends Model {
         public boolean evdo;
         public boolean cdma;
         public boolean lte;
+
+        public enum Item {
+            GSM("GSM"),
+            UMTS("UMTS"),
+            HSPA("HSPA"),
+            EVDO("EVDO"),
+            CDMA("CDMA"),
+            LTE("LTE");
+
+            private String name;
+
+            Item(String name) {
+                this.name = name;
+            }
+
+            public String getName() {
+                return name;
+            }
+        }
+
+        public Set<Item> get() {
+            Set<Item> items = new HashSet<>();
+            if (gsm) items.add(Item.GSM);
+            if (umts) items.add(Item.UMTS);
+            if (hspa) items.add(Item.HSPA);
+            if (evdo) items.add(Item.EVDO);
+            if (cdma) items.add(Item.CDMA);
+            if (lte) items.add(Item.LTE);
+            return items;
+        }
+
+        @Override
+        public String toString() {
+            return join(get());
+        }
     }
 
     public static class Sound {
@@ -118,21 +267,86 @@ public class Device extends Model {
         public boolean green;
         public boolean gold;
         public boolean orange;
+
+        public enum Item {
+            BLACK("Black"),
+            WHITE("White"),
+            BLUE("Blue"),
+            RED("Red"),
+            PINK("Pink"),
+            SILVER("Silver"),
+            GRAY("Gray"),
+            YELLOW("Yellow"),
+            GREEN("Green"),
+            GOLD("Gold"),
+            ORANGE("Orange");
+
+            private String name;
+
+            Item(String name) {
+                this.name = name;
+            }
+
+            public String getName() {
+                return name;
+            }
+        }
+
+        public Set<Item> get() {
+            Set<Item> items = new HashSet<>();
+            if (black) items.add(Item.BLACK);
+            if (white) items.add(Item.WHITE);
+            if (blue) items.add(Item.BLUE);
+            if (red) items.add(Item.RED);
+            if (pink) items.add(Item.PINK);
+            if (silver) items.add(Item.SILVER);
+            if (gray) items.add(Item.GRAY);
+            if (yellow) items.add(Item.YELLOW);
+            if (green) items.add(Item.GREEN);
+            if (gold) items.add(Item.GOLD);
+            if (orange) items.add(Item.ORANGE);
+            return items;
+        }
+
+        @Override
+        public String toString() {
+            return join(get());
+        }
     }
 
     public enum SIMType {
-        UNKNOWN,
-        FULL_SIZE,
-        MINI_SIM,
-        MICRO_SIM,
-        NANO_SIM;
+        UNKNOWN("Unknown"),
+        FULL_SIZE("Full size"),
+        MINI_SIM("Mini SIM"),
+        MICRO_SIM("Micro SIM"),
+        NANO_SIM("Nano SIM");
+
+        private String name;
+
+        SIMType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     public enum Platform {
-        UNKNOWN,
-        ANDROID,
-        IOS,
-        WINDOWS;
+        UNKNOWN("Unknown"),
+        ANDROID("Android"),
+        IOS("iOS"),
+        WINDOWS("Windows");
+
+        private String name;
+
+        Platform(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     public long id;
