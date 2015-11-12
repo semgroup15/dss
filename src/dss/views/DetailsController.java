@@ -53,25 +53,9 @@ public class DetailsController {
         		device.body.height + " mm x " +
         		device.body.depth + " mm");
 
-        String colors = "";
-
-        colors += device.color.black ? "black, " : "";
-        colors += device.color.white ? "white, " : "";
-        colors += device.color.blue ? "blue, " : "";
-        colors += device.color.red ? "red, " : "";
-        colors += device.color.pink ? "pink, " : "";
-        colors += device.color.silver ? "silver, " : "";
-        colors += device.color.gray ? "gray, " : "";
-        colors += device.color.yellow ? "yellow, " : "";
-        colors += device.color.green ? "green, " : "";
-        colors += device.color.gold ? "gold, " : "";
-        colors += device.color.orange ? "orange, " : "";
-
         // Remove last ", "
-        if(colors.length() > 0)
-        	colors = colors.substring(0, colors.length() - 2);
 
-        this.colors.setText("Colors: " + colors);
+        this.colors.setText("Colors: " + device.color.toString());
         this.battery.setText("Idle battery life: " + device.battery.sleep + " hours");
 
         try{

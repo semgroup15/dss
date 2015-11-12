@@ -35,7 +35,6 @@ public class MainView extends Application {
 
     public static void launchApp()
     {
-
         MainView.launch();
     }
 

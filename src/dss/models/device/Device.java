@@ -85,6 +85,11 @@ public class Device extends Model {
             public String getName() {
                 return name;
             }
+
+            @Override
+            public String toString() {
+                return name;
+            }
         }
 
         public Set<Item> get() {
@@ -127,6 +132,11 @@ public class Device extends Model {
             }
 
             public String getName() {
+                return name;
+            }
+
+            @Override
+            public String toString() {
                 return name;
             }
         }
@@ -174,6 +184,11 @@ public class Device extends Model {
             public String getName() {
                 return name;
             }
+
+            @Override
+            public String toString() {
+                return name;
+            }
         }
 
         public Set<Item> get() {
@@ -215,6 +230,11 @@ public class Device extends Model {
             }
 
             public String getName() {
+                return name;
+            }
+
+            @Override
+            public String toString() {
                 return name;
             }
         }
@@ -290,6 +310,11 @@ public class Device extends Model {
             public String getName() {
                 return name;
             }
+
+            @Override
+            public String toString() {
+                return name;
+            }
         }
 
         public Set<Item> get() {
@@ -330,6 +355,11 @@ public class Device extends Model {
         public String getName() {
             return name;
         }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public enum Platform {
@@ -345,6 +375,11 @@ public class Device extends Model {
         }
 
         public String getName() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
             return name;
         }
     }
