@@ -31,6 +31,10 @@ public class DeviceController implements Initializable {
 
     @FXML
     private ImageView deviceImageView;
+
+    @FXML
+    private Button compareButton;
+
     // Reference to the main views.
 	private MainView mainApp;
     private Device device;
@@ -50,6 +54,9 @@ public class DeviceController implements Initializable {
         modelNameText.setText(device.getManufacturer().name + " " + device.name);
         DetailsController dc = this.mainApp.getMainController().getDetailsController();
         viewDetailsButton.setOnAction(actionEvent -> dc.displayDevice(this.device));
+        compareButton.setOnAction(event -> {
+        	mainApp.getMainController().addDeviceToComparisonCart(this.device);
+        });
         starRatingBackgroundBox.setWidth((Math.ceil(Math.random()*5)) * 20);
         try{
             File deviceFile = device.getImageFile();

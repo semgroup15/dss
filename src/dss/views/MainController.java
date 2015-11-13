@@ -1,5 +1,6 @@
 package dss.views;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dss.models.device.Device;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 /* * *
  * This class will control the top bar as well as swapping between different views.
@@ -26,10 +28,18 @@ public class MainController {
     private Button searchButton;
     @FXML
     private StackPane screenSwitch;
+    @FXML
+    private Text comparisonCart;
+    @FXML
+    private Button compareButton;
+    @FXML
+    private Button clearButton;
 
     private DetailsController detailsController;
 	private DeviceListController deviceListController;
 	private ComparisonRootController comparisonRootController;
+
+	private ArrayList<Device> comparisonDeviceCart = new ArrayList<Device>();
 
     public void setDetailsController(DetailsController controller) {
         this.detailsController = controller;
@@ -53,6 +63,41 @@ public class MainController {
 		screenSwitch.getChildren().add(p);
 	}
 
+	public void addDeviceToComparisonCart(Device device)
+	{
+		if(comparisonDeviceCart.contains(device)) return;
+		if(!canAddToComparisonCart()) return;
+
+		comparisonDeviceCart.add(device);
+		if(comparisonDeviceCart.size() > 1)
+			comparisonCart.setText(comparisonCart.getText() + ", " + device.name);
+		else
+			comparisonCart.setText(device.name);
+	}
+
+	// Check if more devices can be added
+	public boolean canAddToComparisonCart()
+	{
+		return comparisonDeviceCart.size() < 3;
+	}
+
+	// Clears the comparison cart
+	public void clearComparisonCart()
+	{
+		comparisonDeviceCart.clear();
+		comparisonCart.setText("");
+	}
+
+	public void compareDevicesInCart()
+	{
+		// We want at least two devices to compare
+		if(comparisonDeviceCart.size() < 2) return;
+
+		comparisonRootController.displayComparison(comparisonDeviceCart);
+		clearComparisonCart();
+		setScreen(Screen.Comparison);
+	}
+
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -63,7 +108,7 @@ public class MainController {
         manufacturerComboBox.setItems(FXCollections.observableArrayList(manufacturers));
 
         searchButton.setOnAction(event -> {
-            mainApp.getMainController().setScreen(MainController.Screen.List);
+        	this.setScreen(MainController.Screen.List);
 
             Device.QueryBuilder queryBuilder = new Device.QueryBuilder();
 
@@ -80,6 +125,29 @@ public class MainController {
             List<Device> devices = Device.manager.select(queryBuilder.limit(10));
             deviceListController.displayDeviceList(devices);
         });
+
+        searchButton.setOnAction(event -> {
+        	this.setScreen(MainController.Screen.List);
+
+            Device.QueryBuilder queryBuilder = new Device.QueryBuilder();
+
+            Manufacturer manufacturer = manufacturerComboBox.getValue();
+            if (manufacturer != null) {
+                queryBuilder.byManufacturerId(manufacturer.id);
+            }
+
+            String query = searchTextField.getText().trim();
+            if (query != null && !query.isEmpty()) {
+                queryBuilder.byName(query);
+            }
+
+            List<Device> devices = Device.manager.select(queryBuilder.limit(10));
+            deviceListController.displayDeviceList(devices);
+        });
+
+        compareButton.setOnAction(event -> { this.compareDevicesInCart(); });
+
+        clearButton.setOnAction(event -> { this.clearComparisonCart(); });
     }
 
     /**
