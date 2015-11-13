@@ -7,13 +7,14 @@ import java.util.List;
 import dss.models.device.Device;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 
 public class ComparisonRootController {
 
-	@FXML private AnchorPane deviceColumnAnchorPane;
-	
-	// 
+	@FXML private ScrollPane deviceColumnScrollPane;
+
+	//
 
     // Reference to the main views.
 	private MainView mainApp;
@@ -32,7 +33,7 @@ public class ComparisonRootController {
 
     public void displayComparison(List<Device> deviceList)
     {
-    	deviceColumnAnchorPane.getChildren().clear();
+    	// TODO - clear children
     	// We always want three comparison columns so an empty
     	// one is generated if we don't have enough devices
         for(int i = 0; i < 3; i++)
@@ -46,6 +47,8 @@ public class ComparisonRootController {
 
     public void displayColumn(Device device)
     {
+    	System.out.println("it worked!");
+    	/*
         try {
             AnchorPane devicePane = loader.load();
             // TODO - structure this to scale correctly with 2~4 devices
@@ -61,6 +64,7 @@ public class ComparisonRootController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     /**

@@ -34,6 +34,7 @@ public class MainView extends Application {
 
         mainController.setDeviceListController(initializeDeviceList());
         mainController.setDetailsController(initializeDetails());
+        mainController.setComparisonRootController(initializeComparison());
 
         mainController.setScreen(MainController.Screen.List);
     }
@@ -74,7 +75,6 @@ public class MainView extends Application {
 
             // Sub-components will be placed into RootLayout using this method
             mainController.AddPaneToStack((Node)deviceList);
-            mainController.setDeviceListController(controller);
 
             // Give the controller access to the main app.
 
@@ -99,7 +99,6 @@ public class MainView extends Application {
 
             // Sub-components will be placed into RootLayout using this method
             mainController.AddPaneToStack(deviceList);
-            mainController.setDetailsController(controller);
 
             // Give the controller access to the main app.
             controller.setMainApp(this);
@@ -123,7 +122,6 @@ public class MainView extends Application {
 
             // Sub-components will be placed into RootLayout using this method
             mainController.AddPaneToStack(comparisonColumns);
-            mainController.setComparisonRootController(controller);
 
             // Give the controller access to the main app.
             controller.setMainApp(this);

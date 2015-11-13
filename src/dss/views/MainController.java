@@ -50,6 +50,7 @@ public class MainController {
     }
 
     public void setComparisonRootController(ComparisonRootController controller) {
+    	System.out.println(controller);
         this.comparisonRootController = controller;
     }
 
@@ -93,6 +94,8 @@ public class MainController {
 		// We want at least two devices to compare
 		if(comparisonDeviceCart.size() < 2) return;
 
+		System.out.println("root " + (comparisonRootController == null));
+		System.out.println("cart " + (comparisonDeviceCart == null));
 		comparisonRootController.displayComparison(comparisonDeviceCart);
 		clearComparisonCart();
 		setScreen(Screen.Comparison);

@@ -30,7 +30,7 @@
                 <Text fx:id="modelNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Composite Model Name" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="4.0" />
                 <Text fx:id="modelLine1Text" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="23.0" />
                 <Text fx:id="modelLine2Text" layoutX="5.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="42.0" />
-            <Button fx:id="compareButton" layoutX="209.0" layoutY="46.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #AAA; -fx-border-style: none; -fx-border-width: 0;" text="Compare" />
+            <Button fx:id="compareButton" layoutX="209.0" layoutY="46.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #AAA; -fx-border-style: none; -fx-border-width: 0;" text="Compare" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="0.0" />
 
                 <!-- <Text fx:id="PriceText" fill="#076f0b" layoutX="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$99.00" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                     <font>
