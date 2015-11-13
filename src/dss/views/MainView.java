@@ -20,30 +20,9 @@ public class MainView extends Application {
 
     private MainController mainController;
 
-    /**
-     * The data as an observable list of Devices.
-     * Not necessary in main views. Will be located in the controller classes.
-     */
-    private ObservableList<Device> smartphoneData = FXCollections.observableArrayList();
-
-    /**
-     * Constructor
-     */
-    public MainView() {
-
-    }
-
     public static void launchApp()
     {
         MainView.launch();
-    }
-
-    /**
-     * Returns the data as an observable list of Devices.
-     * @return
-     */
-    public ObservableList<Device> getDeviceData() {
-        return smartphoneData;
     }
 
     @Override
