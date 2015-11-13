@@ -112,35 +112,34 @@ public class MainView extends Application {
         return null;
     }
 
+    public ComparisonRootController initializeComparison() {
+        try {
+            // Load device overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainView.class.getResource("ComparisonLayout.fxml"));
+            // Store the layout gotten from the fxml document
+            ScrollPane comparisonColumns = loader.load();
+            ComparisonRootController controller = loader.getController();
+
+            // Sub-components will be placed into RootLayout using this method
+            mainController.AddPaneToStack(comparisonColumns);
+            mainController.setComparisonRootController(controller);
+
+            // Give the controller access to the main app.
+            controller.setMainApp(this);
+
+            return controller;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public MainController getMainController()
     {
         return this.mainController;
     }
-
-    /**
-     * Shows the person overview inside the root layout.
-     */
-    /*//-- Example of how to add sub-layouts to the root
-    public void showSubLayout() {
-        try {
-            // Load device overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("views/MyLayout.fxml"));
-            // Store the layout gotten from the fxml document
-            AnchorPane myLayout = (AnchorPane) loader.load();
-
-            // Sub-components will be placed into RootLayout using this method
-            rootLayout.setCenter(myLayout);
-
-            // Give the controller access to the main app.
-            MyController controller = loader.getController();
-            controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 
     /**
      * Returns the main stage.

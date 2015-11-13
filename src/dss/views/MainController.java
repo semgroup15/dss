@@ -29,6 +29,7 @@ public class MainController {
 
     private DetailsController detailsController;
 	private DeviceListController deviceListController;
+	private ComparisonRootController comparisonRootController;
 
     public void setDetailsController(DetailsController controller) {
         this.detailsController = controller;
@@ -36,6 +37,10 @@ public class MainController {
 
     public void setDeviceListController(DeviceListController controller) {
         this.deviceListController = controller;
+    }
+
+    public void setComparisonRootController(ComparisonRootController controller) {
+        this.comparisonRootController = controller;
     }
 
     // Reference to the main views.
@@ -127,7 +132,7 @@ public class MainController {
     public enum Screen {
     	Details ("detailsScrollPane"),
     	List ("deviceListScrollPane"),
-    	Comparison ("Mode3");
+    	Comparison ("comparisonScrollPane");
 
         private final String name;
 
