@@ -12,7 +12,8 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Root extends Widget implements State.LocationListener, Initializable {
+public class Root extends Widget
+        implements Initializable, State.LocationListener {
 
     @FXML
     Search search;
@@ -26,14 +27,9 @@ public class Root extends Widget implements State.LocationListener, Initializabl
     @FXML
     Comparison comparison;
 
-    public Root() {
-        super();
-        State.get().addLocationListener(this);
-    }
-
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
-        onLocationChange(State.get().getLocation());
+        State.get().addLocationListener(this);
     }
 
     @Override

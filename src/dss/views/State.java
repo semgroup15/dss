@@ -1,6 +1,7 @@
 package dss.views;
 
 import dss.models.device.Device;
+import dss.models.manufacturer.Manufacturer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,31 @@ public class State {
     }
 
     /**
+     * Search criteria.
+     */
+    public static class Criteria {
+
+        private Manufacturer manufacturer;
+        private String query;
+
+        public Manufacturer getManufacturer() {
+            return manufacturer;
+        }
+
+        public void setManufacturer(Manufacturer manufacturer) {
+            this.manufacturer = manufacturer;
+        }
+
+        public String getQuery() {
+            return query;
+        }
+
+        public void setQuery(String query) {
+            this.query = query;
+        }
+    }
+
+    /**
      * Access level
      */
     public enum Level {
@@ -79,6 +105,9 @@ public class State {
         ADMIN,
     }
 
+    /**
+     * Location change listener.
+     */
     public interface LocationListener {
         /**
          * Change current location.
@@ -87,6 +116,20 @@ public class State {
         void onLocationChange(Location location);
     }
 
+    /**
+     * Search criteria change listener.
+     */
+    public interface SearchListener {
+        /**
+         * Change current search criteria.
+         * @param criteria Criteria
+         */
+        void onSearchChange(Criteria criteria);
+    }
+
+    /**
+     * Device selection listener.
+     */
     public interface DeviceListener {
         /**
          * Add device.
@@ -101,6 +144,9 @@ public class State {
         void onDeviceRemove(Device device);
     }
 
+    /**
+     * Access level change listener.
+     */
     public interface LevelListener {
         /**
          * Change access level.
@@ -110,11 +156,13 @@ public class State {
     }
 
     private List<LocationListener> locationListeners = new ArrayList<>();
+    private List<SearchListener> searchListeners = new ArrayList<>();
     private List<DeviceListener> deviceListeners = new ArrayList<>();
     private List<LevelListener> levelListeners = new ArrayList<>();
 
     // Initial state
     private Location location = new Location(Location.Section.LISTING);
+    private Criteria criteria = new Criteria();
     private List<Device> devices = new ArrayList<>();
     private Level level = Level.USER;
 
@@ -124,6 +172,8 @@ public class State {
 
     public void addLocationListener(LocationListener listener) {
         locationListeners.add(listener);
+
+        listener.onLocationChange(location);
     }
 
     public void removeLocationListener(LocationListener listener) {
@@ -143,11 +193,41 @@ public class State {
     }
 
     /*
+     * Search
+     */
+
+    public void addSearchListener(SearchListener listener) {
+        searchListeners.add(listener);
+
+        listener.onSearchChange(criteria);
+    }
+
+    public void removeSearchListener(SearchListener listener) {
+        searchListeners.remove(listener);
+    }
+
+    public void setCriteria(Criteria criteria) {
+        this.criteria = criteria;
+
+        for (SearchListener listener : searchListeners) {
+            listener.onSearchChange(criteria);
+        }
+    }
+
+    public Criteria getCriteria() {
+        return criteria;
+    }
+
+    /*
      * Devices
      */
 
     public void addDeviceListener(DeviceListener listener) {
         deviceListeners.add(listener);
+
+        for (Device device : devices) {
+            listener.onDeviceAdd(device);
+        }
     }
 
     public void removeDeviceListener(DeviceListener listener) {
@@ -196,6 +276,8 @@ public class State {
 
     public void addLevelListener(LevelListener listener) {
         levelListeners.add(listener);
+
+        listener.onLevelChange(level);
     }
 
     public void removeLevelListener(LevelListener listener) {

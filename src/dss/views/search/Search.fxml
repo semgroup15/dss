@@ -13,12 +13,17 @@
 
     <center>
         <BorderPane>
-            <left><ComboBox/></left>
-            <center><TextField/></center>
+            <left>
+                <ComboBox fx:id="manufacturer"/>
+            </left>
+
+            <center>
+                <TextField fx:id="query" onAction="#onSearch"/>
+            </center>
         </BorderPane>
     </center>
 
     <right>
-        <Button text="Search"/>
+        <Button text="Search" onAction="#onSearch"/>
     </right>
 </fx:root>
