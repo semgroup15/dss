@@ -9,11 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.io.IOUtils;
 import org.sqlite.SQLiteConfig;
@@ -371,6 +367,7 @@ public abstract class Model {
 
                 String getQuery();
                 List<Object> getParameters();
+                boolean isValid();
             }
 
             public static class BaseSection implements Section {
@@ -384,12 +381,14 @@ public abstract class Model {
                     this.queryBuilder = queryBuilder;
                 }
 
+                @Override
                 public Section add(String part, Object... parameters) {
                     this.parts.add(part);
                     this.parameters.addAll(Arrays.asList(parameters));
                     return this;
                 }
 
+                @Override
                 public QueryBuilder done() {
                     return this.queryBuilder;
                 }
@@ -400,12 +399,19 @@ public abstract class Model {
                     return parts;
                 }
 
+                @Override
                 public String getQuery() {
                     return String.join(" ", getPartsAsArray());
                 }
 
+                @Override
                 public List<Object> getParameters() {
                     return parameters;
+                }
+
+                @Override
+                public boolean isValid() {
+                    return true;
                 }
             }
 
@@ -415,12 +421,18 @@ public abstract class Model {
                     super(queryBuilder);
                 }
 
+                @Override
                 public String getQuery() {
                     String[] parts = getPartsAsArray();
                     for (int i = 0; i < parts.length; i++) {
                         parts[i] = String.format("(%s)", parts[i]);
                     }
                     return "WHERE " + String.join(" AND ", parts);
+                }
+
+                @Override
+                public boolean isValid() {
+                    return !parts.isEmpty();
                 }
             }
 
@@ -465,6 +477,14 @@ public abstract class Model {
                 parameters.addAll(join.getParameters());
                 parameters.addAll(where.getParameters());
                 return parameters;
+            }
+
+            public boolean isValid() {
+                return
+                    select.isValid() &&
+                    join.isValid() &&
+                    where.isValid() &&
+                    limit.isValid();
             }
         }
 
@@ -843,7 +863,14 @@ public abstract class Model {
          * @param builder {@code QueryBuilder}
          * @return Query result.
          */
-        public List<T> select(final QueryBuilder builder) {
+        public List<T> select(final QueryBuilder builder)
+                throws IllegalArgumentException {
+
+            if (!builder.isValid()) {
+                throw new IllegalArgumentException(
+                        "QueryBuilder is not in a valid state");
+            }
+
             return DB.execute(new DB.Task<List<T>>() {
                 @Override
                 public List<T> execute(Context context)

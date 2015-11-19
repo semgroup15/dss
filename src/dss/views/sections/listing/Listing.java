@@ -15,10 +15,15 @@ public class Listing extends Widget
 
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
+        State.get().addSearchListener(this);
     }
 
     @Override
     public void onSearchChange(State.Criteria criteria) {
-        List<Device> devices = Device.manager.select(criteria.asDeviceQuery());
+        Device.QueryBuilder query = criteria.asDeviceQuery();
+        if (query.isValid()) {
+            List<Device> devices = Device.manager.select(query);
+            System.out.println(String.format("%d devices", devices.size()));
+        }
     }
 }
