@@ -2,7 +2,9 @@
 
 ## Build
 
+* Symlink or copy `jfxrt.jar` to the `lib` directory
 * Build with `ant build`
+
 
 ## Commands
 
@@ -17,15 +19,14 @@
 * `ant run -Dcommand=ga.expand` Expand current database with details
 
 
-### DSS
-
-* `ant run -Dcommand=dss.input` Input client
-* `ant run -Dcommand=dss.output` Output client
-
-
 ### Media
 
 * `ant run -Dcommand=media.fetch` Fetch missing device images
+
+
+### UI
+
+* `ant run -Dcommand=ui` Main UI
 
 
 ## Libraries

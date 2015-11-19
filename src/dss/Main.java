@@ -8,15 +8,18 @@ public class Main {
     public static void main(String[] args) {
         Map<String, Runnable> commands = new HashMap<>();
 
+        // DB
         commands.put("db.init", new dss.commands.db.InitCommand());
 
-        commands.put("dss.input", new dss.commands.dss.InputClientCommand());
-        commands.put("dss.output", new dss.commands.dss.OutputClientCommand());
-
+        // GSMArena
         commands.put("ga.init", new dss.commands.ga.InitCommand());
         commands.put("ga.expand", new dss.commands.ga.ExpandCommand());
 
+        // Media
         commands.put("media.fetch", new dss.commands.media.FetchCommand());
+
+        // UI
+        commands.put("ui", () -> dss.views.Main.main(args));
 
         if (args.length == 1) {
             Runnable command = commands.get(args[0]);

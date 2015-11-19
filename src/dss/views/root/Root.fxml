@@ -1,0 +1,21 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+<fx:root type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml">
+    <BorderPane>
+        <top>
+            <Text text="TOP"/>
+        </top>
+        <left>
+            <Text text="LEFT"/>
+        </left>
+        <center>
+            <Text text="CENTER"/>
+        </center>
+        <right>
+            <Text text="RIGHT"/>
+        </right>
+        <bottom>
+            <Text text="BOTTOM"/>
+        </bottom>
+    </BorderPane>
+</fx:root>

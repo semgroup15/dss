@@ -41,6 +41,8 @@
              basedir="${proj.build.classes}">
             <zipgroupfileset dir="lib" includes="**/*.jar"/>
             <fileset dir="src" includes="**/*.sql"/>
+            <fileset dir="src" includes="**/*.fxml"/>
+            <fileset dir="src" includes="**/*.css"/>
             <manifest>
                 <attribute name="Main-Class" value="${proj.main}"/>
                 <attribute name="Class-Path" value="lib/*.jar"/>
