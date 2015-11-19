@@ -373,6 +373,11 @@ public class Device extends Model {
     public SIMType simType = SIMType.UNKNOWN;
     public Platform platform = Platform.UNKNOWN;
 
+    @Override
+    public String toString() {
+        return String.format("(%d) %s %s", id, getManufacturer().name, name);
+    }
+
     /*
      * Query
      */

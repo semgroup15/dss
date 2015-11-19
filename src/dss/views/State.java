@@ -11,7 +11,7 @@ import java.util.List;
  *
  * <ul>
  *   <li>Visible location</li>
- *   <li>Device selection</li>
+ *   <li>Item selection</li>
  *   <li>Access level</li>
  * </ul>
  */
@@ -98,7 +98,7 @@ public class State {
 
         /**
          * Get criteria as a device query.
-         * @return Device query
+         * @return Item query
          */
         public Device.QueryBuilder asDeviceQuery() {
             Device.QueryBuilder query = new Device.QueryBuilder();
@@ -146,18 +146,18 @@ public class State {
     }
 
     /**
-     * Device selection listener.
+     * Item selection listener.
      */
     public interface DeviceListener {
         /**
          * Add device.
-         * @param device Device to add
+         * @param device Item to add
          */
         void onDeviceAdd(Device device);
 
         /**
          * Remove device.
-         * @param device Device to remove
+         * @param device Item to remove
          */
         void onDeviceRemove(Device device);
     }
@@ -254,7 +254,7 @@ public class State {
 
     /**
      * Add device to selection.
-     * @param device Device to add
+     * @param device Item to add
      */
     public void addDevice(Device device) {
         if (!devices.contains(device)) {
@@ -268,7 +268,7 @@ public class State {
 
     /**
      * Remove device from selection.
-     * @param device Device to remove
+     * @param device Item to remove
      */
     public void removeDevice(Device device) {
         if (devices.contains(device)) {
