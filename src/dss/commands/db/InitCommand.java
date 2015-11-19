@@ -6,6 +6,11 @@ import dss.models.price.Price;
 import dss.models.review.Review;
 
 public class InitCommand implements Runnable {
+
+    public static void main(String[] args) {
+        new InitCommand().run();
+    }
+
     @Override
     public void run() {
         Manufacturer.manager.createTable();

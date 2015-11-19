@@ -5,6 +5,11 @@ import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
 public class InitCommand implements Runnable {
+
+    public static void main(String[] args) {
+        new InitCommand().run();
+    }
+
     @Override
     public void run() {
         System.out.println("GSMArena");

@@ -6,6 +6,11 @@ import dss.ga.GSMArena;
 import dss.models.device.Device;
 
 public class ExpandCommand implements Runnable {
+
+    public static void main(String[] args) {
+        new ExpandCommand().run();
+    }
+
     @Override
     public void run() {
         System.out.println("GSMArena");

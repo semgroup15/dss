@@ -8,6 +8,11 @@ import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
 public class FetchCommand implements Runnable {
+
+    public static void main(String[] args) {
+        new FetchCommand().run();
+    }
+
     @Override
     public void run() {
         System.out.println("Media");

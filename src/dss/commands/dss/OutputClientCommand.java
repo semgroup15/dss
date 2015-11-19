@@ -5,6 +5,11 @@ import java.util.List;
 import dss.models.device.Device;
 
 public class OutputClientCommand implements Runnable {
+
+    public static void main(String[] args) {
+        new OutputClientCommand().run();
+    }
+
     @Override
     public void run() {
         System.out.println("DSS Output Client");

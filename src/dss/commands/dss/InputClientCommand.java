@@ -4,6 +4,11 @@ import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
 public class InputClientCommand implements Runnable {
+
+    public static void main(String[] args) {
+        new InputClientCommand().run();
+    }
+
     @Override
     public void run() {
         System.out.println("DSS Input Client");
