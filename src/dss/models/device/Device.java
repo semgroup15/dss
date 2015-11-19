@@ -20,6 +20,8 @@ import org.apache.http.impl.client.HttpClients;
 import dss.models.Model;
 import dss.models.manufacturer.Manufacturer;
 
+import javax.management.Query;
+
 public class Device extends Model {
 
     public static String join(Set<?> objects) {
@@ -381,6 +383,20 @@ public class Device extends Model {
             super();
 
             this.select().add("SELECT * FROM device").done();
+        }
+
+        public QueryBuilder offset(int offset) {
+            return (QueryBuilder) this
+                    .limit()
+                        .add(String.format("OFFSET %d", offset))
+                        .done();
+        }
+
+        public QueryBuilder limit(int limit) {
+            return (QueryBuilder) this
+                    .limit()
+                        .add(String.format("LIMIT %d", limit))
+                        .done();
         }
 
         public QueryBuilder byName(String name) {

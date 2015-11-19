@@ -95,6 +95,24 @@ public class State {
         public void setQuery(String query) {
             this.query = query;
         }
+
+        /**
+         * Get criteria as a device query.
+         * @return Device query
+         */
+        public Device.QueryBuilder asDeviceQuery() {
+            Device.QueryBuilder query = new Device.QueryBuilder();
+
+            if (this.manufacturer != null) {
+                query.byManufacturerId(this.manufacturer.id);
+            }
+
+            if (this.query != null && !this.query.isEmpty()) {
+                query.byName(this.query);
+            }
+
+            return query;
+        }
     }
 
     /**
