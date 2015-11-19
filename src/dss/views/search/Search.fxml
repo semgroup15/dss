@@ -1,0 +1,24 @@
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.BorderPane?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <left>
+        <Label text="DSS"/>
+    </left>
+
+    <center>
+        <BorderPane>
+            <left><ComboBox/></left>
+            <center><TextField/></center>
+        </BorderPane>
+    </center>
+
+    <right>
+        <Button text="Search"/>
+    </right>
+</fx:root>

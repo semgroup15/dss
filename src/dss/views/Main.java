@@ -2,8 +2,8 @@ package dss.views;
 
 import dss.views.root.Root;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -19,8 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        Group group = new Group();
-        Scene scene = new Scene(group);
+        BorderPane root = new BorderPane();
+        Scene scene = new Scene(root);
         scene.getStylesheets().add(STYLES);
 
         stage.setScene(scene);
@@ -31,6 +31,6 @@ public class Main extends Application {
         stage.show();
         stage.requestFocus();
 
-        group.getChildren().add(new Root());
+        root.setCenter(new Root());
     }
 }

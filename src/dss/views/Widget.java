@@ -1,6 +1,7 @@
 package dss.views;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.net.URL;
  * Base {@code Widget} assumed to have a corresponding {@code .fxml} layout
  * file with the same name.
  */
-public class Widget extends Pane {
+public class Widget extends BorderPane {
 
     /**
      * Initialize {@code Widget}.

@@ -13,7 +13,7 @@ public class InitCommand implements Runnable {
     @Override
     public void run() {
         System.out.println("GSMArena");
-        System.out.println("Initializing with minimal device list");
+        System.out.println("Initializing with minimal device listing");
 
         GSMArena.QuickSearchResult result;
         try {

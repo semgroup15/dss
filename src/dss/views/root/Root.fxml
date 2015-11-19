@@ -1,21 +1,22 @@
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Text?>
-<fx:root type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml">
-    <BorderPane>
-        <top>
-            <Text text="TOP"/>
-        </top>
-        <left>
-            <Text text="LEFT"/>
-        </left>
-        <center>
-            <Text text="CENTER"/>
-        </center>
-        <right>
-            <Text text="RIGHT"/>
-        </right>
-        <bottom>
-            <Text text="BOTTOM"/>
-        </bottom>
-    </BorderPane>
+<?import dss.views.search.Search?>
+<?import dss.views.sections.listing.Listing?>
+<?import dss.views.sections.detail.Detail?>
+<?import dss.views.sections.comparison.Comparison?>
+<?import javafx.scene.layout.StackPane?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <top>
+        <Search fx:id="search"/>
+    </top>
+
+    <center>
+        <StackPane>
+            <Listing fx:id="listing"/>
+            <Detail fx:id="detail"/>
+            <Comparison fx:id="comparison"/>
+        </StackPane>
+    </center>
 </fx:root>

@@ -31,35 +31,35 @@ public class State {
     }
 
     /**
-     * Location reachable by the user
+     * Location
      */
     public static class Location {
 
-        public enum View {
-            LIST,
+        public enum Section {
+            LISTING,
             DETAIL,
             COMPARISON,
         }
 
-        private View view;
+        private Section section;
         private Object[] data;
 
         /**
          * Initialize {@code Location}.
-         * @param view View to be displayed
+         * @param section Section to be displayed
          * @param data Arbitrary data
          */
-        public Location(View view, Object... data) {
-            this.view = view;
+        public Location(Section section, Object... data) {
+            this.section = section;
             this.data = data;
         }
 
         /**
-         * Get displayed {@code View}.
-         * @return View
+         * Get displayed {@code Section}.
+         * @return Section
          */
-        public View getView() {
-            return view;
+        public Section getSection() {
+            return section;
         }
 
         /**
@@ -113,9 +113,10 @@ public class State {
     private List<DeviceListener> deviceListeners = new ArrayList<>();
     private List<LevelListener> levelListeners = new ArrayList<>();
 
-    private Location location;
-    private List<Device> devices;
-    private Level level;
+    // Initial state
+    private Location location = new Location(Location.Section.LISTING);
+    private List<Device> devices = new ArrayList<>();
+    private Level level = Level.USER;
 
     /*
      * Location

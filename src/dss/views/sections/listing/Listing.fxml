@@ -1,0 +1,11 @@
+<?import javafx.scene.text.Text?>
+<?import dss.views.sections.listing.filter.Filter?>
+<?import dss.views.sections.listing.selection.Selection?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <left><Filter/></left>
+    <center><Text text="LISTING"/></center>
+    <right><Selection/></right>
+</fx:root>

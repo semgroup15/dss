@@ -555,9 +555,9 @@ public abstract class Model {
         }
 
         /**
-         * Load a SQL {@code ResultSet} into a model list.
+         * Load a SQL {@code ResultSet} into a model listing.
          * @param result Query result
-         * @param rows Model list
+         * @param rows Model listing
          * @throws SQLException
          */
         public void load(ResultSet result, List<T> rows) throws SQLException {
