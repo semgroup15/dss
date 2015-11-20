@@ -12,8 +12,9 @@
       <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" BorderPane.alignment="TOP_LEFT">
          <children>
             <Text layoutX="24.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DSS" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" />
-            <ComboBox fx:id="manufacturerComboBox" prefWidth="160.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="10.0" />
-            <TextField fx:id="searchTextField" promptText="Search" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="10.0" />
+            <Button fx:id="backButton" layoutX="64.0" layoutY="11.0" mnemonicParsing="false" text="Back" />
+            <ComboBox fx:id="manufacturerComboBox" prefWidth="160.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="10.0" />
+            <TextField fx:id="searchTextField" layoutX="333.0" prefHeight="30.0" prefWidth="782.0" promptText="Search" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="10.0" />
             <Button fx:id="searchButton" mnemonicParsing="false" text="Search" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
             <Text fx:id="comparisonCart" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
             <Button fx:id="compareButton" layoutX="535.0" layoutY="20.0" mnemonicParsing="false" text="Compare" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
