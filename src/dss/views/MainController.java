@@ -34,6 +34,8 @@ public class MainController {
     private Button compareButton;
     @FXML
     private Button clearButton;
+    @FXML
+    private Button backButton;
 
     private DetailsController detailsController;
 	private DeviceListController deviceListController;
@@ -151,6 +153,8 @@ public class MainController {
         compareButton.setOnAction(event -> { this.compareDevicesInCart(); });
 
         clearButton.setOnAction(event -> { this.clearComparisonCart(); });
+
+        backButton.setOnAction(event -> { this.setScreen(Screen.List); });
     }
 
     /**
