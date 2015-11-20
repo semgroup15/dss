@@ -8,7 +8,7 @@ public class Price extends Model {
 
     public enum Retailer {
         AMAZON,
-        RANDOM;
+        RANDOM,
     }
 
     public long id;

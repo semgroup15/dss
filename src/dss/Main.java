@@ -18,6 +18,9 @@ public class Main {
         // Media
         commands.put("media.fetch", new dss.commands.media.FetchCommand());
 
+        // Retail
+        commands.put("retail.rand", new dss.commands.retail.RandomizeCommand());
+
         // UI
         commands.put("ui", () -> dss.views.Main.main(args));
 

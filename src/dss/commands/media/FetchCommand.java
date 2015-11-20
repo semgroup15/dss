@@ -23,10 +23,8 @@ public class FetchCommand implements Runnable {
 
         List<Device> devices = Device.manager.select(Device.SELECT_ALL);
         for (Device device : devices) {
-            Manufacturer manufacturer =
-                    manufacturerCache.get(device.manufacturerId);
             System.out.println(String.format(
-                   "%s %s", manufacturer.name, device.name));
+                   "%s %s", device.getManufacturer().name, device.name));
 
             File imageFile = device.getImageFile();
             if (imageFile == null) {
