@@ -24,6 +24,8 @@ public class ListingCell extends ListCell<Device>
     private static final double IMAGE_WIDTH = 70;
     private static final double IMAGE_HEIGHT = 96;
 
+    BorderPane graphic = new BorderPane();
+
     // Controls
     ImageView image = new ImageView();
     Label manufacturer = new Label();
@@ -41,8 +43,6 @@ public class ListingCell extends ListCell<Device>
 
         image.setFitWidth(IMAGE_WIDTH);
         image.setFitHeight(IMAGE_HEIGHT);
-
-        BorderPane graphic = new BorderPane();
 
         VBox center = new VBox();
         center.getChildren().add(name);
@@ -77,6 +77,9 @@ public class ListingCell extends ListCell<Device>
     @Override
     protected void updateItem(Device device, boolean empty) {
         super.updateItem(device, empty);
+
+        graphic.setVisible(!empty);
+
         if (device != null) {
             try {
                 image.setImage(new Image(
