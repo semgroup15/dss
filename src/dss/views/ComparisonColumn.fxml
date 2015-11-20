@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
@@ -9,21 +10,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 
-
-<AnchorPane prefHeight="807.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.views.DetailsController">
+<AnchorPane prefHeight="851.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.views.DetailsController">
    <children>
-      <Text fx:id="model" layoutX="219.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="model" wrappingWidth="224.6513671875" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="220.0">
+      <ImageView fx:id="picture" fitHeight="189.0" fitWidth="191.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Text fx:id="model" layoutX="20.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="model" wrappingWidth="224.6513671875" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.1953125">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Text>
-      <ImageView fx:id="picture" fitHeight="189.0" fitWidth="191.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-      <GridPane layoutX="15.0" layoutY="300.0" prefHeight="498.0" prefWidth="367.0">
+      <GridPane layoutX="20.0" layoutY="330.0" prefHeight="498.0" prefWidth="290.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="151.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.0" minWidth="10.0" prefWidth="216.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -37,146 +38,77 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextFlow GridPane.columnIndex="1">
-               <children>
-                  <Text fx:id="displayDimensions" strokeType="OUTSIDE" strokeWidth="0.0" text="displayDimensions" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Text fx:id="bodyDimensions" strokeType="OUTSIDE" strokeWidth="0.0" text="bodyDimensions" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <Text fx:id="colors" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <children>
-                  <Text fx:id="camera" strokeType="OUTSIDE" strokeWidth="0.0" text="camera" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <Text fx:id="battery" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <children>
-                  <Text fx:id="com" strokeType="OUTSIDE" strokeWidth="0.0" text="com" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <children>
-                  <Text fx:id="sensor" strokeType="OUTSIDE" strokeWidth="0.0" text="sensor" wrappingWidth="402.25341796875" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="8">
-               <children>
-                  <Text fx:id="network" strokeType="OUTSIDE" strokeWidth="0.0" text="network" wrappingWidth="400.49267578125" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <children>
-                  <Text fx:id="memory" strokeType="OUTSIDE" strokeWidth="0.0" text="memory" wrappingWidth="402.740234375" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="9">
-               <children>
-                  <Text fx:id="sound" strokeType="OUTSIDE" strokeWidth="0.0" text="sound" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="10">
-               <children>
-                  <Text fx:id="simtype" strokeType="OUTSIDE" strokeWidth="0.0" text="simtype" />
-               </children>
-            </TextFlow>
             <TextFlow>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Display Dimensions:" />
+                  <Text fx:id="manufacturer" strokeType="OUTSIDE" strokeWidth="0.0" text="Manufacturer" wrappingWidth="224.6513671875">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="1">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Body Dimensions:" />
+                  <Text fx:id="platform" strokeType="OUTSIDE" strokeWidth="0.0" text="platform" wrappingWidth="224.6513671875">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="2">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Colors:" />
+                  <Text fx:id="displayDimensions" strokeType="OUTSIDE" strokeWidth="0.0" text="displayDimensions" />
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="3">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Battery:" />
+                  <Text fx:id="bodyDimensions" strokeType="OUTSIDE" strokeWidth="0.0" text="bodyDimensions" />
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="4">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Camera:" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.rowIndex="5">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Comms:" />
+                  <Text fx:id="colors" strokeType="OUTSIDE" strokeWidth="0.0" text="colors" />
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="6">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sensors:" />
+                  <Text fx:id="camera" strokeType="OUTSIDE" strokeWidth="0.0" text="camera" />
+               </children>
+            </TextFlow>
+            <TextFlow GridPane.rowIndex="5">
+               <children>
+                  <Text fx:id="battery" strokeType="OUTSIDE" strokeWidth="0.0" text="battery" />
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="7">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Memory:" />
+                  <Text fx:id="com" strokeType="OUTSIDE" strokeWidth="0.0" text="com" />
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="8">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Network:" />
+                  <Text fx:id="sensor" strokeType="OUTSIDE" strokeWidth="0.0" text="sensor" wrappingWidth="402.25341796875" />
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="9">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sound:" />
+                  <Text fx:id="memory" strokeType="OUTSIDE" strokeWidth="0.0" text="memory" wrappingWidth="402.740234375" />
                </children>
             </TextFlow>
             <TextFlow GridPane.rowIndex="10">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sim Type:" />
+                  <Text fx:id="network" strokeType="OUTSIDE" strokeWidth="0.0" text="network" wrappingWidth="400.49267578125" />
                </children>
             </TextFlow>
-         </children>
-      </GridPane>
-      <GridPane layoutX="15.0" layoutY="260.0" prefHeight="51.0" prefWidth="305.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="19.0" minHeight="7.0" prefHeight="19.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TextFlow GridPane.columnIndex="1">
+            <TextFlow GridPane.rowIndex="11">
                <children>
-                  <Text fx:id="manufacturer" strokeType="OUTSIDE" strokeWidth="0.0" text="manufacturer" />
+                  <Text fx:id="sound" strokeType="OUTSIDE" strokeWidth="0.0" text="sound" />
                </children>
             </TextFlow>
-            <TextFlow>
+            <TextFlow GridPane.rowIndex="12">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manufacturer:" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.rowIndex="1">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Platform:" />
-               </children>
-            </TextFlow>
-            <TextFlow GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Text fx:id="platform" strokeType="OUTSIDE" strokeWidth="0.0" text="platform" />
+                  <Text fx:id="simtype" strokeType="OUTSIDE" strokeWidth="0.0" text="simtype" />
                </children>
             </TextFlow>
          </children>

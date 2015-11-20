@@ -17,6 +17,7 @@ public class DetailsController {
     @FXML private ImageView picture;
     @FXML private Text model;
     @FXML private Text manufacturer;
+    @FXML private Text platform;
     @FXML private Text displayDimensions;
     @FXML private Text bodyDimensions;
     @FXML private Text colors;
@@ -28,7 +29,7 @@ public class DetailsController {
     @FXML private Text network;
     @FXML private Text sound;
     @FXML private Text simtype;
-    @FXML private Text platform;
+
 
 
     /**
@@ -50,6 +51,7 @@ public class DetailsController {
 
     public void displayDevice(Device device)
     {
+    	if(device ==  null) return;
         this.mainApp.getMainController().setScreen(MainController.Screen.Details);
         this.model.setText(device.name);
         this.manufacturer.setText(device.getManufacturer().name);
