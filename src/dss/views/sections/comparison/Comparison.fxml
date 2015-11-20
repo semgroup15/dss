@@ -1,7 +1,14 @@
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
-    <center><Text text="COMPARISON"/></center>
+    <center>
+        <Text text="COMPARISON"/>
+    </center>
+
+    <bottom>
+        <Button text="Back to results" onAction="#onBack"/>
+    </bottom>
 </fx:root>

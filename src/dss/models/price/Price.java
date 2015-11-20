@@ -6,9 +6,14 @@ import java.sql.SQLException;
 
 public class Price extends Model {
 
+    public enum Retailer {
+        AMAZON,
+        RANDOM;
+    }
+
     public long id;
     public long deviceId;
-    public String retailer;
+    public Retailer retailer;
     public double cost;
 
     /*
@@ -40,7 +45,7 @@ public class Price extends Model {
 
         id = result.nextLong();
         deviceId = result.nextLong();
-        retailer = result.nextString();
+        retailer = Retailer.valueOf(result.nextString());
         cost = result.nextDouble();
     }
 
@@ -53,7 +58,7 @@ public class Price extends Model {
             throws SQLException {
 
         statement.setNextDouble(cost);
-        statement.setNextString(retailer);
+        statement.setNextString(retailer.toString());
     }
 
     @Override
@@ -61,7 +66,7 @@ public class Price extends Model {
             throws SQLException {
 
         statement.setNextDouble(cost);
-        statement.setNextString(retailer);
+        statement.setNextString(retailer.toString());
         statement.setNextLong(id);
     }
 
