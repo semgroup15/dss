@@ -1,9 +1,14 @@
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
     <center>
-        <Text text="SELECTION"/>
+        <ListView fx:id="list"/>
     </center>
+
+    <bottom>
+        <Button fx:id="button" onAction="#onCompare" text="Compare"/>
+    </bottom>
 </fx:root>

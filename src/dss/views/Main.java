@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final String TITLE = "DSS";
-    private static final int WIDTH = 640;
+    private static final int WIDTH = 840;
     private static final int HEIGHT = 480;
     private static final String STYLES = "styles.css";
 

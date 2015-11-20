@@ -1,7 +1,5 @@
 <?import dss.views.sections.listing.filter.Filter?>
 <?import dss.views.sections.listing.selection.Selection?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ListView?>
 <fx:root
         type="javafx.scene.layout.BorderPane"

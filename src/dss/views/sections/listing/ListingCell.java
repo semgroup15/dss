@@ -14,12 +14,17 @@ import javafx.scene.layout.VBox;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * {@code ListCell} displaying device information.
+ */
 public class ListingCell extends ListCell<Device>
         implements State.SelectionListener {
 
+    // Image size
     private static final double IMAGE_WIDTH = 70;
     private static final double IMAGE_HEIGHT = 96;
 
+    // Controls
     ImageView image = new ImageView();
     Label manufacturer = new Label();
     Label name = new Label();
@@ -28,6 +33,9 @@ public class ListingCell extends ListCell<Device>
     Button remove = new Button("Remove");
     Button view = new Button("View");
 
+    /**
+     * Initialize {@code ListingCell}.
+     */
     public ListingCell() {
         super();
 
@@ -52,9 +60,11 @@ public class ListingCell extends ListCell<Device>
 
         setGraphic(graphic);
 
-        // Connect selection
+        // Connect actions
         add.setOnAction((event) -> State.get().addDevice(getItem()));
         remove.setOnAction((event) -> State.get().removeDevice(getItem()));
+        view.setOnAction((event) -> State.get().setLocation(
+                new State.Location(State.Location.Section.DETAIL, getItem())));
 
         State.get().addSelectionListener(this);
     }
@@ -85,14 +95,14 @@ public class ListingCell extends ListCell<Device>
 
     @Override
     public void onDeviceAdd(Device device) {
-        if (getItem() == device) {
+        if (device == getItem()) {
             setSelected(true);
         }
     }
 
     @Override
     public void onDeviceRemove(Device device) {
-        if (getItem() == device) {
+        if (device == getItem()) {
             setSelected(false);
         }
     }
