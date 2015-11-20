@@ -9,12 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class ComparisonRootController {
 
 	@FXML private ScrollPane deviceColumnScrollPane;
-
-	//
+	@FXML private HBox deviceHBox;
 
     // Reference to the main views.
 	private MainView mainApp;
@@ -24,11 +24,11 @@ public class ComparisonRootController {
      * after the fxml file has been loaded.
      */
     private FXMLLoader loader;
-    private HashMap<Device,DeviceController> columnControllers;
+    private HashMap<Device,DetailsController> columnControllers;
 
     @FXML
     public void initialize() {
-        loader = new FXMLLoader(MainView.class.getResource("ComparisonLayout.fxml"));
+        loader = new FXMLLoader(MainView.class.getResource("ComparisonColumn.fxml"));
     }
 
     public void displayComparison(List<Device> deviceList)
@@ -36,27 +36,25 @@ public class ComparisonRootController {
     	// TODO - clear children
     	// We always want three comparison columns so an empty
     	// one is generated if we don't have enough devices
-        for(int i = 0; i < 3; i++)
+    	deviceHBox.getChildren().clear();
+        for(int i = 0; i < deviceList.size(); i++)
         {
-        	if(deviceList.size() < i)
-        		displayColumn(deviceList.get(i));
-        	else
-        		displayColumn(null);
+    		displayColumn(deviceList.get(i));
         }
     }
 
     public void displayColumn(Device device)
     {
-    	System.out.println("it worked!");
-    	/*
         try {
-            AnchorPane devicePane = loader.load();
-            // TODO - structure this to scale correctly with 2~4 devices
-            deviceColumnAnchorPane.getChildren().add(devicePane);
+            ScrollPane devicePane = loader.load();
+            deviceHBox.getChildren().add(devicePane);
 
-            ComparisonColumnController controller = loader.getController();
-            controller.setMainApp(this.mainApp);//This one
-            controller.loadDevice(device);
+            DetailsController controller = loader.getController();
+            controller.setMainApp(this.mainApp);
+            if(device != null)
+            	controller.displayDevice(device);
+            else
+            	System.out.println("Device is null");
 
             loader.setRoot(null);
             loader.setController(null);
@@ -64,7 +62,6 @@ public class ComparisonRootController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
     }
 
     /**

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 
-<ScrollPane id="detailsScrollPane" fx:id="Details" fitToHeight="true" fitToWidth="true" prefHeight="667.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.views.DetailsController">
+<ScrollPane id="detailsScrollPane" maxHeight="-Infinity" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dss.views.DetailsController">
    <content>
       <AnchorPane prefHeight="741.0" prefWidth="476.0">
          <children>

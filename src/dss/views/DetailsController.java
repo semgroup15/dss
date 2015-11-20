@@ -76,8 +76,14 @@ public class DetailsController {
                 "Internal: " + device.memory.internalSize + " MB" + " " +
                 device.memory.toString() );
         this.network.setText(device.network.toString());
-        this.sound.setText("Loudspeaker: " + device.sound.loudspeaker + ", " +
-                "3.5mm jack: " + device.sound.jack35);
+
+        String audio = "Audio options: ";
+        if(device.sound.loudspeaker) audio += "Loudspeaker, ";
+        if(device.sound.jack35) audio += "3.5mm Jack, ";
+        if(audio.equals("Audio options: ")) audio += "None";
+        else audio = audio.substring(0, audio.length() - 2);
+        this.sound.setText(audio);
+
         this.simtype.setText(device.simType.toString());
         this.platform.setText(device.platform.toString());
 
