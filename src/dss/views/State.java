@@ -148,7 +148,7 @@ public class State {
     /**
      * Item selection listener.
      */
-    public interface DeviceListener {
+    public interface SelectionListener {
         /**
          * Add device.
          * @param device Item to add
@@ -175,7 +175,7 @@ public class State {
 
     private List<LocationListener> locationListeners = new ArrayList<>();
     private List<SearchListener> searchListeners = new ArrayList<>();
-    private List<DeviceListener> deviceListeners = new ArrayList<>();
+    private List<SelectionListener> selectionListeners = new ArrayList<>();
     private List<LevelListener> levelListeners = new ArrayList<>();
 
     // Initial state
@@ -240,16 +240,16 @@ public class State {
      * Devices
      */
 
-    public void addDeviceListener(DeviceListener listener) {
-        deviceListeners.add(listener);
+    public void addSelectionListener(SelectionListener listener) {
+        selectionListeners.add(listener);
 
         for (Device device : devices) {
             listener.onDeviceAdd(device);
         }
     }
 
-    public void removeDeviceListener(DeviceListener listener) {
-        deviceListeners.remove(listener);
+    public void removeSelectionListener(SelectionListener listener) {
+        selectionListeners.remove(listener);
     }
 
     /**
@@ -260,7 +260,7 @@ public class State {
         if (!devices.contains(device)) {
             devices.add(device);
 
-            for (DeviceListener listener : deviceListeners) {
+            for (SelectionListener listener : selectionListeners) {
                 listener.onDeviceAdd(device);
             }
         }
@@ -274,7 +274,7 @@ public class State {
         if (devices.contains(device)) {
             devices.remove(device);
 
-            for (DeviceListener listener : deviceListeners) {
+            for (SelectionListener listener : selectionListeners) {
                 listener.onDeviceRemove(device);
             }
         }

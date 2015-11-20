@@ -1,19 +1,21 @@
 package dss.views.sections.listing;
 
 import dss.models.device.Device;
+import dss.views.State;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ListingCell extends ListCell<Device> {
+public class ListingCell extends ListCell<Device>
+        implements State.SelectionListener {
 
     private static final double IMAGE_WIDTH = 70;
     private static final double IMAGE_HEIGHT = 96;
@@ -22,6 +24,9 @@ public class ListingCell extends ListCell<Device> {
     Label manufacturer = new Label();
     Label name = new Label();
     Label stars = new Label();
+    Button add = new Button("Add");
+    Button remove = new Button("Remove");
+    Button view = new Button("View");
 
     public ListingCell() {
         super();
@@ -35,11 +40,28 @@ public class ListingCell extends ListCell<Device> {
         center.getChildren().add(name);
         center.getChildren().add(manufacturer);
 
+        HBox right = new HBox();
+        right.getChildren().add(stars);
+        right.getChildren().add(add);
+        right.getChildren().add(remove);
+        right.getChildren().add(view);
+
         graphic.setLeft(image);
         graphic.setCenter(center);
-        graphic.setRight(stars);
+        graphic.setRight(right);
 
         setGraphic(graphic);
+
+        // Connect selection
+        add.setOnAction((event) -> State.get().addDevice(getItem()));
+        remove.setOnAction((event) -> State.get().removeDevice(getItem()));
+
+        State.get().addSelectionListener(this);
+    }
+
+    private void setSelected(boolean selected) {
+        add.setDisable(selected);
+        remove.setDisable(!selected);
     }
 
     @Override
@@ -56,6 +78,22 @@ public class ListingCell extends ListCell<Device> {
             manufacturer.setText(device.getManufacturer().name);
             name.setText(device.name);
             stars.setText("★★★★★");
+
+            setSelected(State.get().getDevices().contains(device));
+        }
+    }
+
+    @Override
+    public void onDeviceAdd(Device device) {
+        if (getItem() == device) {
+            setSelected(true);
+        }
+    }
+
+    @Override
+    public void onDeviceRemove(Device device) {
+        if (getItem() == device) {
+            setSelected(false);
         }
     }
 }

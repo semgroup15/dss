@@ -378,6 +378,25 @@ public class Device extends Model {
         return String.format("(%d) %s %s", id, getManufacturer().name, name);
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+
+        Device device = (Device) object;
+        return device.id == id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(id);
+    }
+
     /*
      * Query
      */
