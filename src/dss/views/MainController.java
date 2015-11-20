@@ -111,6 +111,7 @@ public class MainController {
     private void initialize() {
         List<Manufacturer> manufacturers = Manufacturer.manager.select(Manufacturer.SELECT_COMMON);
         manufacturerComboBox.setItems(FXCollections.observableArrayList(manufacturers));
+        manufacturerComboBox.setValue(manufacturers.get(0));
 
         searchButton.setOnAction(event -> {
         	this.setScreen(MainController.Screen.List);
@@ -118,6 +119,8 @@ public class MainController {
             Device.QueryBuilder queryBuilder = new Device.QueryBuilder();
 
             Manufacturer manufacturer = manufacturerComboBox.getValue();
+            
+            
             if (manufacturer != null) {
                 queryBuilder.byManufacturerId(manufacturer.id);
             }
