@@ -7,13 +7,20 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Search bar with manufacturer {@code ComboBox} and query {@code TextField}.
+ */
 public class Search extends Widget implements Initializable {
+
+    @FXML
+    Label label;
 
     @FXML
     ComboBox<Manufacturer> manufacturer;
@@ -29,6 +36,12 @@ public class Search extends Widget implements Initializable {
 
         // Populate combo box
         manufacturer.setItems(FXCollections.observableArrayList(manufacturers));
+    }
+
+    @FXML
+    private void onGoHome() {
+        State.get().setLocation(
+                new State.Location(State.Location.Section.LISTING));
     }
 
     @FXML

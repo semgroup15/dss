@@ -24,13 +24,15 @@ public class SelectionCell extends ListCell<Device> {
     // Controls
     Label manufacturer = new Label();
     Label name = new Label();
-    Button remove = new Button("Remove");
+    Button remove = new Button("−");
 
     /**
      * Initialize {@code ListingCell}.
      */
     public SelectionCell() {
         super();
+
+        remove.getStyleClass().add("remove");
 
         VBox center = new VBox();
         center.getChildren().add(name);

@@ -439,6 +439,7 @@ public abstract class Model {
             protected Section select = new BaseSection(this);
             protected Section join = new BaseSection(this);
             protected Section where = new WhereSection(this);
+            protected Section order = new BaseSection(this);
             protected Section limit = new BaseSection(this);
 
             /**
@@ -458,6 +459,10 @@ public abstract class Model {
                 return where;
             }
 
+            public Section order() {
+                return order;
+            }
+
             public Section limit() {
                 return limit;
             }
@@ -467,6 +472,7 @@ public abstract class Model {
                     select.getQuery(),
                     join.getQuery(),
                     where.getQuery(),
+                    order.getQuery(),
                     limit.getQuery(),
                 });
             }

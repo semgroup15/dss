@@ -27,6 +27,8 @@ public class Widget extends BorderPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
+        getStyleClass().add(getClass().getSimpleName());
     }
 
     /**
@@ -34,7 +36,7 @@ public class Widget extends BorderPane {
      * @return Layout resource
      */
     private URL getLayoutResource() {
-        Class<?> type = this.getClass();
+        Class<?> type = getClass();
 
         // Get path to resource
         String path = String.format("%s.fxml", type.getSimpleName());

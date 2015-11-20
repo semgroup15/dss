@@ -442,6 +442,7 @@ public class Device extends Model {
             super();
 
             this.select().add("SELECT * FROM device").done();
+            this.order().add("ORDER BY year DESC").done();
         }
 
         public QueryBuilder offset(int offset) {

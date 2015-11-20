@@ -8,22 +8,36 @@
         xmlns:fx="http://javafx.com/fxml">
 
     <left>
-        <Label text="DSS"/>
+        <Label
+                fx:id="label"
+                onMouseClicked="#onGoHome"
+                text="⌂ DSS"
+                prefHeight="50.0"
+                prefWidth="100.0"/>
     </left>
 
     <center>
         <BorderPane>
             <left>
-                <ComboBox fx:id="manufacturer"/>
+                <ComboBox
+                        fx:id="manufacturer"
+                        prefWidth="160.0"
+                        prefHeight="50.0"/>
             </left>
 
             <center>
-                <TextField fx:id="query" onAction="#onSearch"/>
+                <TextField
+                        fx:id="query"
+                        prefHeight="50.0"
+                        onAction="#onSearch"/>
             </center>
         </BorderPane>
     </center>
 
     <right>
-        <Button text="Search" onAction="#onSearch"/>
+        <Button
+                prefHeight="50.0"
+                text="⚲"
+                onAction="#onSearch"/>
     </right>
 </fx:root>

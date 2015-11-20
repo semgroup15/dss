@@ -9,6 +9,11 @@
     </center>
 
     <bottom>
-        <Button fx:id="button" onAction="#onCompare" text="Compare"/>
+        <Button
+                fx:id="button"
+                styleClass="action"
+                prefWidth="260.0"
+                onAction="#onCompare"
+                text="Compare"/>
     </bottom>
 </fx:root>

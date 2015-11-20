@@ -1,0 +1,17 @@
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <center>
+        <VBox fx:id="container">
+            <Label
+                    fx:id="label"
+                    styleClass="rating-label"/>
+            <Label
+                    fx:id="stars"
+                    styleClass="rating-stars"/>
+        </VBox>
+    </center>
+</fx:root>

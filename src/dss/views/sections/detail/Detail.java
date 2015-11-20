@@ -1,12 +1,12 @@
 package dss.views.sections.detail;
 
 import dss.models.device.Device;
-import dss.views.State;
 import dss.views.Widget;
+import dss.views.sections.Rating;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,10 +17,13 @@ public class Detail extends Widget {
     ImageView image;
 
     @FXML
-    Text manufacturer;
+    Label manufacturer;
 
     @FXML
-    Text name;
+    Label name;
+
+    @FXML
+    Rating overallRating;
 
     @FXML
     Field display;
@@ -57,6 +60,15 @@ public class Detail extends Widget {
 
     @FXML
     Field platform;
+
+    @FXML
+    Rating responsivenessRating;
+
+    @FXML
+    Rating screenRating;
+
+    @FXML
+    Rating batteryRating;
 
     public void setDevice(Device device) {
 
@@ -109,11 +121,5 @@ public class Detail extends Widget {
         sim.setValue(device.simType.toString());
 
         platform.setValue(device.platform.toString());
-    }
-
-    @FXML
-    public void onBack() {
-        State.get().setLocation(
-                new State.Location(State.Location.Section.LISTING));
     }
 }

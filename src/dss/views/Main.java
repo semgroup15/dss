@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final String TITLE = "DSS";
-    private static final int WIDTH = 840;
-    private static final int HEIGHT = 480;
+    private static final int WIDTH = 1000;
+    private static final int HEIGHT = 520;
     private static final String STYLES = "styles.css";
 
     public static void main(String[] args) {
@@ -26,7 +26,9 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         stage.setWidth(WIDTH);
+        stage.setMinWidth(WIDTH);
         stage.setHeight(HEIGHT);
+        stage.setMinHeight(HEIGHT);
         stage.setTitle(TITLE);
         stage.show();
         stage.requestFocus();

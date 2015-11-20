@@ -1,37 +1,71 @@
-<?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.Button?>
 <?import dss.views.sections.detail.Field?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import dss.views.sections.Rating?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
     <left>
-        <ImageView fx:id="image"/>
+        <HBox styleClass="image" prefWidth="260.0">
+            <ImageView fx:id="image"/>
+        </HBox>
     </left>
 
     <center>
-        <VBox>
-            <Text fx:id="manufacturer"/>
-            <Text fx:id="name"/>
+        <BorderPane styleClass="content">
+            <center>
+                <VBox>
+                    <VBox styleClass="heading">
+                        <Label fx:id="manufacturer" styleClass="manufacturer"/>
+                        <Label fx:id="name" styleClass="name"/>
+                    </VBox>
 
-            <Field label="Display" fx:id="display"/>
-            <Field label="Body" fx:id="body"/>
-            <Field label="Colors" fx:id="colors"/>
-            <Field label="Battery" fx:id="battery"/>
-            <Field label="Camera" fx:id="camera"/>
-            <Field label="Com" fx:id="com"/>
-            <Field label="Sensor" fx:id="sensor"/>
-            <Field label="Memory" fx:id="memory"/>
-            <Field label="Network" fx:id="network"/>
-            <Field label="Sound" fx:id="sound"/>
-            <Field label="SIM" fx:id="sim"/>
-            <Field label="Platform" fx:id="platform"/>
-        </VBox>
+                    <VBox styleClass="fields">
+                        <Field label="Display" fx:id="display"/>
+                        <Field label="Body" fx:id="body"/>
+                        <Field label="Colors" fx:id="colors"/>
+                        <Field label="Battery" fx:id="battery"/>
+                        <Field label="Camera" fx:id="camera"/>
+                        <Field label="Com" fx:id="com"/>
+                        <Field label="Sensor" fx:id="sensor"/>
+                        <Field label="Memory" fx:id="memory"/>
+                        <Field label="Network" fx:id="network"/>
+                        <Field label="Sound" fx:id="sound"/>
+                        <Field label="SIM" fx:id="sim"/>
+                        <Field label="Platform" fx:id="platform"/>
+                    </VBox>
+                </VBox>
+            </center>
+
+            <right>
+                <VBox>
+                    <Rating
+                            styleClass="overall"
+                            alignment="CENTER_RIGHT"
+                            labelVisible="false"
+                            labelManaged="false"
+                            fx:id="overallRating"/>
+
+                    <Rating
+                            label="Responsiveness"
+                            alignment="CENTER_RIGHT"
+                            fx:id="responsivenessRating"/>
+
+                    <Rating
+                            label="Screen"
+                            alignment="CENTER_RIGHT"
+                            fx:id="screenRating"/>
+
+                    <Rating
+                            label="Battery"
+                            alignment="CENTER_RIGHT"
+                            fx:id="batteryRating"/>
+                </VBox>
+            </right>
+        </BorderPane>
     </center>
-
-    <bottom>
-        <Button text="Back to results" onAction="#onBack"/>
-    </bottom>
 </fx:root>

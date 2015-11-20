@@ -1,0 +1,277 @@
+
+.root {
+    -fx-background-color: white;
+}
+
+.button,
+.button:focused,
+.text-field,
+.text-field:focused,
+.combo-box,
+.combo-box:focused {
+    -fx-border-style: none;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button {
+    -fx-cursor: hand;
+}
+
+/*
+ * Search
+ */
+
+.Search {
+}
+
+.Search .label {
+    -fx-font-size: 18pt;
+    -fx-padding: 4 14;
+    -fx-background-color: #34495e;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}
+
+.Search .label:hover {
+    -fx-text-fill: #eeeeee;
+}
+
+.Search .combo-box {
+    -fx-background-color: #3498db;
+    -fx-font-size: 12pt;
+    -fx-text-fill: #fff;
+    -fx-color: #fff;
+}
+
+.Search .combo-box:hover {
+    -fx-background-color: #ffffff;
+}
+
+.Search .combo-box .arrow {
+    -fx-background-color: #ffffff;
+}
+
+.Search .combo-box:hover .arrow {
+    -fx-background-color: #2980b9;
+}
+
+.Search .combo-box-popup .list-view .list-cell {
+    -fx-padding: 10;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -fx-box-border, -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0), 0, 0.0, 0, 0);
+}
+
+.Search .combo-box .list-cell:selected,
+.Search .combo-box-popup .list-view .list-cell:hover {
+    -fx-text-fill: #fff;
+    -fx-background-color: #3498db;
+}
+
+.Search .text-field {
+    -fx-font-size: 12pt;
+    -fx-background-color: #2980b9;
+    -fx-text-fill: #ffffff;
+}
+
+.Search .text-field:hover {
+}
+
+.Search .button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+    -fx-font-size: 20pt;
+    -fx-padding: 2 20;
+}
+
+.Search .button:hover {
+    -fx-text-fill: #3498db;
+    -fx-background-color: #ffffff;
+}
+
+/*
+ * Listing
+ */
+
+.Listing {
+}
+
+.Listing .list-view {
+    -fx-border-style: none;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+
+.Listing .list-view .list-cell {
+    -fx-padding: 10;
+    -fx-opacity: 0.7;
+    -fx-cursor: hand;
+}
+
+.Listing .list-view .list-cell:hover {
+    -fx-opacity: 1;
+}
+
+.Listing .list-view .list-cell,
+.Listing .list-view .list-cell:hover,
+.Listing .list-view .list-cell:focused,
+.Listing .list-view .list-cell:selected {
+    -fx-background-color: #ffffff, #ffffff;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #eeeeee;
+}
+
+.Listing .list-view .list-cell .label {
+    -fx-text-fill: #000000;
+    -fx-padding: 6 20;
+}
+
+.Listing .list-view .list-cell .Rating .label.rating-stars {
+    -fx-font-size: 16pt;
+    -fx-text-fill: #f39c12;
+}
+
+.Listing .list-view .list-cell .label.manufacturer {
+    -fx-font-size: 10pt;
+}
+
+.Listing .list-view .list-cell .label.name {
+    -fx-font-size: 14pt;
+}
+
+.Listing .list-view .list-cell .button {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14pt;
+    -fx-padding: 4 8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-border-width: 1;
+    -fx-border-color: #3498db;
+    -fx-text-fill: #3498db;
+}
+
+.Listing .list-view .list-cell .button:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #3498db;
+}
+
+.Listing .list-view .list-cell .button.remove {
+    -fx-border-color: #e74c3c;
+    -fx-text-fill: #e74c3c;
+}
+
+.Listing .list-view .list-cell .button.remove:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #e74c3c;
+}
+
+/*
+ * Filter
+ */
+
+.Filter {
+    -fx-background-color: #f7f7f7;
+}
+
+/*
+ * Selection
+ */
+
+.Selection,
+.Selection .list-view {
+    -fx-background-color: #f7f7f7;
+}
+
+.Selection .list-view .list-cell {
+    -fx-cursor: default;
+    -fx-background-color: #f7f7f7;
+}
+
+.Selection .list-view .list-cell:hover {
+    -fx-background-color: #eeeeee;
+}
+
+.Selection .list-view .list-cell .label {
+    -fx-padding: 0;
+}
+
+/*
+ * Action
+ */
+
+.button.action {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+    -fx-font-size: 12pt;
+    -fx-padding: 14;
+}
+
+.button.action:hover {
+    -fx-background-color: #2980b9;
+}
+
+/*
+ * Detail
+ */
+
+.Detail {
+}
+
+.Detail .content {
+    -fx-background-color: #f7f7f7;
+}
+
+.Detail .image {
+    -fx-padding: 30 40;
+}
+
+.Detail .heading {
+    -fx-padding: 20 30;
+}
+
+.Detail .heading .manufacturer {
+    -fx-font-size: 14pt;
+}
+
+.Detail .heading .name {
+    -fx-font-size: 20pt;
+}
+
+.Detail .fields .Field {
+}
+
+.Detail .fields .Field .label {
+    -fx-padding: 4 10;
+}
+
+.Detail .fields .Field .label.field-label {
+    -fx-font-weight: bold;
+}
+
+.Detail .fields .Field .label.field-value {
+}
+
+.Detail .Rating {
+    -fx-padding: 14 20;
+}
+
+.Detail .Rating .label.rating-label {
+    -fx-font-size: 8pt;
+}
+
+.Detail .Rating .label.rating-stars {
+    -fx-font-size: 16pt;
+    -fx-text-fill: #f39c12;
+}
+
+.Detail .Rating.overall .label.rating-stars {
+    -fx-font-size: 24pt;
+}

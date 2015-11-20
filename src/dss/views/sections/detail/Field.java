@@ -3,15 +3,15 @@ package dss.views.sections.detail;
 import dss.views.Widget;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 
 public class Field extends Widget {
 
     @FXML
-    Text label;
+    Label label;
 
     @FXML
-    Text value;
+    Label value;
 
     public StringProperty labelProperty() {
         return label.textProperty();

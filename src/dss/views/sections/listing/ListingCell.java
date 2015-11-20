@@ -2,6 +2,7 @@ package dss.views.sections.listing;
 
 import dss.models.device.Device;
 import dss.views.State;
+import dss.views.sections.Rating;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -26,14 +27,15 @@ public class ListingCell extends ListCell<Device>
 
     BorderPane graphic = new BorderPane();
 
-    // Controls
+    // Description
     ImageView image = new ImageView();
     Label manufacturer = new Label();
     Label name = new Label();
-    Label stars = new Label();
-    Button add = new Button("Add");
-    Button remove = new Button("Remove");
-    Button view = new Button("View");
+    Rating overallRating = new Rating();
+
+    // Actions
+    Button add = new Button("+");
+    Button remove = new Button("−");
 
     /**
      * Initialize {@code ListingCell}.
@@ -44,15 +46,22 @@ public class ListingCell extends ListCell<Device>
         image.setFitWidth(IMAGE_WIDTH);
         image.setFitHeight(IMAGE_HEIGHT);
 
+        manufacturer.getStyleClass().add("manufacturer");
+        name.getStyleClass().add("name");
+        overallRating.setLabelVisible(false);
+        overallRating.setLabelManaged(false);
+
+        add.getStyleClass().add("add");
+        remove.getStyleClass().add("remove");
+
         VBox center = new VBox();
         center.getChildren().add(name);
         center.getChildren().add(manufacturer);
+        center.getChildren().add(overallRating);
 
         HBox right = new HBox();
-        right.getChildren().add(stars);
         right.getChildren().add(add);
         right.getChildren().add(remove);
-        right.getChildren().add(view);
 
         graphic.setLeft(image);
         graphic.setCenter(center);
@@ -63,7 +72,8 @@ public class ListingCell extends ListCell<Device>
         // Connect actions
         add.setOnAction((event) -> State.get().addDevice(getItem()));
         remove.setOnAction((event) -> State.get().removeDevice(getItem()));
-        view.setOnAction((event) -> State.get().setLocation(
+
+        setOnMouseClicked((event) -> State.get().setLocation(
                 new State.Location(State.Location.Section.DETAIL, getItem())));
 
         State.get().addSelectionListener(this);
@@ -72,6 +82,12 @@ public class ListingCell extends ListCell<Device>
     private void setSelected(boolean selected) {
         add.setDisable(selected);
         remove.setDisable(!selected);
+
+        add.setVisible(!selected);
+        add.setManaged(!selected);
+
+        remove.setVisible(selected);
+        remove.setManaged(selected);
     }
 
     @Override
@@ -90,7 +106,6 @@ public class ListingCell extends ListCell<Device>
 
             manufacturer.setText(device.getManufacturer().name);
             name.setText(device.name);
-            stars.setText("★★★★★");
 
             setSelected(State.get().getDevices().contains(device));
         }

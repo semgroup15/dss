@@ -13,6 +13,9 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Root layout.
+ */
 public class Root extends Widget
         implements Initializable, State.LocationListener {
 
@@ -39,6 +42,7 @@ public class Root extends Widget
         detail.setVisible(false);
         comparison.setVisible(false);
 
+        // Switch visible section depending on the current location
         switch (location.getSection()) {
             case LISTING:
                 listing.setVisible(true);
