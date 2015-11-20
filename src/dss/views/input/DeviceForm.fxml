@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1664.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextField fx:id="model" layoutX="84.0" layoutY="25.0" prefHeight="22.0" prefWidth="132.0" />
+        <Text layoutX="29.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Model:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <Text layoutX="28.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Display Dimensions:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <Text layoutX="91.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="width:" />
+        <Text layoutX="189.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="height:" />
+        <Text layoutX="298.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="depth:" />
+        <Text layoutX="403.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="weight:" />
+        <TextField fx:id="displaydimensions_width" layoutX="133.0" layoutY="168.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="displaydimensions_height" layoutX="238.0" layoutY="169.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="displaydimensions_depth" layoutX="345.0" layoutY="169.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="displaydimensions_weight" layoutX="454.0" layoutY="169.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="28.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Battery time:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <Text layoutX="91.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sleep:" />
+        <TextField fx:id="batterytime_sleep" layoutX="135.0" layoutY="225.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="batterytime_talk" layoutX="239.0" layoutY="225.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="201.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="talk:" />
+        <TextField fx:id="batterytime_music" layoutX="345.0" layoutY="225.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="301.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="music:" />
+        <Text layoutX="28.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Camera:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <Text layoutX="74.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Primary:" />
+        <Text layoutX="123.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MP:" />
+        <TextField fx:id="camera_primary_mp" layoutX="152.0" layoutY="300.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="camera_primary_width" layoutX="260.0" layoutY="300.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="217.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="width:" />
+        <Text layoutX="324.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="height:" />
+        <TextField fx:id="camera_primary_height" layoutX="376.0" layoutY="300.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="camera_secondary_mp" layoutX="151.0" layoutY="346.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="122.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MP:" />
+        <Text layoutX="71.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary:" />
+        <Text layoutX="29.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comms:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <CheckBox fx:id="comms_wlan" layoutX="77.0" layoutY="403.0" mnemonicParsing="false" text="wlan" />
+        <CheckBox fx:id="comms_bluetooth" layoutX="77.0" layoutY="427.0" mnemonicParsing="false" text="bluetooth" />
+        <CheckBox fx:id="comms_gps" layoutX="77.0" layoutY="453.0" mnemonicParsing="false" text="gps" />
+        <CheckBox fx:id="comms_radio" layoutX="190.0" layoutY="400.0" mnemonicParsing="false" text="radio" />
+        <CheckBox fx:id="comms_usb" layoutX="190.0" layoutY="428.0" mnemonicParsing="false" text="usb" />
+        <CheckBox fx:id="comms_ufc" layoutX="190.0" layoutY="454.0" mnemonicParsing="false" text="ufc" />
+        <Text layoutX="30.0" layoutY="502.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sensors:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <CheckBox fx:id="sensors_accelerometer" layoutX="77.0" layoutY="516.0" mnemonicParsing="false" text="accelerometer" />
+        <CheckBox fx:id="sensors_barometer" layoutX="77.0" layoutY="541.0" mnemonicParsing="false" text="barometer" />
+        <CheckBox fx:id="sensors_compass" layoutX="77.0" layoutY="566.0" mnemonicParsing="false" text="compass" />
+        <CheckBox fx:id="sensors_proximity" layoutX="200.0" layoutY="566.0" mnemonicParsing="false" text="proximity" />
+        <CheckBox fx:id="sensors_magnetometer" layoutX="200.0" layoutY="541.0" mnemonicParsing="false" text="magnetometer" />
+        <CheckBox fx:id="sensors_gyro" layoutX="200.0" layoutY="516.0" mnemonicParsing="false" text="gyro" />
+        <Text layoutX="33.0" layoutY="615.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Memory:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <Text layoutX="72.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RAM size:" />
+        <Text layoutX="206.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="internal size:" />
+        <TextField fx:id="memory_ramsize" layoutX="140.0" layoutY="620.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="memory_internalsize" layoutX="289.0" layoutY="620.0" prefHeight="20.0" prefWidth="50.0" />
+        <CheckBox fx:id="memory_sd" layoutX="77.0" layoutY="654.0" mnemonicParsing="false" text="sd" />
+        <CheckBox fx:id="memory_microsd" layoutX="77.0" layoutY="679.0" mnemonicParsing="false" text="micro sd" />
+        <CheckBox fx:id="memory_microsdhc" layoutX="77.0" layoutY="705.0" mnemonicParsing="false" text="micro sdhc" />
+        <CheckBox fx:id="memory_mmcmobile" layoutX="201.0" layoutY="683.0" mnemonicParsing="false" text="mmc mobile" />
+        <CheckBox fx:id="memory_mmc" layoutX="201.0" layoutY="658.0" mnemonicParsing="false" text="mmc" />
+        <CheckBox fx:id="network_evdo" layoutX="202.0" layoutY="771.0" mnemonicParsing="false" text="evdo" />
+        <CheckBox fx:id="network_cdma" layoutX="202.0" layoutY="796.0" mnemonicParsing="false" text="cdma" />
+        <CheckBox fx:id="network_lte" layoutX="202.0" layoutY="821.0" mnemonicParsing="false" text="lte" />
+        <CheckBox fx:id="network_hspa" layoutX="79.0" layoutY="821.0" mnemonicParsing="false" text="hspa" />
+        <CheckBox fx:id="network_umts" layoutX="79.0" layoutY="796.0" mnemonicParsing="false" text="umts" />
+        <CheckBox fx:id="network_gsm" layoutX="79.0" layoutY="771.0" mnemonicParsing="false" text="gsm" />
+        <Text layoutX="32.0" layoutY="757.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Network:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <Text layoutX="34.0" layoutY="868.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sound:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <CheckBox fx:id="sound_loudspeaker" layoutX="81.0" layoutY="878.0" mnemonicParsing="false" text="loudspeaker" />
+        <CheckBox fx:id="sound_jack35" layoutX="81.0" layoutY="903.0" mnemonicParsing="false" text="jack 35" />
+        <Text layoutX="34.0" layoutY="963.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Display:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <TextField fx:id="display_size" layoutX="118.0" layoutY="1010.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="71.0" layoutY="1028.0" strokeType="OUTSIDE" strokeWidth="0.0" text="size:" />
+        <Text layoutX="186.0" layoutY="1028.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ratio:" />
+        <TextField fx:id="display_ratio" layoutX="226.0" layoutY="1010.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="display_width" layoutX="119.0" layoutY="1046.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="61.0" layoutY="1064.0" strokeType="OUTSIDE" strokeWidth="0.0" text="width:" />
+        <Text layoutX="60.0" layoutY="1099.0" strokeType="OUTSIDE" strokeWidth="0.0" text="height:" />
+        <TextField fx:id="display_height" layoutX="119.0" layoutY="1081.0" prefHeight="20.0" prefWidth="50.0" />
+        <TextField fx:id="display_density" layoutX="119.0" layoutY="1114.0" prefHeight="20.0" prefWidth="50.0" />
+        <Text layoutX="59.0" layoutY="1132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="density:" />
+        <CheckBox fx:id="display_multitouch" layoutX="81.0" layoutY="978.0" mnemonicParsing="false" text="multitouch" />
+        <Text layoutX="75.0" layoutY="1178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="type:" />
+        <TextField fx:id="display_type" layoutX="119.0" layoutY="1160.0" prefHeight="27.0" prefWidth="164.0" />
+        <TextField fx:id="display_protection" layoutX="119.0" layoutY="1196.0" prefHeight="27.0" prefWidth="164.0" />
+        <Text layoutX="41.0" layoutY="1214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="protection:" />
+        <CheckBox fx:id="colors_gray" layoutX="209.0" layoutY="1270.0" mnemonicParsing="false" text="gray" />
+        <CheckBox fx:id="colors_yellow" layoutX="209.0" layoutY="1296.0" mnemonicParsing="false" text="yellow" />
+        <CheckBox fx:id="colors_green" layoutX="209.0" layoutY="1322.0" mnemonicParsing="false" text="green" />
+        <CheckBox fx:id="colors_blue" layoutX="86.0" layoutY="1320.0" mnemonicParsing="false" text="blue" />
+        <CheckBox fx:id="colors_white" layoutX="86.0" layoutY="1295.0" mnemonicParsing="false" text="white" />
+        <CheckBox fx:id="colors_black" layoutX="86.0" layoutY="1270.0" mnemonicParsing="false" text="black" />
+        <Text layoutX="39.0" layoutY="1256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Colors:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <CheckBox fx:id="colors_red" layoutX="86.0" layoutY="1346.0" mnemonicParsing="false" text="red" />
+        <CheckBox fx:id="colors_pink" layoutX="86.0" layoutY="1372.0" mnemonicParsing="false" text="pink" />
+        <CheckBox fx:id="colors_silver" layoutX="86.0" layoutY="1399.0" mnemonicParsing="false" text="silver" />
+        <CheckBox fx:id="colors_orange" layoutX="209.0" layoutY="1371.0" mnemonicParsing="false" text="orange" />
+        <CheckBox fx:id="colors_gold" layoutX="209.0" layoutY="1346.0" mnemonicParsing="false" text="gold" />
+        <CheckBox fx:id="simtype_nanosim" layoutX="86.0" layoutY="1558.0" mnemonicParsing="false" text="nano sim" />
+        <CheckBox fx:id="simtype_microsim" layoutX="86.0" layoutY="1532.0" mnemonicParsing="false" text="micro sim" />
+        <Text layoutX="39.0" layoutY="1442.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIM Type:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <CheckBox fx:id="simtype_unknown" layoutX="86.0" layoutY="1456.0" mnemonicParsing="false" text="unknown" />
+        <CheckBox fx:id="simtype_fullsize" layoutX="86.0" layoutY="1481.0" mnemonicParsing="false" text="full size" />
+        <CheckBox fx:id="simtype_minisim" layoutX="86.0" layoutY="1506.0" mnemonicParsing="false" text="mini sim" />
+        <CheckBox fx:id="platform_windows" layoutX="190.0" layoutY="108.0" mnemonicParsing="false" text="windows" />
+        <CheckBox fx:id="platform_ios" layoutX="190.0" layoutY="80.0" mnemonicParsing="false" text="iOS" />
+        <CheckBox fx:id="platform_android" layoutX="77.0" layoutY="107.0" mnemonicParsing="false" text="android" />
+        <CheckBox fx:id="platform_unknown" layoutX="77.0" layoutY="83.0" mnemonicParsing="false" text="unknown" />
+        <Text layoutX="29.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Platform:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <Text layoutX="298.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ImageURL:">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Text>
+        <TextField fx:id="imageurl" layoutX="376.0" layoutY="25.0" prefHeight="27.0" prefWidth="159.0" />
+    </children>
+</AnchorPane>
