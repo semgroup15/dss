@@ -1,7 +1,37 @@
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import dss.views.sections.detail.Field?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
-    <center><Text text="DETAIL"/></center>
+    <left>
+        <ImageView fx:id="image"/>
+    </left>
+
+    <center>
+        <VBox>
+            <Text fx:id="manufacturer"/>
+            <Text fx:id="name"/>
+
+            <Field label="Display" fx:id="display"/>
+            <Field label="Body" fx:id="body"/>
+            <Field label="Colors" fx:id="colors"/>
+            <Field label="Battery" fx:id="battery"/>
+            <Field label="Camera" fx:id="camera"/>
+            <Field label="Com" fx:id="com"/>
+            <Field label="Sensor" fx:id="sensor"/>
+            <Field label="Memory" fx:id="memory"/>
+            <Field label="Network" fx:id="network"/>
+            <Field label="Sound" fx:id="sound"/>
+            <Field label="SIM" fx:id="sim"/>
+            <Field label="Platform" fx:id="platform"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Button text="Back to results" onAction="#onBack"/>
+    </bottom>
 </fx:root>

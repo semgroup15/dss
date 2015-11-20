@@ -1,0 +1,13 @@
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <center>
+        <HBox>
+            <Text fx:id="label"/>
+            <Text fx:id="value"/>
+        </HBox>
+    </center>
+</fx:root>

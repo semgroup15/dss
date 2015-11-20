@@ -1,5 +1,6 @@
 package dss.views.root;
 
+import dss.models.device.Device;
 import dss.views.State;
 import dss.views.Widget;
 import dss.views.search.Search;
@@ -39,9 +40,18 @@ public class Root extends Widget
         comparison.setVisible(false);
 
         switch (location.getSection()) {
-            case LISTING: listing.setVisible(true); break;
-            case DETAIL: detail.setVisible(true); break;
-            case COMPARISON: comparison.setVisible(true); break;
+            case LISTING:
+                listing.setVisible(true);
+                break;
+
+            case DETAIL:
+                detail.setDevice((Device) location.getData()[0]);
+                detail.setVisible(true);
+                break;
+
+            case COMPARISON:
+                comparison.setVisible(true);
+                break;
         }
     }
 }
