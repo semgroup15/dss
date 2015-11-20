@@ -46,7 +46,7 @@ public class ComparisonRootController {
     public void displayColumn(Device device)
     {
         try {
-            ScrollPane devicePane = loader.load();
+            AnchorPane devicePane = loader.load();
             deviceHBox.getChildren().add(devicePane);
 
             DetailsController controller = loader.getController();
