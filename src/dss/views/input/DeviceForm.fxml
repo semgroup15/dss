@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1664.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1664.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <TextField fx:id="model" layoutX="84.0" layoutY="25.0" prefHeight="22.0" prefWidth="132.0" />
         <Text layoutX="29.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Model:">
@@ -153,10 +152,6 @@
         <CheckBox fx:id="simtype_unknown" layoutX="86.0" layoutY="1456.0" mnemonicParsing="false" text="unknown" />
         <CheckBox fx:id="simtype_fullsize" layoutX="86.0" layoutY="1481.0" mnemonicParsing="false" text="full size" />
         <CheckBox fx:id="simtype_minisim" layoutX="86.0" layoutY="1506.0" mnemonicParsing="false" text="mini sim" />
-        <CheckBox fx:id="platform_windows" layoutX="190.0" layoutY="108.0" mnemonicParsing="false" text="windows" />
-        <CheckBox fx:id="platform_ios" layoutX="190.0" layoutY="80.0" mnemonicParsing="false" text="iOS" />
-        <CheckBox fx:id="platform_android" layoutX="77.0" layoutY="107.0" mnemonicParsing="false" text="android" />
-        <CheckBox fx:id="platform_unknown" layoutX="77.0" layoutY="83.0" mnemonicParsing="false" text="unknown" />
         <Text layoutX="29.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Platform:">
             <font>
                 <Font name="System Bold" size="13.0" />
@@ -168,5 +163,9 @@
             </font>
         </Text>
         <TextField fx:id="imageurl" layoutX="376.0" layoutY="25.0" prefHeight="27.0" prefWidth="159.0" />
+      <RadioButton layoutX="83.0" layoutY="80.0" mnemonicParsing="false" text="unknown" />
+      <RadioButton layoutX="167.0" layoutY="80.0" mnemonicParsing="false" text="iOS" />
+      <RadioButton layoutX="81.0" layoutY="108.0" mnemonicParsing="false" text="android" />
+      <RadioButton layoutX="170.0" layoutY="108.0" mnemonicParsing="false" text="Windows" />
     </children>
 </AnchorPane>
