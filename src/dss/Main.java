@@ -1,6 +1,6 @@
 package dss;
 
-import dss.views.MainView;
+import dss.commands.dss.OutputClientCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,10 @@ public class Main {
                 command.run();
             }
         }
-
-        MainView.launchApp();
+        else if(args.length == 0)
+        {
+            OutputClientCommand oc = new OutputClientCommand();
+            oc.run();
+        }
     }
 }

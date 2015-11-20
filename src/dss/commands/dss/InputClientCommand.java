@@ -1,11 +1,10 @@
 package dss.commands.dss;
 
-import dss.models.device.Device;
-import dss.models.manufacturer.Manufacturer;
+import dss.views.input.InputClientMain;
 
 public class InputClientCommand implements Runnable {
     @Override
     public void run() {
-
+        InputClientMain.launchApp();
     }
 }
