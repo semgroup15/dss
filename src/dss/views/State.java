@@ -86,6 +86,10 @@ public class State {
         private int screenRating;
         private int batteryRating;
 
+        public double width;
+        public double height;
+        public double depth;
+
         public void setManufacturer(Manufacturer manufacturer) {
             this.manufacturer = manufacturer;
         }
@@ -108,6 +112,18 @@ public class State {
 
         public void setBatteryRating(int batteryRating) {
             this.batteryRating = batteryRating;
+        }
+
+        public void setWidth(double width) {
+            this.width = width;
+        }
+
+        public void setHeight(double height) {
+            this.height = height;
+        }
+
+        public void setDepth(double depth) {
+            this.depth = depth;
         }
 
         /**
@@ -144,6 +160,22 @@ public class State {
 
             if (batteryRating > 0) {
                 query.byReviewBattery(batteryRating);
+            }
+
+            /*
+             * Dimensions
+             */
+
+            if (width > 0) {
+                query.byBodyWidth(width);
+            }
+
+            if (height > 0) {
+                query.byBodyHeight(height);
+            }
+
+            if (depth > 0) {
+                query.byBodyDepth(depth);
             }
 
             return query;

@@ -544,6 +544,27 @@ public class Device extends Model {
                         .done();
         }
 
+        public QueryBuilder byBodyWidth(double value) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("body_width > ?", value)
+                        .done();
+        }
+
+        public QueryBuilder byBodyHeight(double value) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("body_height > ?", value)
+                        .done();
+        }
+
+        public QueryBuilder byBodyDepth(double value) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("body_depth < ?", value)
+                        .done();
+        }
+
         /*
          * Join
          */
