@@ -8,25 +8,34 @@
 
 ## Commands
 
+`ant run -Dcommand=<command>`
+
+
 ### DB
 
-* `ant run -Dcommand=db.init` Create tables
+* `db.init` Create tables
 
 
 ### GSMArena
 
-* `ant run -Dcommand=ga.init` Initialize with minimal device list
-* `ant run -Dcommand=ga.expand` Expand current database with details
+* `ga.init` Initialize with minimal device list
+* `ga.expand` Expand current database with details
 
 
 ### Media
 
-* `ant run -Dcommand=media.fetch` Fetch missing device images
+* `media.fetch` Fetch missing device images
+
+
+### Randomizer
+
+* `rand.reviews` Randomize reviews
+* `rand.prices` Randomize prices
 
 
 ### UI
 
-* `ant run -Dcommand=ui` Main UI
+* `ui` Main UI
 
 
 ## Libraries
