@@ -90,14 +90,26 @@ public class State {
         private double height;
         private double depth;
 
-        private double minDisplaySize;
-        private double maxDisplaySize;
+        public static final double MIN_DISPLAY_SIZE = 0;
+        public static final double MAX_DISPLAY_SIZE = 20;
+        public static final double INC_DISPLAY_SIZE = 5;
 
-        private double minMemoryRAMSize;
-        private double maxMemoryRAMSize;
+        private double minDisplaySize = MIN_DISPLAY_SIZE;
+        private double maxDisplaySize = MAX_DISPLAY_SIZE;
 
-        private double minPrice;
-        private double maxPrice;
+        public static final double MIN_MEMORY_RAM_SIZE = 500;
+        public static final double MAX_MEMORY_RAM_SIZE = 2000;
+        public static final double INC_MEMORY_RAM_SIZE = 500;
+
+        private double minMemoryRAMSize = MIN_MEMORY_RAM_SIZE;
+        private double maxMemoryRAMSize = MAX_MEMORY_RAM_SIZE;
+
+        public static final double MIN_PRICE = 0;
+        public static final double MAX_PRICE = 1000;
+        public static final double INC_PRICE = 250;
+
+        private double minPrice = MIN_PRICE;
+        private double maxPrice = MAX_PRICE;
 
         public void setManufacturer(Manufacturer manufacturer) {
             this.manufacturer = manufacturer;
@@ -206,7 +218,8 @@ public class State {
              * Display size
              */
 
-            if (minDisplaySize > 0 || maxDisplaySize > 0) {
+            if (minDisplaySize > MIN_DISPLAY_SIZE &&
+                    maxDisplaySize < MAX_DISPLAY_SIZE) {
                 query.byDisplaySize(minDisplaySize, maxDisplaySize);
             }
 
@@ -214,7 +227,8 @@ public class State {
              * RAM size
              */
 
-            if (minMemoryRAMSize > 0 || maxMemoryRAMSize > 0) {
+            if (minMemoryRAMSize > MIN_MEMORY_RAM_SIZE &&
+                    maxMemoryRAMSize < MAX_MEMORY_RAM_SIZE) {
                 query.byMemoryRAMSize(minMemoryRAMSize, maxMemoryRAMSize);
             }
 
@@ -222,7 +236,7 @@ public class State {
              * Price
              */
 
-            if (maxPrice > 0 || minPrice > 0) {
+            if (minPrice > MIN_PRICE && maxPrice < MAX_PRICE) {
                 query.byPrice(minPrice, maxPrice);
             }
 

@@ -17,18 +17,6 @@ import java.util.ResourceBundle;
 
 public class Filter extends Widget implements Initializable {
 
-    private static final double MIN_DISPLAY_SIZE = 0;
-    private static final double MAX_DISPLAY_SIZE = 20;
-    private static final double INC_DISPLAY_SIZE = 5;
-
-    private static final double MIN_PRICE = 0;
-    private static final double MAX_PRICE = 1000;
-    private static final double INC_PRICE = 250;
-
-    private static final double MIN_MEMORY_RAM_SIZE = 500;
-    private static final double MAX_MEMORY_RAM_SIZE = 2000;
-    private static final double INC_MEMORY_RAM_SIZE = 500;
-
     @FXML
     ComboBox<Device.Platform> platform;
 
@@ -143,9 +131,9 @@ public class Filter extends Widget implements Initializable {
         /*
          * Display
          */
-        display.setMin(MIN_DISPLAY_SIZE);
-        display.setMax(MAX_DISPLAY_SIZE);
-        display.setMajorTickUnit(INC_DISPLAY_SIZE);
+        display.setMin(State.Criteria.MIN_DISPLAY_SIZE);
+        display.setMax(State.Criteria.MAX_DISPLAY_SIZE);
+        display.setMajorTickUnit(State.Criteria.INC_DISPLAY_SIZE);
         display.setLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number number) {
@@ -158,8 +146,8 @@ public class Filter extends Widget implements Initializable {
             }
         });
 
-        display.adjustLowValue(MIN_DISPLAY_SIZE);
-        display.adjustHighValue(MAX_DISPLAY_SIZE);
+        display.adjustLowValue(State.Criteria.MIN_DISPLAY_SIZE);
+        display.adjustHighValue(State.Criteria.MAX_DISPLAY_SIZE);
 
         display.setOnMouseReleased((event) -> {
             State state = State.get();
@@ -169,9 +157,9 @@ public class Filter extends Widget implements Initializable {
             state.setCriteria(criteria);
         });
 
-        price.setMin(MIN_PRICE);
-        price.setMax(MAX_PRICE);
-        price.setMajorTickUnit(INC_PRICE);
+        price.setMin(State.Criteria.MIN_PRICE);
+        price.setMax(State.Criteria.MAX_PRICE);
+        price.setMajorTickUnit(State.Criteria.INC_PRICE);
         price.setLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number number) {
@@ -184,8 +172,8 @@ public class Filter extends Widget implements Initializable {
             }
         });
 
-        price.adjustLowValue(MIN_PRICE);
-        price.adjustHighValue(MAX_PRICE);
+        price.adjustLowValue(State.Criteria.MIN_PRICE);
+        price.adjustHighValue(State.Criteria.MAX_PRICE);
 
         price.setOnMouseReleased((event) -> {
             State state = State.get();
@@ -197,9 +185,9 @@ public class Filter extends Widget implements Initializable {
         /*
          * Memory
          */
-        memory.setMin(MIN_MEMORY_RAM_SIZE);
-        memory.setMax(MAX_MEMORY_RAM_SIZE);
-        memory.setMajorTickUnit(INC_MEMORY_RAM_SIZE);
+        memory.setMin(State.Criteria.MIN_MEMORY_RAM_SIZE);
+        memory.setMax(State.Criteria.MAX_MEMORY_RAM_SIZE);
+        memory.setMajorTickUnit(State.Criteria.INC_MEMORY_RAM_SIZE);
         memory.setLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number number) {
@@ -217,8 +205,8 @@ public class Filter extends Widget implements Initializable {
             }
         });
 
-        memory.adjustLowValue(MIN_MEMORY_RAM_SIZE);
-        memory.adjustHighValue(MAX_MEMORY_RAM_SIZE);
+        memory.adjustLowValue(State.Criteria.MIN_MEMORY_RAM_SIZE);
+        memory.adjustHighValue(State.Criteria.MAX_MEMORY_RAM_SIZE);
 
         memory.setOnMouseReleased((event) -> {
             State state = State.get();
