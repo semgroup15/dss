@@ -32,9 +32,11 @@ public class SensorField extends Widget
 
     @Override
     public void syncToDevice(Device device) {
+        device.sensor.set(getValue());
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        setValue(device.sensor.get());
     }
 }

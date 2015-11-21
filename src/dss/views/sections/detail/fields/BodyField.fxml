@@ -12,14 +12,17 @@
     <center>
         <HBox>
             <UnitTextField
+                    fx:id="width"
                     valuePromptText="Width"
                     unit="MM"/>
 
             <UnitTextField
+                    fx:id="height"
                     valuePromptText="Height"
                     unit="MM"/>
 
             <UnitTextField
+                    fx:id="depth"
                     valuePromptText="Depth"
                     unit="MM"/>
         </HBox>

@@ -12,8 +12,8 @@
 
     <center>
         <VBox styleClass="container">
-            <CheckBox text="Loudspeaker"/>
-            <CheckBox text="3.5mm Jack"/>
+            <CheckBox text="Loudspeaker" fx:id="loudspeaker"/>
+            <CheckBox text="3.5mm Jack" fx:id="jack35"/>
         </VBox>
     </center>
 </fx:root>

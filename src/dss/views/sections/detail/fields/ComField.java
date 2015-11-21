@@ -31,9 +31,11 @@ public class ComField extends Widget implements Initializable, DeviceBinding {
 
     @Override
     public void syncToDevice(Device device) {
+        device.com.set(getValue());
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        setValue(device.com.get());
     }
 }

@@ -13,9 +13,11 @@ public class NameField extends Widget implements DeviceBinding {
 
     @Override
     public void syncToDevice(Device device) {
+        device.name = text.getText();
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        text.setText(device.name);
     }
 }

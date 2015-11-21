@@ -31,9 +31,11 @@ public class ManufacturerField extends Widget
 
     @Override
     public void syncToDevice(Device device) {
+        device.manufacturerId = combo.getValue().id;
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        combo.setValue(device.getManufacturer());
     }
 }

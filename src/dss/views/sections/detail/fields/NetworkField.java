@@ -32,9 +32,11 @@ public class NetworkField extends Widget
 
     @Override
     public void syncToDevice(Device device) {
+        device.network.set(getValue());
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        setValue(device.network.get());
     }
 }

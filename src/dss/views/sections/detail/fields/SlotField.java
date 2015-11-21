@@ -31,9 +31,11 @@ public class SlotField extends Widget implements Initializable, DeviceBinding {
 
     @Override
     public void syncToDevice(Device device) {
+        device.memory.set(getValue());
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        setValue(device.memory.get());
     }
 }

@@ -12,14 +12,17 @@
     <center>
         <HBox>
             <UnitTextField
+                    fx:id="sleep"
                     valuePromptText="Idle"
                     unit="HS"/>
 
             <UnitTextField
+                    fx:id="music"
                     valuePromptText="Music"
                     unit="HS"/>
 
             <UnitTextField
+                    fx:id="talk"
                     valuePromptText="Talk"
                     unit="HS"/>
         </HBox>

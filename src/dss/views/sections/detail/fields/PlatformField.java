@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class PlatformField extends Widget
@@ -25,9 +24,11 @@ public class PlatformField extends Widget
 
     @Override
     public void syncToDevice(Device device) {
+        device.platform = combo.getValue();
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        combo.setValue(device.platform);
     }
 }

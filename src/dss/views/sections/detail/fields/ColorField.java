@@ -31,9 +31,11 @@ public class ColorField extends Widget implements Initializable, DeviceBinding {
 
     @Override
     public void syncToDevice(Device device) {
+        device.color.set(getValue());
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        setValue(device.color.get());
     }
 }

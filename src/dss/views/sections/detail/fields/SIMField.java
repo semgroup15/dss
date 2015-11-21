@@ -23,9 +23,11 @@ public class SIMField extends Widget implements Initializable, DeviceBinding {
 
     @Override
     public void syncToDevice(Device device) {
+        device.simType = combo.getValue();
     }
 
     @Override
     public void syncFromDevice(Device device) {
+        combo.setValue(device.simType);
     }
 }

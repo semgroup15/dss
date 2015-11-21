@@ -12,10 +12,12 @@
     <center>
         <HBox>
             <UnitTextField
+                    fx:id="ram"
                     valuePromptText="RAM"
                     unit="MB"/>
 
             <UnitTextField
+                    fx:id="internal"
                     valuePromptText="Internal"
                     unit="MB"/>
         </HBox>
