@@ -1,0 +1,15 @@
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<fx:root
+        prefWidth="130.0"
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <center>
+        <TextField fx:id="value" styleClass="value"/>
+    </center>
+
+    <right>
+        <Label fx:id="unit" styleClass="unit"/>
+    </right>
+</fx:root>

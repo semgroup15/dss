@@ -1,0 +1,14 @@
+<?import dss.views.sections.detail.fields.base.MultipleSelector?>
+<?import dss.views.sections.detail.fields.base.GroupLabel?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <left>
+        <GroupLabel text="Color"/>
+    </left>
+
+    <center>
+        <MultipleSelector fx:id="selector"/>
+    </center>
+</fx:root>

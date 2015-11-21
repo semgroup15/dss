@@ -78,6 +78,9 @@ public class Device extends Model {
             USB("USB"),
             NFC("NFC");
 
+            public static final Item[] ALL =
+                    new Item[] { WLAN, BLUETOOTH, GPS, RADIO, USB, NFC };
+
             private String name;
 
             Item(String name) {
@@ -105,6 +108,15 @@ public class Device extends Model {
             return items;
         }
 
+        public void set(Set<Item> items) {
+            wlan = items.contains(Item.WLAN);
+            bluetooth = items.contains(Item.BLUETOOTH);
+            gps = items.contains(Item.GPS);
+            radio = items.contains(Item.RADIO);
+            usb = items.contains(Item.USB);
+            nfc = items.contains(Item.NFC);
+        }
+
         @Override
         public String toString() {
             return join(get());
@@ -126,6 +138,11 @@ public class Device extends Model {
             GYRO("Gyro"),
             MAGNETOMETER("Magnetometer"),
             PROXIMITY("Proximity");
+
+            public static final Item[] ALL =
+                    new Item[] {
+                            ACCELEROMETER, BAROMETER, COMPASS, GYRO,
+                            MAGNETOMETER, PROXIMITY };
 
             private String name;
 
@@ -154,6 +171,15 @@ public class Device extends Model {
             return items;
         }
 
+        public void set(Set<Item> items) {
+            accelerometer = items.contains(Item.ACCELEROMETER);
+            barometer = items.contains(Item.BAROMETER);
+            compass = items.contains(Item.COMPASS);
+            gyro = items.contains(Item.GYRO);
+            magnetometer = items.contains(Item.MAGNETOMETER);
+            proximity = items.contains(Item.PROXIMITY);
+        }
+
         @Override
         public String toString() {
             return join(get());
@@ -176,6 +202,9 @@ public class Device extends Model {
             MICRO_SDHC("MicroSDHC"),
             MMC("MMC"),
             MMC_MOBILE("MMC Mobile");
+
+            public static final Item[] ALL =
+                    new Item[] { SD, MICRO_SD, MICRO_SDHC, MMC, MMC_MOBILE };
 
             private String name;
 
@@ -203,6 +232,14 @@ public class Device extends Model {
             return items;
         }
 
+        public void set(Set<Item> items) {
+            sd = items.contains(Item.SD);
+            microSD = items.contains(Item.MICRO_SD);
+            microSDHC = items.contains(Item.MICRO_SDHC);
+            mmc = items.contains(Item.MMC);
+            mmcMobile = items.contains(Item.MMC_MOBILE);
+        }
+
         @Override
         public String toString() {
             return join(get());
@@ -224,6 +261,9 @@ public class Device extends Model {
             EVDO("EVDO"),
             CDMA("CDMA"),
             LTE("LTE");
+
+            public static final Item[] ALL =
+                    new Item[] { GSM, UMTS, HSPA, EVDO, CDMA, LTE };
 
             private String name;
 
@@ -250,6 +290,15 @@ public class Device extends Model {
             if (cdma) items.add(Item.CDMA);
             if (lte) items.add(Item.LTE);
             return items;
+        }
+
+        public void set(Set<Item> items) {
+            gsm = items.contains(Item.GSM);
+            umts = items.contains(Item.UMTS);
+            hspa = items.contains(Item.HSPA);
+            evdo = items.contains(Item.EVDO);
+            cdma = items.contains(Item.CDMA);
+            lte = items.contains(Item.LTE);
         }
 
         @Override
@@ -303,6 +352,11 @@ public class Device extends Model {
             GOLD("Gold"),
             ORANGE("Orange");
 
+            public static final Item[] ALL =
+                    new Item[] {
+                            BLACK, WHITE, BLUE, RED, PINK, SILVER, GRAY,
+                            YELLOW, GREEN, GOLD, ORANGE };
+
             private String name;
 
             Item(String name) {
@@ -335,6 +389,20 @@ public class Device extends Model {
             return items;
         }
 
+        public void set(Set<Item> items) {
+            black = items.contains(Item.BLACK);
+            white = items.contains(Item.WHITE);
+            blue = items.contains(Item.BLUE);
+            red = items.contains(Item.RED);
+            pink = items.contains(Item.PINK);
+            silver = items.contains(Item.SILVER);
+            gray = items.contains(Item.GRAY);
+            yellow = items.contains(Item.YELLOW);
+            green = items.contains(Item.GREEN);
+            gold = items.contains(Item.GOLD);
+            orange = items.contains(Item.ORANGE);
+        }
+
         @Override
         public String toString() {
             return join(get());
@@ -347,6 +415,9 @@ public class Device extends Model {
         MINI_SIM("Mini SIM"),
         MICRO_SIM("Micro SIM"),
         NANO_SIM("Nano SIM");
+
+        public static final SIMType[] ALL =
+                new SIMType[] { FULL_SIZE, MINI_SIM, MICRO_SIM, NANO_SIM };
 
         private String name;
 

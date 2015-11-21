@@ -25,6 +25,7 @@ public class Detail extends Widget {
     @FXML
     Rating overallRating;
 
+    /*
     @FXML
     Field display;
 
@@ -60,6 +61,7 @@ public class Detail extends Widget {
 
     @FXML
     Field platform;
+    */
 
     @FXML
     Rating responsivenessRating;
@@ -82,6 +84,7 @@ public class Detail extends Widget {
         name.setText(device.name);
         manufacturer.setText(device.getManufacturer().name);
 
+        /*
         display.setValue(
             device.display.width + " x " +
             device.display.height);
@@ -115,12 +118,13 @@ public class Detail extends Widget {
         network.setValue(device.network.toString());
 
         sound.setValue(
-            "Loudspeaker: " + device.sound.loudspeaker + ", " +
-            "3.5mm jack: " + device.sound.jack35);
+            "Loudspeaker: " + (device.sound.loudspeaker ? "yes" : "no") + ", " +
+            "3.5mm jack: " + (device.sound.jack35 ? "yes" : "no"));
 
         sim.setValue(device.simType.toString());
 
         platform.setValue(device.platform.toString());
+        */
 
         overallRating.setValue(device.overallRating);
         responsivenessRating.setValue(device.responsivenessRating);

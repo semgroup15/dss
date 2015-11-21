@@ -1,0 +1,27 @@
+<?import javafx.scene.layout.HBox?>
+<?import dss.views.sections.detail.fields.base.UnitTextField?>
+<?import dss.views.sections.detail.fields.base.GroupLabel?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <left>
+        <GroupLabel text="Display"/>
+    </left>
+
+    <center>
+        <HBox>
+            <UnitTextField
+                    valuePromptText="Width"
+                    unit="PX"/>
+
+            <UnitTextField
+                    valuePromptText="Height"
+                    unit="PX"/>
+
+            <UnitTextField
+                    valuePromptText="Density"
+                    unit="DPI"/>
+        </HBox>
+    </center>
+</fx:root>

@@ -298,7 +298,7 @@
 }
 
 .Detail .image {
-    -fx-padding: 30 40;
+    -fx-padding: 30 50;
 }
 
 .Detail .heading {
@@ -313,18 +313,36 @@
     -fx-font-size: 20pt;
 }
 
-.Detail .fields .Field {
+.Detail .form > * {
+    -fx-padding: 4 20;
 }
 
-.Detail .fields .Field .label {
-    -fx-padding: 4 10;
+.Detail .form .GroupLabel {
+    -fx-padding: 10;
 }
 
-.Detail .fields .Field .field-label {
-    -fx-font-weight: bold;
+.Detail .form .UnitTextField {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0 10 0 0;
+    -fx-border-color: #f7f7f7;
 }
 
-.Detail .fields .Field .field-value {
+.Detail .form .UnitTextField .text-field {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-color: #dddddd;
+}
+
+.Detail .form .UnitTextField .text-field:focused {
+    -fx-border-color: #3498db;
+}
+
+.Detail .form .UnitTextField .label {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-text-fill: #34495e;
+    -fx-font-size: 8pt;
 }
 
 .Detail .Rating {

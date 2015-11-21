@@ -1,10 +1,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
-<?import dss.views.sections.detail.Field?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import dss.views.sections.Rating?>
+<?import dss.views.sections.detail.fields.DisplayField?>
+<?import dss.views.sections.detail.fields.BodyField?>
+<?import dss.views.sections.detail.fields.ColorField?>
+<?import dss.views.sections.detail.fields.BatteryField?>
+<?import dss.views.sections.detail.fields.CameraField?>
+<?import dss.views.sections.detail.fields.ComField?>
+<?import dss.views.sections.detail.fields.SensorField?>
+<?import dss.views.sections.detail.fields.MemoryField?>
+<?import dss.views.sections.detail.fields.NetworkField?>
+<?import dss.views.sections.detail.fields.SoundField?>
+<?import dss.views.sections.detail.fields.SIMField?>
+<?import dss.views.sections.detail.fields.PlatformField?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -24,19 +35,19 @@
                         <Label fx:id="name" styleClass="name"/>
                     </VBox>
 
-                    <VBox styleClass="fields">
-                        <Field label="Display" fx:id="display"/>
-                        <Field label="Body" fx:id="body"/>
-                        <Field label="Colors" fx:id="colors"/>
-                        <Field label="Battery" fx:id="battery"/>
-                        <Field label="Camera" fx:id="camera"/>
-                        <Field label="Com" fx:id="com"/>
-                        <Field label="Sensor" fx:id="sensor"/>
-                        <Field label="Memory" fx:id="memory"/>
-                        <Field label="Network" fx:id="network"/>
-                        <Field label="Sound" fx:id="sound"/>
-                        <Field label="SIM" fx:id="sim"/>
-                        <Field label="Platform" fx:id="platform"/>
+                    <VBox styleClass="form">
+                        <DisplayField/>
+                        <BodyField/>
+                        <ColorField/>
+                        <BatteryField/>
+                        <CameraField/>
+                        <ComField/>
+                        <SensorField/>
+                        <MemoryField/>
+                        <NetworkField/>
+                        <SoundField/>
+                        <SIMField/>
+                        <PlatformField/>
                     </VBox>
                 </VBox>
             </center>

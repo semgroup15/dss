@@ -1,0 +1,24 @@
+package dss.views.sections.detail.fields.base;
+
+import dss.views.Widget;
+import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
+public class GroupLabel extends Widget {
+
+    @FXML
+    Label text;
+
+    public StringProperty textProperty() {
+        return text.textProperty();
+    }
+
+    public String getText() {
+        return text.getText();
+    }
+
+    public void setText(String text) {
+        this.text.setText(text);
+    }
+}

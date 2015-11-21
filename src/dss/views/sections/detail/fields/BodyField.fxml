@@ -1,0 +1,27 @@
+<?import javafx.scene.layout.HBox?>
+<?import dss.views.sections.detail.fields.base.UnitTextField?>
+<?import dss.views.sections.detail.fields.base.GroupLabel?>
+<fx:root
+        type="javafx.scene.layout.BorderPane"
+        xmlns:fx="http://javafx.com/fxml">
+
+    <left>
+        <GroupLabel text="Body"/>
+    </left>
+
+    <center>
+        <HBox>
+            <UnitTextField
+                    valuePromptText="Width"
+                    unit="MM"/>
+
+            <UnitTextField
+                    valuePromptText="Height"
+                    unit="MM"/>
+
+            <UnitTextField
+                    valuePromptText="Depth"
+                    unit="MM"/>
+        </HBox>
+    </center>
+</fx:root>
