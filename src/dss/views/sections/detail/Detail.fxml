@@ -46,6 +46,7 @@
                     <Rating
                             styleClass="overall"
                             alignment="CENTER_RIGHT"
+                            starsAlignment="CENTER_RIGHT"
                             labelVisible="false"
                             labelManaged="false"
                             fx:id="overallRating"/>
@@ -53,16 +54,19 @@
                     <Rating
                             label="Responsiveness"
                             alignment="CENTER_RIGHT"
+                            starsAlignment="CENTER_RIGHT"
                             fx:id="responsivenessRating"/>
 
                     <Rating
                             label="Screen"
                             alignment="CENTER_RIGHT"
+                            starsAlignment="CENTER_RIGHT"
                             fx:id="screenRating"/>
 
                     <Rating
                             label="Battery"
                             alignment="CENTER_RIGHT"
+                            starsAlignment="CENTER_RIGHT"
                             fx:id="batteryRating"/>
                 </VBox>
             </right>

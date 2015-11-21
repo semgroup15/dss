@@ -134,16 +134,20 @@
     -fx-padding: 6 20;
 }
 
-.Listing .list-view .list-cell .Rating .label.rating-stars {
-    -fx-font-size: 16pt;
-    -fx-text-fill: #f39c12;
+.Listing .list-view .list-cell .Rating {
+    -fx-padding: 6 20;
 }
 
-.Listing .list-view .list-cell .label.manufacturer {
+.Listing .list-view .list-cell .Rating .rating-stars .label {
+    -fx-font-size: 16pt;
+    -fx-padding: 0;
+}
+
+.Listing .list-view .list-cell .manufacturer {
     -fx-font-size: 10pt;
 }
 
-.Listing .list-view .list-cell .label.name {
+.Listing .list-view .list-cell .name {
     -fx-font-size: 14pt;
 }
 
@@ -252,26 +256,35 @@
     -fx-padding: 4 10;
 }
 
-.Detail .fields .Field .label.field-label {
+.Detail .fields .Field .field-label {
     -fx-font-weight: bold;
 }
 
-.Detail .fields .Field .label.field-value {
+.Detail .fields .Field .field-value {
 }
 
 .Detail .Rating {
     -fx-padding: 14 20;
 }
 
-.Detail .Rating .label.rating-label {
+.Detail .Rating.overall .rating-stars .label {
+    -fx-font-size: 24pt;
+}
+
+/*
+ * Rating
+ */
+
+.Rating .rating-label {
     -fx-font-size: 8pt;
 }
 
-.Detail .Rating .label.rating-stars {
+.Rating .rating-stars .label.star {
     -fx-font-size: 16pt;
-    -fx-text-fill: #f39c12;
+    -fx-text-fill: #aaaaaa;
+    -fx-cursor: hand;
 }
 
-.Detail .Rating.overall .label.rating-stars {
-    -fx-font-size: 24pt;
+.Rating .rating-stars .label.star.active {
+    -fx-text-fill: #f39c12;
 }

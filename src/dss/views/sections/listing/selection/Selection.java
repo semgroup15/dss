@@ -46,6 +46,9 @@ public class Selection extends Widget
     private void update() {
         list.setItems(devices);
         button.setDisable(devices == null || devices.size() < REQUIRED);
+        if (devices != null) {
+            button.setText(String.format("Compare (%d)", devices.size()));
+        }
     }
 
     @Override
