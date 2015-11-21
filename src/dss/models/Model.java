@@ -415,19 +415,18 @@ public abstract class Model {
                 }
             }
 
-            private static class WhereSection extends BaseSection {
+            private static abstract class ColumnSection extends BaseSection {
 
-                protected WhereSection(QueryBuilder queryBuilder) {
+                protected ColumnSection(QueryBuilder queryBuilder) {
                     super(queryBuilder);
                 }
+
+                protected abstract String getWord();
 
                 @Override
                 public String getQuery() {
                     String[] parts = getPartsAsArray();
-                    for (int i = 0; i < parts.length; i++) {
-                        parts[i] = String.format("(%s)", parts[i]);
-                    }
-                    return "WHERE " + String.join(" AND ", parts);
+                    return getWord() + " " + String.join(", ", parts);
                 }
 
                 @Override
@@ -436,10 +435,96 @@ public abstract class Model {
                 }
             }
 
-            protected Section select = new BaseSection(this);
+            private static class SelectSection extends ColumnSection {
+
+                public SelectSection(QueryBuilder queryBuilder) {
+                    super(queryBuilder);
+                }
+
+                @Override
+                public String getWord()  {
+                    return "SELECT";
+                }
+            }
+
+            private static class GroupSection extends ColumnSection {
+
+                public GroupSection(QueryBuilder queryBuilder) {
+                    super(queryBuilder);
+                }
+
+                @Override
+                public String getWord()  {
+                    return "GROUP BY";
+                }
+            }
+
+            private static class OrderSection extends ColumnSection {
+
+                public OrderSection(QueryBuilder queryBuilder) {
+                    super(queryBuilder);
+                }
+
+                @Override
+                public String getWord()  {
+                    return "ORDER BY";
+                }
+            }
+
+            private static abstract class ConditionSection extends BaseSection {
+
+                protected ConditionSection(QueryBuilder queryBuilder) {
+                    super(queryBuilder);
+                }
+
+                protected abstract String getWord();
+
+                @Override
+                public String getQuery() {
+                    String[] parts = getPartsAsArray();
+                    for (int i = 0; i < parts.length; i++) {
+                        parts[i] = String.format("(%s)", parts[i]);
+                    }
+                    return getWord() + " " + String.join(" AND ", parts);
+                }
+
+                @Override
+                public boolean isValid() {
+                    return !parts.isEmpty();
+                }
+            }
+
+            private static class WhereSection extends ConditionSection {
+
+                protected WhereSection(QueryBuilder queryBuilder) {
+                    super(queryBuilder);
+                }
+
+                @Override
+                public String getWord() {
+                    return "WHERE";
+                }
+            }
+
+            private static class HavingSection extends ConditionSection {
+
+                protected HavingSection(QueryBuilder queryBuilder) {
+                    super(queryBuilder);
+                }
+
+                @Override
+                public String getWord() {
+                    return "HAVING";
+                }
+            }
+
+            protected Section select = new SelectSection(this);
+            protected Section from = new BaseSection(this);
             protected Section join = new BaseSection(this);
             protected Section where = new WhereSection(this);
-            protected Section order = new BaseSection(this);
+            protected Section group = new GroupSection(this);
+            protected Section having = new HavingSection(this);
+            protected Section order = new OrderSection(this);
             protected Section limit = new BaseSection(this);
 
             /**
@@ -451,12 +536,24 @@ public abstract class Model {
                 return select;
             }
 
+            public Section from() {
+                return from;
+            }
+
             public Section join() {
                 return join;
             }
 
             public Section where() {
                 return where;
+            }
+
+            public Section group() {
+                return group;
+            }
+
+            public Section having() {
+                return having;
             }
 
             public Section order() {
@@ -470,27 +567,23 @@ public abstract class Model {
             public String getQuery() {
                 return String.join(" ", new String[] {
                     select.getQuery(),
+                    from.getQuery(),
                     join.getQuery(),
-                    where.getQuery(),
-                    order.getQuery(),
+                    where.isValid() ? where.getQuery() : "",
+                    group.isValid() ? group.getQuery() : "",
+                    having.isValid() ? having.getQuery() : "",
+                    order.isValid() ? order.getQuery() : "",
                     limit.getQuery(),
                 });
             }
 
             public List<Object> getParameters() {
-                List<Object> parameters = new ArrayList<Object>();
+                List<Object> parameters = new ArrayList<>();
                 parameters.addAll(select.getParameters());
                 parameters.addAll(join.getParameters());
                 parameters.addAll(where.getParameters());
+                parameters.addAll(having.getParameters());
                 return parameters;
-            }
-
-            public boolean isValid() {
-                return
-                    select.isValid() &&
-                    join.isValid() &&
-                    where.isValid() &&
-                    limit.isValid();
             }
         }
 
@@ -869,14 +962,7 @@ public abstract class Model {
          * @param builder {@code QueryBuilder}
          * @return Query result.
          */
-        public List<T> select(final QueryBuilder builder)
-                throws IllegalArgumentException {
-
-            if (!builder.isValid()) {
-                throw new IllegalArgumentException(
-                        "QueryBuilder is not in a valid state");
-            }
-
+        public List<T> select(final QueryBuilder builder) {
             return DB.execute(new DB.Task<List<T>>() {
                 @Override
                 public List<T> execute(Context context)

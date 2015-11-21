@@ -370,6 +370,9 @@ public class Device extends Model {
         IOS("iOS"),
         WINDOWS("Windows");
 
+        public static final Platform[] ALL =
+                new Platform[] { ANDROID, IOS, WINDOWS };
+
         private String name;
 
         Platform(String name) {
@@ -408,6 +411,11 @@ public class Device extends Model {
     public SIMType simType = SIMType.UNKNOWN;
     public Platform platform = Platform.UNKNOWN;
 
+    public int responsivenessRating;
+    public int screenRating;
+    public int batteryRating;
+    public int overallRating;
+
     @Override
     public String toString() {
         return String.format("(%d) %s %s", id, getManufacturer().name, name);
@@ -441,8 +449,35 @@ public class Device extends Model {
         public QueryBuilder() {
             super();
 
-            this.select().add("SELECT * FROM device").done();
-            this.order().add("ORDER BY year DESC").done();
+            this.select().add("device.*");
+            this.from().add("FROM device");
+
+            this.group().add("device.id");
+            this.order().add("year DESC");
+
+            this.withReviewAverage();
+            this.withReviewOverallAverage();
+        }
+
+        private QueryBuilder withReviewAverage() {
+            return (QueryBuilder) this
+                    .joinReview()
+                    .select()
+                        .add("AVG(review.responsiveness)")
+                        .add("AVG(review.screen)")
+                        .add("AVG(review.battery)")
+                        .done();
+        }
+
+        private QueryBuilder withReviewOverallAverage() {
+            return (QueryBuilder) this
+                    .joinReview()
+                    .select()
+                        .add("AVG((" +
+                            "review.responsiveness + " +
+                            "review.screen + " +
+                            "review.battery) / 3.0)")
+                        .done();
         }
 
         public QueryBuilder offset(int offset) {
@@ -481,6 +516,34 @@ public class Device extends Model {
                         .done();
         }
 
+        public QueryBuilder byPlatform(Platform platform) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("platform = ?", platform.name())
+                        .done();
+        }
+
+        public QueryBuilder byReviewResponsiveness(int value) {
+            return (QueryBuilder) this
+                    .having()
+                        .add("AVG(review.responsiveness) > ?", value)
+                        .done();
+        }
+
+        public QueryBuilder byReviewScreen(int value) {
+            return (QueryBuilder) this
+                    .having()
+                        .add("AVG(review.screen) > ?", value)
+                        .done();
+        }
+
+        public QueryBuilder byReviewBattery(int value) {
+            return (QueryBuilder) this
+                    .having()
+                        .add("AVG(review.battery) > ?", value)
+                        .done();
+        }
+
         /*
          * Join
          */
@@ -494,6 +557,18 @@ public class Device extends Model {
                         "ON manufacturer.id = device.manufacturer_id");
             }
             joinManufacturer = true;
+            return this;
+        }
+
+        private boolean joinReview = false;
+
+        public QueryBuilder joinReview() {
+            if (!joinReview) {
+                join().add(
+                        "JOIN review " +
+                        "ON review.device_id = device.id");
+            }
+            joinReview = true;
             return this;
         }
     }
@@ -732,6 +807,15 @@ public class Device extends Model {
 
         simType = SIMType.valueOf(result.nextString());
         platform = Platform.valueOf(result.nextString());
+
+        /*
+         * Reviews
+         */
+
+        responsivenessRating = (int) Math.round(result.nextDouble());
+        screenRating = (int) Math.round(result.nextDouble());
+        batteryRating = (int) Math.round(result.nextDouble());
+        overallRating = (int) Math.round(result.nextDouble());
     }
 
     /*

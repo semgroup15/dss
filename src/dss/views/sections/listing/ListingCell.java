@@ -55,8 +55,8 @@ public class ListingCell extends ListCell<Device>
         remove.getStyleClass().add("remove");
 
         VBox center = new VBox();
-        center.getChildren().add(name);
         center.getChildren().add(manufacturer);
+        center.getChildren().add(name);
         center.getChildren().add(overallRating);
 
         HBox right = new HBox();
@@ -106,6 +106,7 @@ public class ListingCell extends ListCell<Device>
 
             manufacturer.setText(device.getManufacturer().name);
             name.setText(device.name);
+            overallRating.setValue(device.overallRating);
 
             setSelected(State.get().getDevices().contains(device));
         }

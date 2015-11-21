@@ -35,10 +35,7 @@ public class Listing extends Widget
     @Override
     public void onSearchChange(State.Criteria criteria) {
         Device.QueryBuilder query = criteria.asDeviceQuery();
-
-        if (query.isValid()) {
-            List<Device> devices = Device.manager.select(query);
-            list.setItems(FXCollections.observableArrayList(devices));
-        }
+        List<Device> devices = Device.manager.select(query);
+        list.setItems(FXCollections.observableArrayList(devices));
     }
 }

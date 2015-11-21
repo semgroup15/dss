@@ -32,9 +32,9 @@ public class ReviewsCommand implements Runnable {
 
             Review review = new Review();
             review.deviceId = device.id;
-            review.responsiveness = random.nextInt(MAX + 1);
-            review.screen = random.nextInt(MAX + 1);
-            review.battery = random.nextInt(MAX + 1);
+            review.responsiveness = random.nextInt(MAX) + 1;
+            review.screen = random.nextInt(MAX) + 1;
+            review.battery = random.nextInt(MAX) + 1;
             reviews.add(review);
         }
 

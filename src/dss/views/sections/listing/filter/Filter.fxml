@@ -1,9 +1,89 @@
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import dss.views.sections.Rating?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import org.controlsfx.control.RangeSlider?>
+<?import javafx.scene.control.Label?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
     <center>
-        <Text text="FILTER"/>
+        <VBox>
+            <VBox styleClass="group" alignment="CENTER">
+                <HBox alignment="CENTER_RIGHT" styleClass="rating-group">
+                    <Label text="Responsiveness"/>
+                    <Rating
+                            fx:id="responsivenessRating"
+                            labelVisible="false"
+                            labelManaged="false"/>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" styleClass="rating-group">
+                    <Label text="Screen"/>
+                    <Rating
+                            fx:id="screenRating"
+                            labelVisible="false"
+                            labelManaged="false"/>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" styleClass="rating-group">
+                    <Label text="Battery"/>
+                    <Rating
+                            fx:id="batteryRating"
+                            labelVisible="false"
+                            labelManaged="false"/>
+                </HBox>
+            </VBox>
+
+            <VBox styleClass="group" alignment="CENTER">
+                <ComboBox
+                        fx:id="platform"
+                        prefWidth="250.0"
+                        prefHeight="36.0"/>
+            </VBox>
+
+            <VBox styleClass="group" alignment="CENTER">
+                <HBox>
+                    <TextField
+                            fx:id="width"
+                            promptText="W (mm)"
+                            alignment="CENTER"/>
+                    <TextField
+                            fx:id="height"
+                            promptText="H (mm)"
+                            alignment="CENTER"/>
+                    <TextField
+                            fx:id="depth"
+                            promptText="D (mm)"
+                            alignment="CENTER"/>
+                </HBox>
+            </VBox>
+
+            <VBox styleClass="group" alignment="CENTER">
+                <Label text="Display"/>
+                <RangeSlider
+                        fx:id="display"
+                        showTickLabels="true"
+                        showTickMarks="true"/>
+            </VBox>
+
+            <VBox styleClass="group" alignment="CENTER">
+                <Label text="Price"/>
+                <RangeSlider
+                        fx:id="price"
+                        showTickLabels="true"
+                        showTickMarks="true"/>
+            </VBox>
+
+            <VBox styleClass="group" alignment="CENTER">
+                <Label text="Memory"/>
+                <RangeSlider
+                        fx:id="memory"
+                        showTickLabels="true"
+                        showTickMarks="true"/>
+            </VBox>
+        </VBox>
     </center>
 </fx:root>

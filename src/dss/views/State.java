@@ -80,25 +80,39 @@ public class State {
         private Manufacturer manufacturer;
         private String query;
 
-        public Manufacturer getManufacturer() {
-            return manufacturer;
-        }
+        private Device.Platform platform;
+
+        private int responsivenessRating;
+        private int screenRating;
+        private int batteryRating;
 
         public void setManufacturer(Manufacturer manufacturer) {
             this.manufacturer = manufacturer;
-        }
-
-        public String getQuery() {
-            return query;
         }
 
         public void setQuery(String query) {
             this.query = query;
         }
 
+        public void setPlatform(Device.Platform platform) {
+            this.platform = platform;
+        }
+
+        public void setResponsivenessRating(int responsivenessRating) {
+            this.responsivenessRating = responsivenessRating;
+        }
+
+        public void setScreenRating(int screenRating) {
+            this.screenRating = screenRating;
+        }
+
+        public void setBatteryRating(int batteryRating) {
+            this.batteryRating = batteryRating;
+        }
+
         /**
          * Get criteria as a device query.
-         * @return Item query
+         * @return Device query
          */
         public Device.QueryBuilder asDeviceQuery() {
             Device.QueryBuilder query = new Device.QueryBuilder();
@@ -109,6 +123,27 @@ public class State {
 
             if (this.query != null && !this.query.isEmpty()) {
                 query.byName(this.query);
+            }
+
+            if (this.platform != null &&
+                    this.platform != Device.Platform.UNKNOWN) {
+                query.byPlatform(this.platform);
+            }
+
+            /*
+             * Review ratings
+             */
+
+            if (responsivenessRating > 0) {
+                query.byReviewResponsiveness(responsivenessRating);
+            }
+
+            if (screenRating > 0) {
+                query.byReviewScreen(screenRating);
+            }
+
+            if (batteryRating > 0) {
+                query.byReviewBattery(batteryRating);
             }
 
             return query;

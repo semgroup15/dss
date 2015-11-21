@@ -14,11 +14,28 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Star rating widget.
+ */
 public class Rating extends Widget implements Initializable {
 
+    /**
+     * Change {@code Listener}.
+     */
+    public interface Listener {
+        /**
+         * Change rating value.
+         * @param value New value
+         */
+        void onValueChange(int value);
+    }
+
     private static final int SIZE = 5;
+    private static final int INITIAL = 1;
 
     @FXML
     VBox container;
@@ -30,22 +47,35 @@ public class Rating extends Widget implements Initializable {
     HBox stars;
 
     private int value;
+    private List<Listener> listeners = new ArrayList<>();
 
+    /**
+     * {@code Label} displaying a single star.
+     */
     private static class StarLabel extends Label {
 
         private static final String STYLE_CLASS = "star";
         private static final String STYLE_CLASS_ACTIVE = "active";
 
+        /**
+         * Initialize {@code StarLabel}.
+         * @param rating Parent {@code Rating}
+         * @param value Value of the star
+         */
         public StarLabel(Rating rating, int value) {
             super("★");
 
             this.getStyleClass().add(STYLE_CLASS);
 
             this.setOnMouseEntered((event) -> rating.showValue(value));
-            this.setOnMouseExited((event) -> rating.showValue());
+            this.setOnMouseExited((event) -> rating.showValue(rating.value));
             this.setOnMouseClicked((event) -> rating.setValue(value));
         }
 
+        /**
+         * Set whether the star is active changing its look.
+         * @param active Active
+         */
         public void setActive(boolean active) {
             if (active) {
                 this.getStyleClass().add(STYLE_CLASS_ACTIVE);
@@ -55,35 +85,64 @@ public class Rating extends Widget implements Initializable {
         }
     }
 
+    /**
+     * Add {@code Listener}.
+     * @param listener Action listener
+     */
+    public void addListener(Listener listener) {
+        listeners.add(listener);
+    }
+
+    /**
+     * Remove {@code Listener}
+     * @param listener Action listener
+     */
+    public void removeListener(Listener listener) {
+        listeners.remove(listener);
+    }
+
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
         for (int i = 0; i < SIZE; i++) {
-            StarLabel label = new StarLabel(this, i);
+            StarLabel label = new StarLabel(this, i + 1);
             stars.getChildren().add(label);
         }
 
-        this.showValue();
+        this.setValue(INITIAL);
     }
 
+    /**
+     * Set value.
+     * @param value Value
+     */
     public void setValue(int value) {
         this.value = value;
+        this.showValue(this.value);
+
+        if (listeners != null) {
+            for (Listener listener : listeners) {
+                listener.onValueChange(value);
+            }
+        }
     }
 
-    public void showValue() {
-        showValue(this.value);
-    }
-
+    /**
+     * Show the specified value without changing the real value.
+     * @param value Value to show
+     */
     public void showValue(int value) {
         ObservableList<Node> stars = this.stars.getChildren();
 
         if (value > stars.size()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(
+                    String.format("Cannot display %d with %d stars",
+                            value, stars.size()));
         }
 
         for (int i = 0; i < stars.size(); i++) {
             StarLabel star = (StarLabel) stars.get(i);
             star.setActive(false);
-            if (i <= value) {
+            if (i < value) {
                 star.setActive(true);
             }
         }

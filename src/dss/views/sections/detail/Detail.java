@@ -121,5 +121,10 @@ public class Detail extends Widget {
         sim.setValue(device.simType.toString());
 
         platform.setValue(device.platform.toString());
+
+        overallRating.setValue(device.overallRating);
+        responsivenessRating.setValue(device.responsivenessRating);
+        screenRating.setValue(device.screenRating);
+        batteryRating.setValue(device.batteryRating);
     }
 }
