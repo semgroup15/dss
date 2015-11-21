@@ -21,6 +21,7 @@
             <left>
                 <ComboBox
                         fx:id="manufacturer"
+                        onAction="#onSearch"
                         prefWidth="160.0"
                         prefHeight="50.0"/>
             </left>
@@ -29,6 +30,7 @@
                 <TextField
                         fx:id="query"
                         prefHeight="50.0"
+                        onKeyReleased="#onSearch"
                         onAction="#onSearch"/>
             </center>
         </BorderPane>

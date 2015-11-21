@@ -526,42 +526,42 @@ public class Device extends Model {
         public QueryBuilder byReviewResponsiveness(int value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(review.responsiveness) > ?", value)
+                        .add("AVG(review.responsiveness) >= ?", value)
                         .done();
         }
 
         public QueryBuilder byReviewScreen(int value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(review.screen) > ?", value)
+                        .add("AVG(review.screen) >= ?", value)
                         .done();
         }
 
         public QueryBuilder byReviewBattery(int value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(review.battery) > ?", value)
+                        .add("AVG(review.battery) >= ?", value)
                         .done();
         }
 
         public QueryBuilder byBodyWidth(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("body_width > ?", value)
+                        .add("body_width >= ?", value)
                         .done();
         }
 
         public QueryBuilder byBodyHeight(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("body_height > ?", value)
+                        .add("body_height >= ?", value)
                         .done();
         }
 
         public QueryBuilder byBodyDepth(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("body_depth < ?", value)
+                        .add("body_depth <= ?", value)
                         .done();
         }
 
