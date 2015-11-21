@@ -309,12 +309,30 @@
     -fx-padding: 20 30;
 }
 
-.Detail .heading .manufacturer {
+.Detail .heading .ManufacturerField {
+    -fx-padding: 0 0 10 0;
+}
+
+.Detail .heading .ManufacturerField .text-field {
     -fx-font-size: 14pt;
 }
 
-.Detail .heading .name {
+.Detail .heading .NameField .text-field {
     -fx-font-size: 20pt;
+}
+
+.Detail .text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-color: #dddddd;
+}
+
+.Detail .text-field:focused {
+    -fx-border-color: #3498db;
+}
+
+.Detail .text-field:hover {
+    -fx-background-color: #eeeeee;
 }
 
 .Detail .form > * {
@@ -374,6 +392,19 @@
 
 .Detail .Rating.overall .rating-stars .label {
     -fx-font-size: 24pt;
+}
+
+/*
+ * Separator
+ */
+
+.separator .outer {
+    -fx-padding: 10 20;
+}
+
+.separator .inner {
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1 0 0 0;
 }
 
 /*

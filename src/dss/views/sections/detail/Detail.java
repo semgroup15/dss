@@ -1,8 +1,11 @@
 package dss.views.sections.detail;
 
 import dss.models.device.Device;
+import dss.models.manufacturer.Manufacturer;
 import dss.views.Widget;
 import dss.views.sections.Rating;
+import dss.views.sections.detail.fields.*;
+import dss.views.sections.detail.fields.base.DeviceBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -17,51 +20,7 @@ public class Detail extends Widget {
     ImageView image;
 
     @FXML
-    Label manufacturer;
-
-    @FXML
-    Label name;
-
-    @FXML
     Rating overallRating;
-
-    /*
-    @FXML
-    Field display;
-
-    @FXML
-    Field body;
-
-    @FXML
-    Field colors;
-
-    @FXML
-    Field battery;
-
-    @FXML
-    Field camera;
-
-    @FXML
-    Field com;
-
-    @FXML
-    Field sensor;
-
-    @FXML
-    Field memory;
-
-    @FXML
-    Field network;
-
-    @FXML
-    Field sound;
-
-    @FXML
-    Field sim;
-
-    @FXML
-    Field platform;
-    */
 
     @FXML
     Rating responsivenessRating;
@@ -72,7 +31,75 @@ public class Detail extends Widget {
     @FXML
     Rating batteryRating;
 
+    @FXML
+    NameField name;
+
+    @FXML
+    ManufacturerField manufacturer;
+
+    @FXML
+    PlatformField platform;
+
+    @FXML
+    SIMField sim;
+
+    @FXML
+    DisplayField display;
+
+    @FXML
+    BodyField body;
+
+    @FXML
+    ColorField color;
+
+    @FXML
+    BatteryField battery;
+
+    @FXML
+    CameraField camera;
+
+    @FXML
+    ComField com;
+
+    @FXML
+    SensorField sensor;
+
+    @FXML
+    MemoryField memory;
+
+    @FXML
+    SlotField slot;
+
+    @FXML
+    NetworkField network;
+
+    @FXML
+    SoundField sound;
+
+    private DeviceBinding[] bindings() {
+        return new DeviceBinding[] {
+            name,
+            manufacturer,
+            platform,
+            sim,
+            display,
+            body,
+            color,
+            battery,
+            camera,
+            com,
+            sensor,
+            memory,
+            slot,
+            network,
+            sound
+        };
+    }
+
+    private Device device;
+
     public void setDevice(Device device) {
+        this.device = device;
 
         try {
             image.setImage(new Image(
@@ -81,54 +108,21 @@ public class Detail extends Widget {
             // Image not found
         }
 
-        name.setText(device.name);
-        manufacturer.setText(device.getManufacturer().name);
-
-        /*
-        display.setValue(
-            device.display.width + " x " +
-            device.display.height);
-
-        body.setValue(
-            device.body.width + " mm x " +
-            device.body.height + " mm x " +
-            device.body.depth + " mm");
-
-        colors.setValue(device.color.toString());
-
-        battery.setValue(
-            "Idle: " + device.battery.sleep + " hours, " +
-            "Music: " + device.battery.music + " hours, " +
-            "Talk: " + device.battery.talk + " hours");
-
-        camera.setValue(
-            "Primary: " + device.camera.primary.mp + " MP, " +
-            device.camera.primary.height + " x " +
-            device.camera.primary.width + " pixels");
-
-        com.setValue(device.com.toString());
-
-        sensor.setValue(device.sensor.toString());
-
-        memory.setValue(
-            "Size: " + device.memory.ramSize + " MB RAM, " +
-            "Internal: " + device.memory.internalSize + " MB" + " " +
-            device.memory.toString());
-
-        network.setValue(device.network.toString());
-
-        sound.setValue(
-            "Loudspeaker: " + (device.sound.loudspeaker ? "yes" : "no") + ", " +
-            "3.5mm jack: " + (device.sound.jack35 ? "yes" : "no"));
-
-        sim.setValue(device.simType.toString());
-
-        platform.setValue(device.platform.toString());
-        */
+        for (DeviceBinding binding : bindings()) {
+            binding.syncFromDevice(device);
+        }
 
         overallRating.setValue(device.overallRating);
         responsivenessRating.setValue(device.responsivenessRating);
         screenRating.setValue(device.screenRating);
         batteryRating.setValue(device.batteryRating);
+    }
+
+    public void save() {
+        for (DeviceBinding binding : bindings()) {
+            binding.syncToDevice(device);
+        }
+
+        device.save();
     }
 }

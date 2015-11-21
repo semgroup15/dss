@@ -1,7 +1,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import dss.views.sections.Rating?>
 <?import dss.views.sections.detail.fields.DisplayField?>
@@ -18,6 +17,9 @@
 <?import dss.views.sections.detail.fields.PlatformField?>
 <?import dss.views.sections.detail.fields.SlotField?>
 <?import javafx.scene.control.ScrollPane?>
+<?import dss.views.sections.detail.fields.NameField?>
+<?import dss.views.sections.detail.fields.ManufacturerField?>
+<?import dss.views.sections.detail.Separator?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -34,33 +36,38 @@
                 <ScrollPane styleClass="content">
                     <VBox>
                         <VBox styleClass="heading">
-                            <Label
-                                    fx:id="manufacturer"
-                                    styleClass="manufacturer"/>
-
-                            <Label
-                                    fx:id="name"
-                                    styleClass="name"/>
+                            <ManufacturerField fx:id="manufacturer"/>
+                            <NameField fx:id="name"/>
                         </VBox>
 
                         <VBox styleClass="form">
                             <HBox>
-                                <PlatformField/>
-                                <SIMField/>
+                                <PlatformField fx:id="platform"/>
+                                <SIMField fx:id="sim"/>
                             </HBox>
-
-                            <DisplayField/>
-                            <BodyField/>
-                            <ColorField/>
-                            <BatteryField/>
-                            <CameraField/>
-                            <ComField/>
-                            <SensorField/>
-                            <MemoryField/>
-                            <SlotField/>
-                            <NetworkField/>
-                            <SoundField/>
+                            <Separator/>
+                            <DisplayField fx:id="display"/>
+                            <BodyField fx:id="body"/>
+                            <ColorField fx:id="color"/>
+                            <Separator/>
+                            <BatteryField fx:id="battery"/>
+                            <CameraField fx:id="camera"/>
+                            <Separator/>
+                            <ComField fx:id="com"/>
+                            <Separator/>
+                            <SensorField fx:id="sensor"/>
+                            <Separator/>
+                            <MemoryField fx:id="memory"/>
+                            <Separator/>
+                            <SlotField fx:id="slot"/>
+                            <Separator/>
+                            <NetworkField fx:id="network"/>
+                            <Separator/>
+                            <SoundField fx:id="sound"/>
                         </VBox>
+
+                        <!-- Spacing -->
+                        <HBox prefHeight="100.0"></HBox>
                     </VBox>
                 </ScrollPane>
             </center>
