@@ -25,7 +25,7 @@ public class Filter extends Widget implements Initializable {
     private static final double MAX_PRICE = 1000;
     private static final double INC_PRICE = 250;
 
-    private static final double MIN_MEMORY_RAM_SIZE = 0;
+    private static final double MIN_MEMORY_RAM_SIZE = 500;
     private static final double MAX_MEMORY_RAM_SIZE = 2000;
     private static final double INC_MEMORY_RAM_SIZE = 500;
 

@@ -42,14 +42,20 @@ public class BatteryField extends Widget implements DeviceBinding {
     public void syncFromDevice(Device device) {
         if (device.battery.sleep > 0) {
             sleep.setValue(device.battery.sleep + "");
+        } else {
+            sleep.setValue("");
         }
 
         if (device.battery.music > 0) {
             music.setValue(device.battery.music + "");
+        } else {
+            music.setValue("");
         }
 
         if (device.battery.talk > 0) {
             talk.setValue(device.battery.talk + "");
+        } else {
+            talk.setValue("");
         }
     }
 }

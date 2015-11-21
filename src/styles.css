@@ -183,6 +183,16 @@
     -fx-background-color: #e74c3c;
 }
 
+.Listing .list-view .list-cell .button.delete {
+    -fx-border-color: #e74c3c;
+    -fx-text-fill: #e74c3c;
+}
+
+.Listing .list-view .list-cell .button.delete:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #e74c3c;
+}
+
 /*
  * Filter
  */
@@ -249,6 +259,10 @@
     -fx-padding: 10;
 }
 
+.Filter .group .range-slider {
+    -fx-padding: 0 20;
+}
+
 /*
  * Selection
  */
@@ -278,7 +292,7 @@
 .button.action {
     -fx-background-color: #3498db;
     -fx-text-fill: #fff;
-    -fx-font-size: 12pt;
+    -fx-font-size: 10pt;
     -fx-padding: 14;
 }
 
@@ -392,6 +406,29 @@
 
 .Detail .Rating.overall .rating-stars .label {
     -fx-font-size: 24pt;
+}
+
+.Detail .actions {
+    -fx-padding: 40;
+}
+
+.Detail .actions .button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #fff;
+    -fx-font-size: 10pt;
+    -fx-padding: 14;
+}
+
+.Detail .actions .button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.Detail .actions .button.delete {
+    -fx-background-color: #e74c3c;
+}
+
+.Detail .actions .button.delete:hover {
+    -fx-background-color: #c0392b;
 }
 
 /*

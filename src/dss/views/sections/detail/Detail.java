@@ -2,6 +2,7 @@ package dss.views.sections.detail;
 
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
+import dss.views.State;
 import dss.views.Widget;
 import dss.views.sections.Rating;
 import dss.views.sections.detail.fields.*;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -101,11 +103,20 @@ public class Detail extends Widget {
     public void setDevice(Device device) {
         this.device = device;
 
-        try {
-            image.setImage(new Image(
-                    new FileInputStream(device.getImageFile())));
-        } catch (FileNotFoundException exception) {
-            // Image not found
+        File file = device.getImageFile();
+
+        if (file == null) {
+            image.setVisible(false);
+            image.setManaged(false);
+        } else {
+            image.setVisible(true);
+            image.setManaged(true);
+
+            try {
+                image.setImage(new Image(new FileInputStream(file)));
+            } catch (FileNotFoundException exception) {
+                // Image not found
+            }
         }
 
         for (DeviceBinding binding : bindings()) {
@@ -118,11 +129,32 @@ public class Detail extends Widget {
         batteryRating.setValue(device.batteryRating);
     }
 
-    public void save() {
+    @FXML
+    public void onDelete() {
+        // Delete device
+        device.delete();
+
+        // Leave detail view
+        State state = State.get();
+        state.setLocation(new State.Location(State.Location.Section.LISTING));
+
+        // Refresh list
+        state.setCriteria(state.getCriteria());
+    }
+
+    @FXML
+    public void onSave() {
         for (DeviceBinding binding : bindings()) {
             binding.syncToDevice(device);
         }
 
         device.save();
+
+        // Leave detail view
+        State state = State.get();
+        state.setLocation(new State.Location(State.Location.Section.LISTING));
+
+        // Refresh list
+        state.setCriteria(state.getCriteria());
     }
 }

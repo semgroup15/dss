@@ -33,10 +33,14 @@ public class MemoryField extends Widget implements DeviceBinding {
     public void syncFromDevice(Device device) {
         if (device.memory.ramSize > 0) {
             ram.setValue(device.memory.ramSize + "");
+        } else {
+            ram.setValue("");
         }
 
         if (device.memory.internalSize > 0) {
             internal.setValue(device.memory.internalSize + "");
+        } else {
+            internal.setValue("");
         }
     }
 }

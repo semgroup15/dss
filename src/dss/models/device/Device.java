@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import dss.models.price.Price;
@@ -460,6 +462,15 @@ public class Device extends Model {
         }
     }
 
+    private static final long NEW_ID_MIN = 100000;
+    private static final long NEW_ID_MAX = 200000;
+
+    public static long newId() {
+        Random random = ThreadLocalRandom.current();
+        return NEW_ID_MIN + ((long)(random.nextDouble() *
+                (NEW_ID_MAX - NEW_ID_MIN)));
+    }
+
     public long id;
 
     public String name;
@@ -680,7 +691,7 @@ public class Device extends Model {
         public QueryBuilder joinManufacturer() {
             if (!joinManufacturer) {
                 join().add(
-                        "JOIN manufacturer " +
+                        "LEFT JOIN manufacturer " +
                         "ON manufacturer.id = device.manufacturer_id");
             }
             joinManufacturer = true;
@@ -692,7 +703,7 @@ public class Device extends Model {
         public QueryBuilder joinPrice() {
             if(!joinPrice) {
                 join().add(
-                        "JOIN price " +
+                        "LEFT JOIN price " +
                         "ON price.device_id = device.id");
             }
             joinPrice = true;
@@ -704,7 +715,7 @@ public class Device extends Model {
         public QueryBuilder joinReview() {
             if (!joinReview) {
                 join().add(
-                        "JOIN review " +
+                        "LEFT JOIN review " +
                         "ON review.device_id = device.id");
             }
             joinReview = true;

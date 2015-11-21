@@ -42,14 +42,20 @@ public class CameraField extends Widget implements DeviceBinding {
     public void syncFromDevice(Device device) {
         if (device.camera.primary.mp > 0) {
             mp.setValue(device.camera.primary.mp + "");
+        } else {
+            mp.setValue("");
         }
 
         if (device.camera.primary.width > 0) {
             width.setValue(device.camera.primary.width + "");
+        } else {
+            width.setValue("");
         }
 
         if (device.camera.primary.height > 0) {
             height.setValue(device.camera.primary.height + "");
+        } else {
+            height.setValue("");
         }
     }
 }

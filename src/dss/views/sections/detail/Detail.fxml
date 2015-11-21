@@ -20,6 +20,7 @@
 <?import dss.views.sections.detail.fields.NameField?>
 <?import dss.views.sections.detail.fields.ManufacturerField?>
 <?import dss.views.sections.detail.Separator?>
+<?import javafx.scene.control.Button?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -64,10 +65,21 @@
                             <NetworkField fx:id="network"/>
                             <Separator/>
                             <SoundField fx:id="sound"/>
-                        </VBox>
+                            <Separator/>
 
-                        <!-- Spacing -->
-                        <HBox prefHeight="100.0"></HBox>
+                            <!-- Actions -->
+                            <HBox styleClass="actions" alignment="CENTER_RIGHT">
+                                <Button
+                                        onAction="#onDelete"
+                                        styleClass="delete"
+                                        text="Delete"/>
+
+                                <Button
+                                        onAction="#onSave"
+                                        styleClass="save"
+                                        text="Save"/>
+                            </HBox>
+                        </VBox>
                     </VBox>
                 </ScrollPane>
             </center>

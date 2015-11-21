@@ -9,9 +9,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -36,6 +38,7 @@ public class ListingCell extends ListCell<Device>
     // Actions
     Button add = new Button("+");
     Button remove = new Button("−");
+    Button delete = new Button("×");
 
     /**
      * Initialize {@code ListingCell}.
@@ -43,26 +46,42 @@ public class ListingCell extends ListCell<Device>
     public ListingCell() {
         super();
 
+        /*
+         * Image
+         */
         image.setFitWidth(IMAGE_WIDTH);
         image.setFitHeight(IMAGE_HEIGHT);
 
+        /*
+         * Content
+         */
         manufacturer.getStyleClass().add("manufacturer");
         name.getStyleClass().add("name");
         overallRating.setLabelVisible(false);
         overallRating.setLabelManaged(false);
-
-        add.getStyleClass().add("add");
-        remove.getStyleClass().add("remove");
 
         VBox center = new VBox();
         center.getChildren().add(manufacturer);
         center.getChildren().add(name);
         center.getChildren().add(overallRating);
 
+        /*
+         * Actions
+         */
+        add.getStyleClass().add("add");
+        remove.getStyleClass().add("remove");
+        delete.getStyleClass().add("delete");
+
+        HBox separator = new HBox();
+        separator.setPrefWidth(6);
+
         HBox right = new HBox();
         right.getChildren().add(add);
         right.getChildren().add(remove);
+        right.getChildren().add(separator);
+        right.getChildren().add(delete);
 
+        // Add to panel
         graphic.setLeft(image);
         graphic.setCenter(center);
         graphic.setRight(right);
@@ -72,6 +91,14 @@ public class ListingCell extends ListCell<Device>
         // Connect actions
         add.setOnAction((event) -> State.get().addDevice(getItem()));
         remove.setOnAction((event) -> State.get().removeDevice(getItem()));
+        delete.setOnAction((event) -> {
+            // Delete device
+            getItem().delete();
+
+            // Refresh list
+            State state = State.get();
+            state.setCriteria(state.getCriteria());
+        });
 
         setOnMouseClicked((event) -> State.get().setLocation(
                 new State.Location(State.Location.Section.DETAIL, getItem())));
@@ -97,11 +124,20 @@ public class ListingCell extends ListCell<Device>
         graphic.setVisible(!empty);
 
         if (device != null) {
-            try {
-                image.setImage(new Image(
-                        new FileInputStream(device.getImageFile())));
-            } catch (FileNotFoundException exception) {
-                // Image not found
+            File file = device.getImageFile();
+
+            if (file == null) {
+                image.setVisible(false);
+                image.setManaged(false);
+            } else {
+                image.setVisible(true);
+                image.setManaged(true);
+
+                try {
+                    image.setImage(new Image(new FileInputStream(file)));
+                } catch (FileNotFoundException exception) {
+                    // Image not found
+                }
             }
 
             manufacturer.setText(device.getManufacturer().name);

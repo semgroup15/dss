@@ -1,5 +1,6 @@
 package dss.views.search;
 
+import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import dss.views.State;
 import dss.views.Widget;
@@ -58,5 +59,27 @@ public class Search extends Widget implements Initializable {
         // Change to listing and perform search
         state.setLocation(new State.Location(State.Location.Section.LISTING));
         state.setCriteria(criteria);
+    }
+
+    @FXML
+    private void onCreate() {
+        Manufacturer manufacturer = this.manufacturer.getValue();
+        String name = query.getText();
+
+        // Require manufacturer and name
+        if (manufacturer == null || name.isEmpty()) {
+            return;
+        }
+
+        // Create device
+        Device device = new Device();
+        device.id = Device.newId();
+        device.name = name;
+        device.manufacturerId = manufacturer.id;
+        device.save();
+
+        // Refresh list
+        State state = State.get();
+        state.setCriteria(state.getCriteria());
     }
 }

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -37,9 +38,15 @@
     </center>
 
     <right>
-        <Button
-                prefHeight="50.0"
-                text="⚲"
-                onAction="#onSearch"/>
+        <HBox>
+            <Button
+                    prefHeight="50.0"
+                    text="⚲"
+                    onAction="#onSearch"/>
+            <Button
+                    prefHeight="50.0"
+                    text="+"
+                    onAction="#onCreate"/>
+        </HBox>
     </right>
 </fx:root>
