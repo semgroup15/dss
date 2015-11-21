@@ -1,3 +1,3 @@
 INSERT
-INTO price (cost, retailer)
-VALUES (?, ?)
+INTO price (device_id, retailer, cost)
+VALUES (?, ?, ?)

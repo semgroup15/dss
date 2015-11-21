@@ -411,6 +411,8 @@ public class Device extends Model {
     public SIMType simType = SIMType.UNKNOWN;
     public Platform platform = Platform.UNKNOWN;
 
+    public double price;
+
     public int responsivenessRating;
     public int screenRating;
     public int batteryRating;
@@ -455,8 +457,17 @@ public class Device extends Model {
             this.group().add("device.id");
             this.order().add("year DESC");
 
+            this.withPriceAverage();
             this.withReviewAverage();
             this.withReviewOverallAverage();
+        }
+
+        private QueryBuilder withPriceAverage() {
+            return (QueryBuilder) this
+                    .joinPrice()
+                    .select()
+                        .add("AVG(price.cost)")
+                        .done();
         }
 
         private QueryBuilder withReviewAverage() {
@@ -523,6 +534,30 @@ public class Device extends Model {
                         .done();
         }
 
+        public QueryBuilder byDisplaySize(double min, double max) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("display_size >= ? AND display_size <= ?",
+                                min, max)
+                        .done();
+        }
+
+        public QueryBuilder byMemoryRAMSize(double min, double max) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("memory_ram_size >= ? AND memory_ram_size <= ?",
+                                min, max)
+                        .done();
+        }
+
+        public QueryBuilder byPrice(double min, double max) {
+            return (QueryBuilder) this
+                    .having()
+                        .add("AVG(price.cost) >= ? AND AVG(price.cost) <= ?",
+                                min, max)
+                        .done();
+        }
+
         public QueryBuilder byReviewResponsiveness(int value) {
             return (QueryBuilder) this
                     .having()
@@ -578,6 +613,18 @@ public class Device extends Model {
                         "ON manufacturer.id = device.manufacturer_id");
             }
             joinManufacturer = true;
+            return this;
+        }
+
+        private boolean joinPrice = false;
+
+        public QueryBuilder joinPrice() {
+            if(!joinPrice) {
+                join().add(
+                        "JOIN price " +
+                        "ON price.device_id = device.id");
+            }
+            joinPrice = true;
             return this;
         }
 
@@ -712,7 +759,6 @@ public class Device extends Model {
         /*
          * Battery
          */
-
         battery.sleep = result.nextInt();
         battery.talk = result.nextInt();
         battery.music = result.nextInt();
@@ -720,7 +766,6 @@ public class Device extends Model {
         /*
          * Body
          */
-
         body.width = result.nextDouble();
         body.height = result.nextDouble();
         body.depth = result.nextDouble();
@@ -729,7 +774,6 @@ public class Device extends Model {
         /*
          * Camera
          */
-
         camera.primary.mp = result.nextInt();
         camera.primary.width = result.nextInt();
         camera.primary.height = result.nextInt();
@@ -740,7 +784,6 @@ public class Device extends Model {
         /*
          * Com
          */
-
         com.wlan = result.nextBoolean();
         com.bluetooth = result.nextBoolean();
         com.gps = result.nextBoolean();
@@ -751,7 +794,6 @@ public class Device extends Model {
         /*
          * Sensor
          */
-
         sensor.accelerometer = result.nextBoolean();
         sensor.barometer = result.nextBoolean();
         sensor.compass = result.nextBoolean();
@@ -762,7 +804,6 @@ public class Device extends Model {
         /*
          * Memory
          */
-
         memory.ramSize = result.nextLong();
         memory.internalSize = result.nextLong();
 
@@ -775,7 +816,6 @@ public class Device extends Model {
         /*
          * Network
          */
-
         network.gsm = result.nextBoolean();
         network.umts = result.nextBoolean();
         network.hspa = result.nextBoolean();
@@ -786,14 +826,12 @@ public class Device extends Model {
         /*
          * Sound
          */
-
         sound.loudspeaker = result.nextBoolean();
         sound.jack35 = result.nextBoolean();
 
         /*
          * Display
          */
-
         display.size = result.nextDouble();
         display.ratio = result.nextDouble();
 
@@ -809,7 +847,6 @@ public class Device extends Model {
         /*
          * Color
          */
-
         color.black = result.nextBoolean();
         color.white = result.nextBoolean();
         color.blue = result.nextBoolean();
@@ -825,18 +862,28 @@ public class Device extends Model {
         /*
          * Other
          */
-
         simType = SIMType.valueOf(result.nextString());
         platform = Platform.valueOf(result.nextString());
 
-        /*
-         * Reviews
-         */
+        try {
+            /*
+             * Price
+             */
+            price = result.nextDouble();
 
-        responsivenessRating = (int) Math.round(result.nextDouble());
-        screenRating = (int) Math.round(result.nextDouble());
-        batteryRating = (int) Math.round(result.nextDouble());
-        overallRating = (int) Math.round(result.nextDouble());
+            /*
+             * Reviews
+             */
+            responsivenessRating = (int) Math.round(result.nextDouble());
+            screenRating = (int) Math.round(result.nextDouble());
+            batteryRating = (int) Math.round(result.nextDouble());
+            overallRating = (int) Math.round(result.nextDouble());
+
+        } catch (SQLException exception) {
+            /*
+             * {@code QueryBuilder.with...()} methods not called.
+             */
+        }
     }
 
     /*
@@ -855,7 +902,6 @@ public class Device extends Model {
         /*
          * Battery
          */
-
         statement.setNextInt(battery.sleep);
         statement.setNextInt(battery.talk);
         statement.setNextInt(battery.music);
@@ -863,7 +909,6 @@ public class Device extends Model {
         /*
          * Body
          */
-
         statement.setNextDouble(body.width);
         statement.setNextDouble(body.height);
         statement.setNextDouble(body.depth);
@@ -872,7 +917,6 @@ public class Device extends Model {
         /*
          * Camera
          */
-
         statement.setNextInt(camera.primary.mp);
         statement.setNextInt(camera.primary.width);
         statement.setNextInt(camera.primary.height);
@@ -883,7 +927,6 @@ public class Device extends Model {
         /*
          * Com
          */
-
         statement.setNextBoolean(com.wlan);
         statement.setNextBoolean(com.bluetooth);
         statement.setNextBoolean(com.gps);
@@ -894,7 +937,6 @@ public class Device extends Model {
         /*
          * Sensor
          */
-
         statement.setNextBoolean(sensor.accelerometer);
         statement.setNextBoolean(sensor.barometer);
         statement.setNextBoolean(sensor.compass);
@@ -905,7 +947,6 @@ public class Device extends Model {
         /*
          * Memory
          */
-
         statement.setNextLong(memory.ramSize);
         statement.setNextLong(memory.internalSize);
 
@@ -918,7 +959,6 @@ public class Device extends Model {
         /*
          * Network
          */
-
         statement.setNextBoolean(network.gsm);
         statement.setNextBoolean(network.umts);
         statement.setNextBoolean(network.hspa);
@@ -929,14 +969,12 @@ public class Device extends Model {
         /*
          * Sound
          */
-
         statement.setNextBoolean(sound.loudspeaker);
         statement.setNextBoolean(sound.jack35);
 
         /*
          * Display
          */
-
         statement.setNextDouble(display.size);
         statement.setNextDouble(display.ratio);
 
@@ -952,7 +990,6 @@ public class Device extends Model {
         /*
          * Color
          */
-
         statement.setNextBoolean(color.black);
         statement.setNextBoolean(color.white);
         statement.setNextBoolean(color.blue);
@@ -968,7 +1005,6 @@ public class Device extends Model {
         /*
          * Other
          */
-
         statement.setNextString(simType.name());
         statement.setNextString(platform.name());
     }

@@ -57,16 +57,17 @@ public class Price extends Model {
     protected void prepareInsert(Manager.RestrictedStatement statement)
             throws SQLException {
 
+        statement.setNextLong(deviceId);
+        statement.setNextString(retailer.name());
         statement.setNextDouble(cost);
-        statement.setNextString(retailer.toString());
     }
 
     @Override
     protected void prepareUpdate(Manager.RestrictedStatement statement)
             throws SQLException {
 
+        statement.setNextString(retailer.name());
         statement.setNextDouble(cost);
-        statement.setNextString(retailer.toString());
         statement.setNextLong(id);
     }
 

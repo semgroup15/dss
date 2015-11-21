@@ -1,3 +1,3 @@
 UPDATE price
-SET cost = ?, retailer = ?
+SET retailer = ?, cost = ?
 WHERE id = ?

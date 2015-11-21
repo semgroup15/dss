@@ -86,9 +86,18 @@ public class State {
         private int screenRating;
         private int batteryRating;
 
-        public double width;
-        public double height;
-        public double depth;
+        private double width;
+        private double height;
+        private double depth;
+
+        private double minDisplaySize;
+        private double maxDisplaySize;
+
+        private double minMemoryRAMSize;
+        private double maxMemoryRAMSize;
+
+        private double minPrice;
+        private double maxPrice;
 
         public void setManufacturer(Manufacturer manufacturer) {
             this.manufacturer = manufacturer;
@@ -124,6 +133,21 @@ public class State {
 
         public void setDepth(double depth) {
             this.depth = depth;
+        }
+
+        public void setDisplaySize(double min, double max) {
+            this.minDisplaySize = min;
+            this.maxDisplaySize = max;
+        }
+
+        public void setMemoryRAMSize(double min, double max) {
+            this.minMemoryRAMSize = min;
+            this.maxMemoryRAMSize = max;
+        }
+
+        public void setPrice(double min, double max) {
+            this.minPrice = min;
+            this.maxPrice = max;
         }
 
         /**
@@ -176,6 +200,30 @@ public class State {
 
             if (depth > 0) {
                 query.byBodyDepth(depth);
+            }
+
+            /*
+             * Display size
+             */
+
+            if (minDisplaySize > 0 || maxDisplaySize > 0) {
+                query.byDisplaySize(minDisplaySize, maxDisplaySize);
+            }
+
+            /*
+             * RAM size
+             */
+
+            if (minMemoryRAMSize > 0 || maxMemoryRAMSize > 0) {
+                query.byMemoryRAMSize(minMemoryRAMSize, maxMemoryRAMSize);
+            }
+
+            /*
+             * Price
+             */
+
+            if (maxPrice > 0 || minPrice > 0) {
+                query.byPrice(minPrice, maxPrice);
             }
 
             return query;
