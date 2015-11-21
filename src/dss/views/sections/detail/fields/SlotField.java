@@ -10,21 +10,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class NetworkField extends Widget implements Initializable {
+public class SlotField extends Widget implements Initializable {
 
     @FXML
-    MultipleSelector<Device.Network.Item> selector;
+    MultipleSelector<Device.Memory.Item> selector;
 
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
-        selector.setItems(Device.Network.Item.ALL);
+        selector.setItems(Device.Memory.Item.ALL);
     }
 
-    public Set<Device.Network.Item> getValue() {
+    public Set<Device.Memory.Item> getValue() {
         return selector.getSelectedItems();
     }
 
-    public void setValue(Set<Device.Network.Item> items) {
+    public void setValue(Set<Device.Memory.Item> items) {
         selector.setSelectedItems(items);
     }
 }

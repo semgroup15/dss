@@ -1,7 +1,27 @@
+<?import dss.views.sections.detail.fields.base.GroupLabel?>
+<?import javafx.scene.layout.HBox?>
+<?import dss.views.sections.detail.fields.base.UnitTextField?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
+    <left>
+        <GroupLabel text="Battery"/>
+    </left>
+
     <center>
+        <HBox>
+            <UnitTextField
+                    valuePromptText="Idle"
+                    unit="HS"/>
+
+            <UnitTextField
+                    valuePromptText="Music"
+                    unit="HS"/>
+
+            <UnitTextField
+                    valuePromptText="Talk"
+                    unit="HS"/>
+        </HBox>
     </center>
 </fx:root>

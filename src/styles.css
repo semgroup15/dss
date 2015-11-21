@@ -228,7 +228,7 @@
 }
 
 .Filter .group .combo-box-popup .list-view .list-cell {
-    -fx-border-width: 1 0 0 0;
+    -fx-border-width: 0;
     -fx-padding: 10 14;
     -fx-cursor: hand;
 }
@@ -293,7 +293,11 @@
 .Detail {
 }
 
-.Detail .content {
+.Detail .content,
+.Detail .content:focused {
+    -fx-background-color: -fx-box-border, -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0), 0, 0.0, 0, 0);
     -fx-background-color: #f7f7f7;
 }
 
@@ -318,31 +322,50 @@
 }
 
 .Detail .form .GroupLabel {
-    -fx-padding: 10;
+    -fx-padding: 10 20;
 }
 
-.Detail .form .UnitTextField {
+.Detail .form .GroupLabel .label {
+    -fx-font-weight: bold;
+}
+
+.Detail .combo-box {
     -fx-background-color: #ffffff;
-    -fx-border-width: 0 10 0 0;
-    -fx-border-color: #f7f7f7;
-}
-
-.Detail .form .UnitTextField .text-field {
-    -fx-background-color: transparent;
-    -fx-padding: 10;
     -fx-border-width: 0 0 0 2;
     -fx-border-color: #dddddd;
 }
 
-.Detail .form .UnitTextField .text-field:focused {
+.Detail .combo-box:focused {
     -fx-border-color: #3498db;
 }
 
-.Detail .form .UnitTextField .label {
-    -fx-background-color: transparent;
-    -fx-padding: 10;
-    -fx-text-fill: #34495e;
-    -fx-font-size: 8pt;
+.Detail .combo-box:hover {
+    -fx-background-color: #3498db;
+}
+
+.Detail .combo-box .arrow {
+    -fx-background-color: #444444;
+}
+
+.Detail .combo-box:hover .arrow {
+    -fx-background-color: #ffffff;
+}
+
+.Detail .combo-box-popup .list-view .list-cell {
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 10 14;
+    -fx-cursor: hand;
+}
+
+.Detail .combo-box-popup .list-view .list-cell:hover {
+    -fx-text-fill: #2980b9;
+    -fx-background-color: #f7f7f7;
+}
+
+.Detail .combo-box .list-cell:selected {
+    -fx-text-fill: #000;
+    -fx-background-color: #fff;
+    -fx-padding: 10 14;
 }
 
 .Detail .Rating {
@@ -351,6 +374,86 @@
 
 .Detail .Rating.overall .rating-stars .label {
     -fx-font-size: 24pt;
+}
+
+/*
+ * UnitTextField
+ */
+
+.UnitTextField {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 10 0 0;
+    -fx-border-color: transparent;
+}
+
+.UnitTextField .text-field {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-color: #dddddd;
+}
+
+.UnitTextField .text-field:focused {
+    -fx-border-color: #3498db;
+}
+
+.UnitTextField .label {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-text-fill: #34495e;
+    -fx-font-size: 8pt;
+}
+
+.UnitTextField:hover .text-field,
+.UnitTextField:hover .label {
+    -fx-background-color: #eeeeee;
+}
+
+/*
+ * MultipleSelector
+ */
+
+.MultipleSelector {
+}
+
+.MultipleSelector .container {
+    -fx-padding: 10 0 0 0;
+}
+
+.MultipleSelector .container > * {
+    -fx-padding: 0 10 10 0;
+}
+
+.MultipleSelector .check-box {
+    -fx-cursor: hand;
+}
+
+.MultipleSelector .check-box .text {
+    -fx-font-size: 8pt;
+}
+
+.MultipleSelector .check-box *.box {
+    -fx-background-color: #ffffff;
+    -fx-padding: 4;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+
+.MultipleSelector .check-box:hover *.box {
+    -fx-background-color: #eeeeee;
+}
+
+.MultipleSelector .check-box:selected *.box {
+    -fx-background-color: #3498db;
+    -fx-border-color: #2980b9;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+
+.MultipleSelector .check-box:selected .mark {
+    -fx-background-color: #ffffff;
 }
 
 /*

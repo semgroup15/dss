@@ -1,7 +1,23 @@
+<?import dss.views.sections.detail.fields.base.UnitTextField?>
+<?import javafx.scene.layout.HBox?>
+<?import dss.views.sections.detail.fields.base.GroupLabel?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
+    <left>
+        <GroupLabel text="Memory"/>
+    </left>
+
     <center>
+        <HBox>
+            <UnitTextField
+                    valuePromptText="RAM"
+                    unit="MB"/>
+
+            <UnitTextField
+                    valuePromptText="Internal"
+                    unit="MB"/>
+        </HBox>
     </center>
 </fx:root>

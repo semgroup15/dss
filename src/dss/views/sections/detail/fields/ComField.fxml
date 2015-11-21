@@ -1,7 +1,14 @@
+<?import dss.views.sections.detail.fields.base.GroupLabel?>
+<?import dss.views.sections.detail.fields.base.MultipleSelector?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
+    <left>
+        <GroupLabel text="Com"/>
+    </left>
+
     <center>
+        <MultipleSelector fx:id="selector"/>
     </center>
 </fx:root>

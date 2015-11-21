@@ -16,6 +16,8 @@
 <?import dss.views.sections.detail.fields.SoundField?>
 <?import dss.views.sections.detail.fields.SIMField?>
 <?import dss.views.sections.detail.fields.PlatformField?>
+<?import dss.views.sections.detail.fields.SlotField?>
+<?import javafx.scene.control.ScrollPane?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -27,29 +29,40 @@
     </left>
 
     <center>
-        <BorderPane styleClass="content">
+        <BorderPane>
             <center>
-                <VBox>
-                    <VBox styleClass="heading">
-                        <Label fx:id="manufacturer" styleClass="manufacturer"/>
-                        <Label fx:id="name" styleClass="name"/>
-                    </VBox>
+                <ScrollPane styleClass="content">
+                    <VBox>
+                        <VBox styleClass="heading">
+                            <Label
+                                    fx:id="manufacturer"
+                                    styleClass="manufacturer"/>
 
-                    <VBox styleClass="form">
-                        <DisplayField/>
-                        <BodyField/>
-                        <ColorField/>
-                        <BatteryField/>
-                        <CameraField/>
-                        <ComField/>
-                        <SensorField/>
-                        <MemoryField/>
-                        <NetworkField/>
-                        <SoundField/>
-                        <SIMField/>
-                        <PlatformField/>
+                            <Label
+                                    fx:id="name"
+                                    styleClass="name"/>
+                        </VBox>
+
+                        <VBox styleClass="form">
+                            <HBox>
+                                <PlatformField/>
+                                <SIMField/>
+                            </HBox>
+
+                            <DisplayField/>
+                            <BodyField/>
+                            <ColorField/>
+                            <BatteryField/>
+                            <CameraField/>
+                            <ComField/>
+                            <SensorField/>
+                            <MemoryField/>
+                            <SlotField/>
+                            <NetworkField/>
+                            <SoundField/>
+                        </VBox>
                     </VBox>
-                </VBox>
+                </ScrollPane>
             </center>
 
             <right>

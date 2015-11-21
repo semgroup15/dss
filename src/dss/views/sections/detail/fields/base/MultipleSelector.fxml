@@ -7,6 +7,6 @@
 
     <center>
         <Label text="multiple"/>
-        <FlowPane fx:id="container"></FlowPane>
+        <FlowPane fx:id="container" styleClass="container"></FlowPane>
     </center>
 </fx:root>

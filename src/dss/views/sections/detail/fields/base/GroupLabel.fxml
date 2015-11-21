@@ -4,6 +4,6 @@
         xmlns:fx="http://javafx.com/fxml">
 
     <center>
-        <Label fx:id="text" prefWidth="80.0"/>
+        <Label fx:id="text" prefWidth="70.0" alignment="CENTER_RIGHT"/>
     </center>
 </fx:root>

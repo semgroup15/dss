@@ -6,10 +6,10 @@
         xmlns:fx="http://javafx.com/fxml">
 
     <center>
-        <TextField fx:id="value" styleClass="value"/>
+        <TextField fx:id="value" styleClass="value" prefHeight="36.0"/>
     </center>
 
     <right>
-        <Label fx:id="unit" styleClass="unit"/>
+        <Label fx:id="unit" styleClass="unit" prefHeight="36.0"/>
     </right>
 </fx:root>

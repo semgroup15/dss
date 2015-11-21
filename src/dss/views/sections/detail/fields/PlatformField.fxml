@@ -1,7 +1,19 @@
+<?import dss.views.sections.detail.fields.base.GroupLabel?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.BorderPane?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
+    <left>
+        <GroupLabel text="Platform"/>
+    </left>
+
     <center>
+        <BorderPane>
+            <left>
+                <ComboBox fx:id="combo" prefWidth="120.0"/>
+            </left>
+        </BorderPane>
     </center>
 </fx:root>
