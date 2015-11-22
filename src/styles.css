@@ -401,7 +401,7 @@
 }
 
 .Detail .actions {
-    -fx-padding: 40;
+    -fx-padding: 10 40 40 40;
 }
 
 .Detail .actions .button {
@@ -422,6 +422,83 @@
 
 .Detail .actions .button.delete:hover {
     -fx-background-color: #c0392b;
+}
+
+.Detail .reviews {
+    -fx-padding: 0 40 40 40;
+}
+
+.Detail .reviews > .label {
+    -fx-font-size: 16pt;
+    -fx-padding: 20 0;
+}
+
+.Detail .reviews .list-view {
+    -fx-border-style: none;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+
+.Detail .reviews .list-view .list-cell {
+    -fx-padding: 20;
+}
+
+.Detail .reviews .list-view .list-cell,
+.Detail .reviews .list-view .list-cell:hover,
+.Detail .reviews .list-view .list-cell:focused,
+.Detail .reviews .list-view .list-cell:selected {
+    -fx-background-color: #ffffff, #ffffff;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #eeeeee;
+}
+
+.Detail .reviews .list-view .list-cell .label,
+.Detail .reviews .list-view .list-cell:hover .label,
+.Detail .reviews .list-view .list-cell:focused .label,
+.Detail .reviews .list-view .list-cell:selected .label {
+    -fx-text-fill: #444444;
+}
+
+.Detail .reviews .list-view .list-cell .Rating {
+    -fx-padding: 0 14 0 0;
+}
+
+.Detail .reviews .list-view .list-cell .Rating .rating-stars .label {
+    -fx-font-size: 16pt;
+    -fx-padding: 0;
+}
+
+.Detail .reviews .list-view .list-cell .label.text {
+    -fx-padding: 10 0 0 0;
+    -fx-font-style: italic;
+}
+
+.Detail .reviews .list-view .list-cell .button {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14pt;
+    -fx-padding: 4 8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-border-width: 1;
+    -fx-border-color: #3498db;
+    -fx-text-fill: #3498db;
+}
+
+.Detail .reviews .list-view .list-cell .button:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #3498db;
+}
+
+.Detail .reviews .list-view .list-cell .button.delete {
+    -fx-border-color: #e74c3c;
+    -fx-text-fill: #e74c3c;
+}
+
+.Detail .reviews .list-view .list-cell .button.delete:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #e74c3c;
 }
 
 .Detail .Rating {
@@ -568,10 +645,10 @@
 
 .Rating .rating-stars .label.star {
     -fx-font-size: 16pt;
-    -fx-text-fill: #aaaaaa;
+    -fx-text-fill: #aaaaaa !important;
     -fx-cursor: hand;
 }
 
 .Rating .rating-stars .label.star.active {
-    -fx-text-fill: #f39c12;
+    -fx-text-fill: #f39c12 !important;
 }

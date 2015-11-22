@@ -13,6 +13,25 @@ public class Review extends Model{
     public int screen;
     public int battery;
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+
+        Review review = (Review) object;
+        return review.id == id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(id);
+    }
+
     /*
      * Manager
      */
@@ -23,6 +42,30 @@ public class Review extends Model{
     @Override
     protected Manager<?> getManager() {
         return manager;
+    }
+
+    /*
+     * Observer
+     */
+
+    public static Observer<Review> observer = new Observer<>();
+
+    @Override
+    protected void insert() {
+        super.insert();
+        observer.trigger(Observer.Event.INSERT, this);
+    }
+
+    @Override
+    protected void update() {
+        super.update();
+        observer.trigger(Observer.Event.UPDATE, this);
+    }
+
+    @Override
+    public void delete() {
+        super.delete();
+        observer.trigger(Observer.Event.DELETE, this);
     }
 
     /*

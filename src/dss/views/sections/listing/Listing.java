@@ -1,5 +1,6 @@
 package dss.views.sections.listing;
 
+import dss.models.Model;
 import dss.models.device.Device;
 import dss.views.State;
 import dss.views.Widget;
@@ -14,16 +15,21 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Listing extends Widget
-        implements Initializable, State.SearchListener {
+public class Listing extends Widget implements
+        Initializable, State.SearchListener, Model.Observer.Listener<Device> {
 
     @FXML
     ListView<Device> list;
 
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
+        // Listen to criteria changes
         State.get().addSearchListener(this);
 
+        // Listen to device changes
+        Device.observer.addListener(this);
+
+        // Set cell factory
         list.setCellFactory(new Callback<ListView<Device>, ListCell<Device>>() {
             @Override
             public ListCell<Device> call(ListView<Device> deviceListView) {
@@ -37,5 +43,14 @@ public class Listing extends Widget
         Device.QueryBuilder query = criteria.asDeviceQuery();
         List<Device> devices = Device.manager.select(query);
         list.setItems(FXCollections.observableArrayList(devices));
+    }
+
+    @Override
+    public void onModelEvent(Model.Observer.Event event, Device device) {
+        switch (event) {
+            case DELETE:
+                list.getItems().remove(device);
+                break;
+        }
     }
 }

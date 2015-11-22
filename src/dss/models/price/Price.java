@@ -16,6 +16,25 @@ public class Price extends Model {
     public Retailer retailer;
     public double cost;
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+
+        Price price = (Price) object;
+        return price.id == id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(id);
+    }
+
     /*
      * Manager
      */

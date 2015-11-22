@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import dss.models.price.Price;
+import dss.models.review.Review;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -747,6 +748,10 @@ public class Device extends Model {
 
     public List<Price> getPrices() {
         return Price.manager.select(Price.SELECT_DEVICE, id);
+    }
+
+    public List<Review> getReviews() {
+        return Review.manager.select(Review.SELECT_DEVICE, id);
     }
 
     /*

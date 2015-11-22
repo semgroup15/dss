@@ -25,6 +25,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.ListView?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -36,115 +37,120 @@
     </left>
 
     <center>
-        <BorderPane>
-            <center>
-                <ScrollPane styleClass="content">
-                    <VBox>
-                        <VBox styleClass="heading">
-                            <ManufacturerField fx:id="manufacturer"/>
-                            <NameField fx:id="name"/>
-                        </VBox>
+        <ScrollPane styleClass="content">
+            <VBox>
+                <VBox styleClass="heading">
+                    <ManufacturerField fx:id="manufacturer"/>
+                    <NameField fx:id="name"/>
+                </VBox>
 
-                        <VBox styleClass="form">
-                            <HBox>
-                                <PlatformField fx:id="platform"/>
-                                <SIMField fx:id="sim"/>
-                            </HBox>
-                            <Separator/>
-                            <DisplayField fx:id="display"/>
-                            <BodyField fx:id="body"/>
-                            <ColorField fx:id="color"/>
-                            <Separator/>
-                            <BatteryField fx:id="battery"/>
-                            <CameraField fx:id="camera"/>
-                            <Separator/>
-                            <ComField fx:id="com"/>
-                            <Separator/>
-                            <SensorField fx:id="sensor"/>
-                            <Separator/>
-                            <MemoryField fx:id="memory"/>
-                            <Separator/>
-                            <SlotField fx:id="slot"/>
-                            <Separator/>
-                            <NetworkField fx:id="network"/>
-                            <Separator/>
-                            <SoundField fx:id="sound"/>
-                            <Separator/>
+                <VBox styleClass="form">
+                    <HBox>
+                        <PlatformField fx:id="platform"/>
+                        <SIMField fx:id="sim"/>
+                    </HBox>
+                    <Separator/>
+                    <DisplayField fx:id="display"/>
+                    <BodyField fx:id="body"/>
+                    <ColorField fx:id="color"/>
+                    <Separator/>
+                    <BatteryField fx:id="battery"/>
+                    <CameraField fx:id="camera"/>
+                    <Separator/>
+                    <ComField fx:id="com"/>
+                    <Separator/>
+                    <SensorField fx:id="sensor"/>
+                    <Separator/>
+                    <MemoryField fx:id="memory"/>
+                    <Separator/>
+                    <SlotField fx:id="slot"/>
+                    <Separator/>
+                    <NetworkField fx:id="network"/>
+                    <Separator/>
+                    <SoundField fx:id="sound"/>
+                    <Separator/>
 
-                            <!-- Actions -->
-                            <BorderPane styleClass="actions">
-                                <left>
-                                    <Button
-                                            onAction="#onSave"
-                                            styleClass="save"
-                                            text="Save"/>
-                                </left>
+                    <!-- Actions -->
+                    <BorderPane styleClass="actions">
+                        <left>
+                            <Button
+                                    onAction="#onSave"
+                                    styleClass="save"
+                                    text="Save"/>
+                        </left>
 
-                                <right>
-                                    <Button
-                                            onAction="#onDelete"
-                                            styleClass="delete"
-                                            text="Delete"/>
-                                </right>
-                            </BorderPane>
-                        </VBox>
-                    </VBox>
-                </ScrollPane>
-            </center>
+                        <right>
+                            <Button
+                                    onAction="#onDelete"
+                                    styleClass="delete"
+                                    text="Delete"/>
+                        </right>
+                    </BorderPane>
 
-            <right>
-                <VBox alignment="TOP_CENTER">
-                    <Rating
-                            styleClass="overall"
-                            alignment="CENTER"
-                            starsAlignment="CENTER"
-                            labelVisible="false"
-                            labelManaged="false"
-                            fx:id="overallRating"/>
+                    <Separator/>
 
-                    <Rating
-                            label="Responsiveness"
-                            alignment="CENTER"
-                            starsAlignment="CENTER"
-                            fx:id="responsivenessRating"/>
-
-                    <Rating
-                            label="Screen"
-                            alignment="CENTER"
-                            starsAlignment="CENTER"
-                            fx:id="screenRating"/>
-
-                    <Rating
-                            label="Battery"
-                            alignment="CENTER"
-                            starsAlignment="CENTER"
-                            fx:id="batteryRating"/>
-
-                    <!-- Review form -->
-                    <VBox
-                            styleClass="review"
-                            fx:id="review"
-                            alignment="TOP_CENTER">
-
-                        <Pane prefHeight="10.0"/>
-
-                        <TextArea
-                                fx:id="text"
-                                wrapText="true"
-                                promptText="Review"
-                                maxHeight="126.0"
-                                maxWidth="150.0"/>
-
-                        <Pane prefHeight="20.0"/>
-
-                        <Button
-                                fx:id="submit"
-                                onAction="#onSubmit"
-                                styleClass="submit"
-                                prefWidth="150.0" />
+                    <!-- Reviews -->
+                    <VBox styleClass="reviews">
+                        <Label text="Reviews"/>
+                        <ListView fx:id="reviews">
+                        </ListView>
                     </VBox>
                 </VBox>
-            </right>
-        </BorderPane>
+            </VBox>
+        </ScrollPane>
     </center>
+
+    <right>
+        <VBox alignment="TOP_CENTER">
+            <Rating
+                    styleClass="overall"
+                    alignment="CENTER"
+                    starsAlignment="CENTER"
+                    labelVisible="false"
+                    labelManaged="false"
+                    fx:id="overallRating"/>
+
+            <Rating
+                    label="Responsiveness"
+                    alignment="CENTER"
+                    starsAlignment="CENTER"
+                    fx:id="responsivenessRating"/>
+
+            <Rating
+                    label="Screen"
+                    alignment="CENTER"
+                    starsAlignment="CENTER"
+                    fx:id="screenRating"/>
+
+            <Rating
+                    label="Battery"
+                    alignment="CENTER"
+                    starsAlignment="CENTER"
+                    fx:id="batteryRating"/>
+
+            <!-- Review form -->
+            <VBox
+                    styleClass="review"
+                    fx:id="review"
+                    alignment="TOP_CENTER">
+
+                <Pane prefHeight="10.0"/>
+
+                <TextArea
+                        fx:id="text"
+                        wrapText="true"
+                        promptText="Review"
+                        maxHeight="126.0"
+                        maxWidth="150.0"/>
+
+                <Pane prefHeight="20.0"/>
+
+                <Button
+                        fx:id="submit"
+                        onAction="#onSubmit"
+                        styleClass="submit"
+                        prefWidth="150.0" />
+            </VBox>
+        </VBox>
+    </right>
 </fx:root>

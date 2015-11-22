@@ -1,5 +1,6 @@
 package dss.views.sections.detail;
 
+import dss.models.Model;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import dss.models.review.Review;
@@ -8,22 +9,24 @@ import dss.views.Widget;
 import dss.views.sections.Rating;
 import dss.views.sections.detail.fields.*;
 import dss.views.sections.detail.fields.base.DeviceBinding;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class Detail extends Widget implements Initializable {
+public class Detail extends Widget
+        implements Initializable, Model.Observer.Listener<Review> {
 
     @FXML
     ImageView image;
@@ -86,6 +89,9 @@ public class Detail extends Widget implements Initializable {
     SoundField sound;
 
     @FXML
+    ListView<Review> reviews;
+
+    @FXML
     VBox review;
 
     @FXML
@@ -145,6 +151,9 @@ public class Detail extends Widget implements Initializable {
         batteryRating.setValue(device.batteryRating);
 
         setReviewVisible(false);
+
+        // Load reviews
+        reviews.setItems(FXCollections.observableArrayList(device.getReviews()));
     }
 
     @FXML
@@ -152,6 +161,32 @@ public class Detail extends Widget implements Initializable {
         responsivenessRating.addListener((value) -> setReviewVisible(true));
         screenRating.addListener((value) -> setReviewVisible(true));
         batteryRating.addListener((value) -> setReviewVisible(true));
+
+        // Listen to review changes
+        Review.observer.addListener(this);
+
+        // Set reviews list cell factory
+        reviews.setCellFactory(new Callback<ListView<Review>, ListCell<Review>>() {
+            @Override
+            public ListCell<Review> call(ListView<Review> reviewListView) {
+                return new ReviewCell();
+            }
+        });
+    }
+
+    @Override
+    public void onModelEvent(Model.Observer.Event event, Review review) {
+        switch (event) {
+            case DELETE:
+                reviews.getItems().remove(review);
+                break;
+
+            case INSERT:
+                if (review.deviceId == device.id) {
+                    reviews.getItems().add(review);
+                }
+                break;
+        }
     }
 
     @FXML

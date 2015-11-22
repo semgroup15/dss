@@ -47,7 +47,11 @@ public class ListingCell extends ListCell<Device>
     public ListingCell() {
         super();
 
+        // Listen to changes
         Device.observer.addListener(this);
+
+        // Listen to selection
+        State.get().addSelectionListener(this);
 
         /*
          * Image
@@ -84,13 +88,6 @@ public class ListingCell extends ListCell<Device>
         right.getChildren().add(separator);
         right.getChildren().add(delete);
 
-        // Add to panel
-        graphic.setLeft(image);
-        graphic.setCenter(center);
-        graphic.setRight(right);
-
-        setGraphic(graphic);
-
         // Connect actions
         add.setOnAction((event) -> State.get().addDevice(getItem()));
         remove.setOnAction((event) -> State.get().removeDevice(getItem()));
@@ -99,9 +96,20 @@ public class ListingCell extends ListCell<Device>
         setOnMouseClicked((event) -> State.get().setLocation(
                 new State.Location(State.Location.Section.DETAIL, getItem())));
 
-        State.get().addSelectionListener(this);
+        /*
+         * Add to graphic
+         */
+        graphic.setLeft(image);
+        graphic.setCenter(center);
+        graphic.setRight(right);
+
+        setGraphic(graphic);
     }
 
+    /**
+     * Set whether this device is selected.
+     * @param selected Selected
+     */
     private void setSelected(boolean selected) {
         add.setDisable(selected);
         remove.setDisable(!selected);
@@ -118,13 +126,7 @@ public class ListingCell extends ListCell<Device>
         if (device == getItem()) {
             switch (event) {
                 case UPDATE:
-                    // Update Information
                     setDevice(device);
-                    break;
-
-                case DELETE:
-                    // Remove from parent
-                    getListView().getItems().remove(getItem());
                     break;
             }
         }
