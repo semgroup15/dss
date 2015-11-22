@@ -75,5 +75,9 @@ public class Search extends Widget implements Initializable {
         device.name = name;
         device.manufacturerId = manufacturer.id;
         device.save();
+
+        // Refresh list
+        State state = State.get();
+        state.setCriteria(state.getCriteria());
     }
 }
