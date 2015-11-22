@@ -2,21 +2,28 @@ package dss.views.sections.detail;
 
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
+import dss.models.review.Review;
 import dss.views.State;
 import dss.views.Widget;
 import dss.views.sections.Rating;
 import dss.views.sections.detail.fields.*;
 import dss.views.sections.detail.fields.base.DeviceBinding;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Detail extends Widget {
+public class Detail extends Widget implements Initializable {
 
     @FXML
     ImageView image;
@@ -78,6 +85,15 @@ public class Detail extends Widget {
     @FXML
     SoundField sound;
 
+    @FXML
+    VBox review;
+
+    @FXML
+    TextArea text;
+
+    @FXML
+    Button submit;
+
     private DeviceBinding[] bindings() {
         return new DeviceBinding[] {
             name,
@@ -127,6 +143,15 @@ public class Detail extends Widget {
         responsivenessRating.setValue(device.responsivenessRating);
         screenRating.setValue(device.screenRating);
         batteryRating.setValue(device.batteryRating);
+
+        setReviewVisible(false);
+    }
+
+    @FXML
+    public void initialize(URL location, ResourceBundle resourceBundle) {
+        responsivenessRating.addListener((value) -> setReviewVisible(true));
+        screenRating.addListener((value) -> setReviewVisible(true));
+        batteryRating.addListener((value) -> setReviewVisible(true));
     }
 
     @FXML
@@ -137,9 +162,6 @@ public class Detail extends Widget {
         // Leave detail view
         State state = State.get();
         state.setLocation(new State.Location(State.Location.Section.LISTING));
-
-        // Refresh list
-        state.setCriteria(state.getCriteria());
     }
 
     @FXML
@@ -148,13 +170,42 @@ public class Detail extends Widget {
             binding.syncToDevice(device);
         }
 
+        // Save device
         device.save();
 
         // Leave detail view
         State state = State.get();
         state.setLocation(new State.Location(State.Location.Section.LISTING));
+    }
 
-        // Refresh list
-        state.setCriteria(state.getCriteria());
+    private void setReviewVisible(boolean visible) {
+        review.setVisible(visible);
+        review.setManaged(visible);
+
+        text.setText("");
+
+        if (visible) {
+            setReviewDone(false);
+        }
+    }
+
+    private void setReviewDone(boolean done) {
+        text.setDisable(done);
+        submit.setDisable(done);
+        submit.setText(done ? "Submitted" : "Submit");
+    }
+
+    @FXML
+    public void onSubmit() {
+        setReviewDone(true);
+
+        // Create review
+        Review review = new Review();
+        review.deviceId = device.id;
+        review.text = text.getText();
+        review.responsiveness = responsivenessRating.getValue();
+        review.screen = screenRating.getValue();
+        review.battery = batteryRating.getValue();
+        review.save();
     }
 }

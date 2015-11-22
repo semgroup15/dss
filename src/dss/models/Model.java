@@ -990,6 +990,64 @@ public abstract class Model {
     }
 
     /**
+     * Generic model observer.
+     * @param <T> Model class
+     */
+    public static class Observer<T extends Model> {
+
+        /**
+         * Model event.
+         */
+        public enum Event {
+            INSERT,
+            UPDATE,
+            DELETE,
+        }
+
+        /**
+         * Model event {@code Listener}.
+         * @param <T> Model class
+         */
+        public interface Listener<T extends Model> {
+            /**
+             * Handle event.
+             * @param event Event
+             * @param object Model object
+             */
+            void onModelEvent(Event event, T object);
+        }
+
+        private ArrayList<Listener<T>> listeners = new ArrayList<>();
+
+        /**
+         * Attach {@code Listener}.
+         * @param listener Listener to attach
+         */
+        public void addListener(Listener<T> listener) {
+            this.listeners.add(listener);
+        }
+
+        /**
+         * Detach {@code Listener}.
+         * @param listener Listener to detach
+         */
+        public void removeListener(Listener<T> listener) {
+            this.listeners.remove(listener);
+        }
+
+        /**
+         * Trigger model event.
+         * @param event Event
+         * @param object Model object
+         */
+        public void trigger(Event event, T object) {
+            for (Listener<T> listener : listeners) {
+                listener.onModelEvent(event, object);
+            }
+        }
+    }
+
+    /**
      * Generic object cache.
      * @param <T> Model type
      * @param <K> Key type
@@ -1110,7 +1168,7 @@ public abstract class Model {
     /**
      * {@code INSERT} this model instance.
      */
-    private void insert() {
+    protected void insert() {
         DB.execute(new DB.Task<Void>() {
             @Override
             public Void execute(DB.Context context) throws SQLException {
@@ -1145,7 +1203,7 @@ public abstract class Model {
     /**
      * {@code UPDATE} this model instance.
      */
-    private void update() {
+    protected void update() {
         DB.execute(new DB.Task<Void>() {
             @Override
             public Void execute(DB.Context context) throws SQLException {

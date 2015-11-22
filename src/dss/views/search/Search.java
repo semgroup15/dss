@@ -49,16 +49,14 @@ public class Search extends Widget implements Initializable {
     private void onSearch() {
         State state = State.get();
 
-        // Get current search criteria
-        State.Criteria criteria = state.getCriteria();
-
         // Update criteria with new values
+        State.Criteria criteria = state.getCriteria();
         criteria.setQuery(query.getText());
         criteria.setManufacturer(manufacturer.getValue());
-
-        // Change to listing and perform search
-        state.setLocation(new State.Location(State.Location.Section.LISTING));
         state.setCriteria(criteria);
+
+        // Change to listing
+        state.setLocation(new State.Location(State.Location.Section.LISTING));
     }
 
     @FXML
@@ -77,9 +75,5 @@ public class Search extends Widget implements Initializable {
         device.name = name;
         device.manufacturerId = manufacturer.id;
         device.save();
-
-        // Refresh list
-        State state = State.get();
-        state.setCriteria(state.getCriteria());
     }
 }

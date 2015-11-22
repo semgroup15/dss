@@ -400,14 +400,6 @@
     -fx-padding: 10 14;
 }
 
-.Detail .Rating {
-    -fx-padding: 14 20;
-}
-
-.Detail .Rating.overall .rating-stars .label {
-    -fx-font-size: 24pt;
-}
-
 .Detail .actions {
     -fx-padding: 40;
 }
@@ -415,8 +407,9 @@
 .Detail .actions .button {
     -fx-background-color: #3498db;
     -fx-text-fill: #fff;
-    -fx-font-size: 10pt;
-    -fx-padding: 14;
+    -fx-padding: 14 20;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
 }
 
 .Detail .actions .button:hover {
@@ -429,6 +422,47 @@
 
 .Detail .actions .button.delete:hover {
     -fx-background-color: #c0392b;
+}
+
+.Detail .Rating {
+    -fx-padding: 14 20;
+}
+
+.Detail .Rating.overall .rating-stars .label {
+    -fx-font-size: 24pt;
+}
+
+.Detail .text-area {
+    -fx-padding: 0;
+    -fx-background-color: #ffffff;
+    -fx-border-width: 1;
+    -fx-border-color: #dddddd;
+}
+
+.Detail .text-area:hover,
+.Detail .text-area:focused {
+    -fx-border-color: #bbbbbb;
+}
+
+.Detail .text-area .content {
+    -fx-padding: 10;
+    -fx-background-color: #ffffff;
+}
+
+.Detail .button.submit {
+    -fx-cursor: hand;
+    -fx-border-width: 1;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #3498db;
+    -fx-border-color: #3498db;
+    -fx-padding: 14;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}
+
+.Detail .button.submit:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #3498db;
 }
 
 /*

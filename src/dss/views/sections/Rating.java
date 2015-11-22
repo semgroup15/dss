@@ -127,6 +127,14 @@ public class Rating extends Widget implements Initializable {
     }
 
     /**
+     * Get value.
+     * @return Value
+     */
+    public int getValue() {
+        return this.value;
+    }
+
+    /**
      * Show the specified value without changing the real value.
      * @param value Value to show
      */

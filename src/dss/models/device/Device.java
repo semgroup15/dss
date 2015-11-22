@@ -818,6 +818,10 @@ public class Device extends Model {
         return manager;
     }
 
+    /*
+     * Cache
+     */
+
     public static class Loader implements Cache.Loader<Device, Long> {
         @Override
         public Device load(Long key) throws DoesNotExist {
@@ -832,6 +836,30 @@ public class Device extends Model {
 
     public static Model.Cache<Device, Long> cache =
             new Model.Cache<>(new Loader());
+
+    /*
+     * Observer
+     */
+
+    public static Observer<Device> observer = new Observer<>();
+
+    @Override
+    protected void insert() {
+        super.insert();
+        observer.trigger(Observer.Event.INSERT, this);
+    }
+
+    @Override
+    protected void update() {
+        super.update();
+        observer.trigger(Observer.Event.UPDATE, this);
+    }
+
+    @Override
+    public void delete() {
+        super.delete();
+        observer.trigger(Observer.Event.DELETE, this);
+    }
 
     /*
      * Sync

@@ -367,7 +367,7 @@ public class State {
         this.criteria = criteria;
 
         for (SearchListener listener : searchListeners) {
-            listener.onSearchChange(criteria);
+            listener.onSearchChange(this.criteria);
         }
     }
 

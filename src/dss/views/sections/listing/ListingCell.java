@@ -1,5 +1,6 @@
 package dss.views.sections.listing;
 
+import dss.models.Model;
 import dss.models.device.Device;
 import dss.views.State;
 import dss.views.sections.Rating;
@@ -21,7 +22,7 @@ import java.io.FileNotFoundException;
  * {@code ListCell} displaying device information.
  */
 public class ListingCell extends ListCell<Device>
-        implements State.SelectionListener {
+        implements State.SelectionListener, Model.Observer.Listener<Device> {
 
     // Image size
     private static final double IMAGE_WIDTH = 70;
@@ -45,6 +46,8 @@ public class ListingCell extends ListCell<Device>
      */
     public ListingCell() {
         super();
+
+        Device.observer.addListener(this);
 
         /*
          * Image
@@ -91,14 +94,7 @@ public class ListingCell extends ListCell<Device>
         // Connect actions
         add.setOnAction((event) -> State.get().addDevice(getItem()));
         remove.setOnAction((event) -> State.get().removeDevice(getItem()));
-        delete.setOnAction((event) -> {
-            // Delete device
-            getItem().delete();
-
-            // Refresh list
-            State state = State.get();
-            state.setCriteria(state.getCriteria());
-        });
+        delete.setOnAction((event) -> getItem().delete());
 
         setOnMouseClicked((event) -> State.get().setLocation(
                 new State.Location(State.Location.Section.DETAIL, getItem())));
@@ -118,34 +114,55 @@ public class ListingCell extends ListCell<Device>
     }
 
     @Override
+    public void onModelEvent(Model.Observer.Event event, Device device) {
+        if (device == getItem()) {
+            switch (event) {
+                case UPDATE:
+                    // Update Information
+                    setDevice(device);
+                    break;
+
+                case DELETE:
+                    // Remove from parent
+                    getListView().getItems().remove(getItem());
+                    break;
+            }
+        }
+    }
+
+    @Override
     protected void updateItem(Device device, boolean empty) {
         super.updateItem(device, empty);
 
         graphic.setVisible(!empty);
 
         if (device != null) {
-            File file = device.getImageFile();
-
-            if (file == null) {
-                image.setVisible(false);
-                image.setManaged(false);
-            } else {
-                image.setVisible(true);
-                image.setManaged(true);
-
-                try {
-                    image.setImage(new Image(new FileInputStream(file)));
-                } catch (FileNotFoundException exception) {
-                    // Image not found
-                }
-            }
-
-            manufacturer.setText(device.getManufacturer().name);
-            name.setText(device.name);
-            overallRating.setValue(device.overallRating);
-
-            setSelected(State.get().getDevices().contains(device));
+            setDevice(device);
         }
+    }
+
+    private void setDevice(Device device) {
+        File file = device.getImageFile();
+
+        if (file == null) {
+            image.setVisible(false);
+            image.setManaged(false);
+        } else {
+            image.setVisible(true);
+            image.setManaged(true);
+
+            try {
+                image.setImage(new Image(new FileInputStream(file)));
+            } catch (FileNotFoundException exception) {
+                // Image not found
+            }
+        }
+
+        manufacturer.setText(device.getManufacturer().name);
+        name.setText(device.name);
+        overallRating.setValue(device.overallRating);
+
+        setSelected(State.get().getDevices().contains(device));
     }
 
     @Override
