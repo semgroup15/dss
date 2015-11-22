@@ -616,27 +616,45 @@ public class Device extends Model {
                         .done();
         }
 
-        public QueryBuilder byDisplaySize(double min, double max) {
+        public QueryBuilder byMinDisplaySize(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("display_size >= ? AND display_size <= ?",
-                                min, max)
+                        .add("display_size >= ?", value)
                         .done();
         }
 
-        public QueryBuilder byMemoryRAMSize(double min, double max) {
+        public QueryBuilder byMaxDisplaySize(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("memory_ram_size >= ? AND memory_ram_size <= ?",
-                                min, max)
+                        .add("display_size <= ?", value)
                         .done();
         }
 
-        public QueryBuilder byPrice(double min, double max) {
+        public QueryBuilder byMinMemoryRAMSize(double value) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("memory_ram_size >= ?", value)
+                        .done();
+        }
+
+        public QueryBuilder byMaxMemoryRAMSize(double value) {
+            return (QueryBuilder) this
+                    .where()
+                        .add("memory_ram_size <= ?", value)
+                        .done();
+        }
+
+        public QueryBuilder byMinPrice(double value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(price.cost) >= ? AND AVG(price.cost) <= ?",
-                                min, max)
+                        .add("AVG(price.cost) >= ?", value)
+                        .done();
+        }
+
+        public QueryBuilder byMaxPrice(double value) {
+            return (QueryBuilder) this
+                    .having()
+                        .add("AVG(price.cost) <= ?", value)
                         .done();
         }
 

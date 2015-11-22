@@ -218,26 +218,36 @@ public class State {
              * Display size
              */
 
-            if (minDisplaySize > MIN_DISPLAY_SIZE &&
-                    maxDisplaySize < MAX_DISPLAY_SIZE) {
-                query.byDisplaySize(minDisplaySize, maxDisplaySize);
+            if (minDisplaySize > MIN_DISPLAY_SIZE) {
+                query.byMinDisplaySize(minDisplaySize);
+            }
+
+            if (maxDisplaySize < MAX_DISPLAY_SIZE) {
+                query.byMaxDisplaySize(maxDisplaySize);
             }
 
             /*
              * RAM size
              */
 
-            if (minMemoryRAMSize > MIN_MEMORY_RAM_SIZE &&
-                    maxMemoryRAMSize < MAX_MEMORY_RAM_SIZE) {
-                query.byMemoryRAMSize(minMemoryRAMSize, maxMemoryRAMSize);
+            if (minMemoryRAMSize > MIN_MEMORY_RAM_SIZE) {
+                query.byMinMemoryRAMSize(minMemoryRAMSize);
+            }
+
+            if (maxMemoryRAMSize < MAX_MEMORY_RAM_SIZE) {
+                query.byMaxMemoryRAMSize(maxMemoryRAMSize);
             }
 
             /*
              * Price
              */
 
-            if (minPrice > MIN_PRICE && maxPrice < MAX_PRICE) {
-                query.byPrice(minPrice, maxPrice);
+            if (minPrice > MIN_PRICE) {
+                query.byMinPrice(minPrice);
+            }
+
+            if (maxPrice < MAX_PRICE) {
+                query.byMaxPrice(maxPrice);
             }
 
             return query;
