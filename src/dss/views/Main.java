@@ -10,7 +10,7 @@ public class Main extends Application {
 
     private static final String TITLE = "DSS";
     private static final int WIDTH = 1020;
-    private static final int HEIGHT = 600;
+    private static final int HEIGHT = 620;
     private static final String STYLES = "styles.css";
 
     public static void main(String[] args) {

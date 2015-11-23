@@ -31,8 +31,10 @@ public class Selection extends Widget
 
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
+        // Listen to selection changes
         State.get().addSelectionListener(this);
 
+        // Configure cell factory
         list.setCellFactory(new Callback<ListView<Device>, ListCell<Device>>() {
             @Override
             public ListCell<Device> call(ListView<Device> deviceListView) {

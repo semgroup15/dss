@@ -24,16 +24,18 @@ import java.io.FileNotFoundException;
 public class ListingCell extends ListCell<Device>
         implements State.SelectionListener, Model.Observer.Listener<Device> {
 
+    BorderPane graphic = new BorderPane();
+
     // Image size
     private static final double IMAGE_WIDTH = 70;
     private static final double IMAGE_HEIGHT = 96;
-
-    BorderPane graphic = new BorderPane();
 
     // Description
     ImageView image = new ImageView();
     Label manufacturer = new Label();
     Label name = new Label();
+
+    // Ratings
     Rating overallRating = new Rating();
 
     // Actions

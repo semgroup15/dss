@@ -23,8 +23,6 @@ import org.apache.http.impl.client.HttpClients;
 import dss.models.Model;
 import dss.models.manufacturer.Manufacturer;
 
-import javax.management.Query;
-
 public class Device extends Model {
 
     public static String join(Set<?> objects) {

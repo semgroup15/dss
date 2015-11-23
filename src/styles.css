@@ -543,6 +543,60 @@
 }
 
 /*
+ * Comparison
+ */
+
+.Comparison {
+}
+
+.Comparison .list-view {
+    -fx-border-style: none;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+
+.Comparison .list-view .list-cell {
+    -fx-padding: 20;
+}
+
+.Comparison .list-view .list-cell,
+.Comparison .list-view .list-cell:hover,
+.Comparison .list-view .list-cell:focused,
+.Comparison .list-view .list-cell:selected {
+    -fx-background-color: #ffffff, #ffffff;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #eeeeee;
+    -fx-padding: 20 30;
+}
+
+.Comparison .list-view .list-cell .label,
+.Comparison .list-view .list-cell:hover .label,
+.Comparison .list-view .list-cell:focused .label,
+.Comparison .list-view .list-cell:selected .label {
+    -fx-text-fill: #444444;
+}
+
+.Comparison .list-view .list-cell .manufacturer {
+    -fx-padding: 20 0 4 0;
+    -fx-font-size: 10pt;
+}
+
+.Comparison .list-view .list-cell .name {
+    -fx-padding: 0 0 10 0;
+    -fx-font-size: 14pt;
+}
+
+.Comparison .list-view .list-cell .Rating {
+    -fx-padding: 10 0 0 0;
+}
+
+.Comparison .list-view .list-cell .Rating .rating-stars .label {
+    -fx-padding: 0;
+}
+
+/*
  * Separator
  */
 
