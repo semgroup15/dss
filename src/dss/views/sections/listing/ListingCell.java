@@ -1,8 +1,8 @@
 package dss.views.sections.listing;
 
-import dss.models.Model;
+import dss.models.base.Model;
 import dss.models.device.Device;
-import dss.views.State;
+import dss.views.base.State;
 import dss.views.sections.Rating;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,7 +10,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 

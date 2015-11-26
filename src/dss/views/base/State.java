@@ -1,4 +1,4 @@
-package dss.views;
+package dss.views.base;
 
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;

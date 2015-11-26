@@ -2,7 +2,6 @@
 
 ## Build
 
-* Symlink or copy `jfxrt.jar` to the `lib` directory
 * Build with `ant build`
 
 

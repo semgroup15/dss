@@ -3,7 +3,7 @@ package dss.commands.media;
 import java.io.File;
 import java.util.List;
 
-import dss.models.Model;
+import dss.models.base.Model;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 

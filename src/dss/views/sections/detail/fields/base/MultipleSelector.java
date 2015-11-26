@@ -1,6 +1,6 @@
 package dss.views.sections.detail.fields.base;
 
-import dss.views.Widget;
+import dss.views.base.Widget;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

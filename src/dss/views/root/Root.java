@@ -1,8 +1,8 @@
 package dss.views.root;
 
 import dss.models.device.Device;
-import dss.views.State;
-import dss.views.Widget;
+import dss.views.base.State;
+import dss.views.base.Widget;
 import dss.views.search.Search;
 import dss.views.sections.comparison.Comparison;
 import dss.views.sections.detail.Detail;

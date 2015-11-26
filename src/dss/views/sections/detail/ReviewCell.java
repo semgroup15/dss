@@ -1,6 +1,6 @@
 package dss.views.sections.detail;
 
-import dss.models.Model;
+import dss.models.base.Model;
 import dss.models.review.Review;
 import dss.views.sections.Rating;
 import javafx.scene.control.Button;

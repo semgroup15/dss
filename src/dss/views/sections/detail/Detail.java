@@ -1,11 +1,10 @@
 package dss.views.sections.detail;
 
-import dss.models.Model;
+import dss.models.base.Model;
 import dss.models.device.Device;
-import dss.models.manufacturer.Manufacturer;
 import dss.models.review.Review;
-import dss.views.State;
-import dss.views.Widget;
+import dss.views.base.State;
+import dss.views.base.Widget;
 import dss.views.sections.Rating;
 import dss.views.sections.detail.fields.*;
 import dss.views.sections.detail.fields.base.DeviceBinding;
@@ -22,7 +21,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Detail extends Widget

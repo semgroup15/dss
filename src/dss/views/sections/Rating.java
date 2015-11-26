@@ -1,6 +1,6 @@
 package dss.views.sections;
 
-import dss.views.Widget;
+import dss.views.base.Widget;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;

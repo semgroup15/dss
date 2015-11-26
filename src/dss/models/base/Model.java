@@ -1,4 +1,4 @@
-package dss.models;
+package dss.models.base;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.*;
 import org.apache.commons.io.IOUtils;
 import org.sqlite.SQLiteConfig;
 
-import dss.models.Model.DB.Context;
+import dss.models.base.Model.DB.Context;
 
 /**
  * Base data model

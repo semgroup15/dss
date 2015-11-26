@@ -2,8 +2,8 @@ package dss.views.search;
 
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
-import dss.views.State;
-import dss.views.Widget;
+import dss.views.base.State;
+import dss.views.base.Widget;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

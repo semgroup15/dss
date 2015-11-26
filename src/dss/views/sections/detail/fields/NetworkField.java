@@ -1,7 +1,7 @@
 package dss.views.sections.detail.fields;
 
 import dss.models.device.Device;
-import dss.views.Widget;
+import dss.views.base.Widget;
 import dss.views.sections.detail.fields.base.DeviceBinding;
 import dss.views.sections.detail.fields.base.MultipleSelector;
 import javafx.fxml.FXML;

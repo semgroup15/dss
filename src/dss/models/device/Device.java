@@ -20,7 +20,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import dss.models.Model;
+import dss.models.base.Model;
 import dss.models.manufacturer.Manufacturer;
 
 public class Device extends Model {

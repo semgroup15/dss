@@ -2,7 +2,7 @@ package dss.views.sections.detail.fields;
 
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
-import dss.views.Widget;
+import dss.views.base.Widget;
 import dss.views.sections.detail.fields.base.DeviceBinding;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

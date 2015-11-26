@@ -2,7 +2,7 @@ package dss.models.manufacturer;
 
 import java.sql.SQLException;
 
-import dss.models.Model;
+import dss.models.base.Model;
 
 public class Manufacturer extends Model {
 

@@ -1,4 +1,4 @@
-package dss.views;
+package dss.views.base;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;

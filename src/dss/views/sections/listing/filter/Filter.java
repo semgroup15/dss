@@ -1,8 +1,8 @@
 package dss.views.sections.listing.filter;
 
 import dss.models.device.Device;
-import dss.views.State;
-import dss.views.Widget;
+import dss.views.base.State;
+import dss.views.base.Widget;
 import dss.views.sections.Rating;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

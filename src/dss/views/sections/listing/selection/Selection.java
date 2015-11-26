@@ -1,8 +1,8 @@
 package dss.views.sections.listing.selection;
 
 import dss.models.device.Device;
-import dss.views.State;
-import dss.views.Widget;
+import dss.views.base.State;
+import dss.views.base.Widget;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

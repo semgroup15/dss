@@ -1,6 +1,6 @@
 package dss.models.price;
 
-import dss.models.Model;
+import dss.models.base.Model;
 
 import java.sql.SQLException;
 

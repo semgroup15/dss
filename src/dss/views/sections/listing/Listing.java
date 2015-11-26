@@ -1,9 +1,9 @@
 package dss.views.sections.listing;
 
-import dss.models.Model;
+import dss.models.base.Model;
 import dss.models.device.Device;
-import dss.views.State;
-import dss.views.Widget;
+import dss.views.base.State;
+import dss.views.base.Widget;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
