@@ -81,21 +81,21 @@ public class Filter extends Widget implements Initializable {
         responsivenessRating.addListener((value) -> {
             State state = State.get();
             State.Criteria criteria = state.getCriteria();
-            criteria.setResponsivenessRating(value);
+            criteria.setResponsivenessRating(value > 1 ? value : 0);
             state.setCriteria(criteria);
         });
 
         screenRating.addListener((value) -> {
             State state = State.get();
             State.Criteria criteria = state.getCriteria();
-            criteria.setScreenRating(value);
+            criteria.setScreenRating(value > 1 ? value : 0);
             state.setCriteria(criteria);
         });
 
         batteryRating.addListener((value) -> {
             State state = State.get();
             State.Criteria criteria = state.getCriteria();
-            criteria.setBatteryRating(value);
+            criteria.setBatteryRating(value > 1 ? value : 0);
             state.setCriteria(criteria);
         });
 
