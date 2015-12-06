@@ -4,6 +4,7 @@ import dss.models.device.Device;
 import dss.views.base.State;
 import dss.views.base.Widget;
 import dss.views.search.Search;
+import dss.views.sections.auth.Auth;
 import dss.views.sections.comparison.Comparison;
 import dss.views.sections.detail.Detail;
 import dss.views.sections.listing.Listing;
@@ -32,6 +33,9 @@ public class Root extends Widget
     Comparison comparison;
 
     @FXML
+    Auth auth;
+
+    @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
         State.get().addLocationListener(this);
     }
@@ -41,6 +45,7 @@ public class Root extends Widget
         listing.setVisible(false);
         detail.setVisible(false);
         comparison.setVisible(false);
+        auth.setVisible(false);
 
         // Switch visible section depending on the current location
         switch (location.getSection()) {
@@ -55,6 +60,10 @@ public class Root extends Widget
 
             case COMPARISON:
                 comparison.setVisible(true);
+                break;
+
+            case AUTH:
+                auth.setVisible(true);
                 break;
         }
     }

@@ -87,4 +87,10 @@ public class Search extends Widget implements Initializable {
         State state = State.get();
         state.setCriteria(state.getCriteria());
     }
+
+    @FXML
+    private void onAuth() {
+        State.get().setLocation(
+                new State.Location(State.Location.Section.AUTH));
+    }
 }
