@@ -34,6 +34,7 @@ public class Search extends Widget implements Initializable {
         // Get common manufacturer list
         List<Manufacturer> manufacturers =
                 Manufacturer.manager.select(Manufacturer.SELECT_COMMON);
+        manufacturers.add(0, Manufacturer.NONE);
 
         // Populate combo box
         manufacturer.setItems(FXCollections.observableArrayList(manufacturers));
@@ -49,10 +50,16 @@ public class Search extends Widget implements Initializable {
     private void onSearch() {
         State state = State.get();
 
+        String query = this.query.getText();
+        Manufacturer manufacturer = this.manufacturer.getValue();
+        if (manufacturer == Manufacturer.NONE) {
+            manufacturer = null;
+        }
+
         // Update criteria with new values
         State.Criteria criteria = state.getCriteria();
-        criteria.setQuery(query.getText());
-        criteria.setManufacturer(manufacturer.getValue());
+        criteria.setQuery(query);
+        criteria.setManufacturer(manufacturer);
         state.setCriteria(criteria);
 
         // Change to listing
@@ -79,5 +86,11 @@ public class Search extends Widget implements Initializable {
         // Refresh list
         State state = State.get();
         state.setCriteria(state.getCriteria());
+    }
+
+    @FXML
+    private void onAuth() {
+        State.get().setLocation(
+                new State.Location(State.Location.Section.AUTH));
     }
 }

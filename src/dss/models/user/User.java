@@ -4,7 +4,6 @@ import dss.models.base.Model;
 import java.sql.SQLException;
 
 public class User extends Model {
-
     public long id;
     public String username;
     public String password;
@@ -87,4 +86,10 @@ public class User extends Model {
 
         statement.setNextLong(id);
     }
+
+    /*
+     * Queries
+     */
+
+
 }

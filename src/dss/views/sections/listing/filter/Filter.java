@@ -13,6 +13,9 @@ import javafx.util.StringConverter;
 import org.controlsfx.control.RangeSlider;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Filter extends Widget implements Initializable {
@@ -49,8 +52,10 @@ public class Filter extends Widget implements Initializable {
 
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
-        platform.setItems(
-                FXCollections.observableArrayList(Device.Platform.ALL));
+        List<Device.Platform> platforms = new ArrayList<>();
+        platforms.addAll(Arrays.asList(Device.Platform.ALL));
+        platforms.add(0, Device.Platform.NONE);
+        platform.setItems(FXCollections.observableArrayList(platforms));
 
         /*
          * All criteria changes consist of 4 steps
@@ -62,30 +67,35 @@ public class Filter extends Widget implements Initializable {
          */
 
         platform.setOnAction((event) -> {
+            Device.Platform platform = this.platform.getValue();
+            if (platform == Device.Platform.NONE) {
+                platform = null;
+            }
+
             State state = State.get();
             State.Criteria criteria = state.getCriteria();
-            criteria.setPlatform(platform.getValue());
+            criteria.setPlatform(platform);
             state.setCriteria(criteria);
         });
 
         responsivenessRating.addListener((value) -> {
             State state = State.get();
             State.Criteria criteria = state.getCriteria();
-            criteria.setResponsivenessRating(value);
+            criteria.setResponsivenessRating(value > 1 ? value : 0);
             state.setCriteria(criteria);
         });
 
         screenRating.addListener((value) -> {
             State state = State.get();
             State.Criteria criteria = state.getCriteria();
-            criteria.setScreenRating(value);
+            criteria.setScreenRating(value > 1 ? value : 0);
             state.setCriteria(criteria);
         });
 
         batteryRating.addListener((value) -> {
             State state = State.get();
             State.Criteria criteria = state.getCriteria();
-            criteria.setBatteryRating(value);
+            criteria.setBatteryRating(value > 1 ? value : 0);
             state.setCriteria(criteria);
         });
 

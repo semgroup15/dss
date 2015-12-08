@@ -40,6 +40,7 @@ public class State {
             LISTING,
             DETAIL,
             COMPARISON,
+            AUTH,
         }
 
         private Section section;

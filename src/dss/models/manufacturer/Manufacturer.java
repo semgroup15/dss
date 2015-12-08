@@ -6,6 +6,8 @@ import dss.models.base.Model;
 
 public class Manufacturer extends Model {
 
+    public static final Manufacturer NONE = new Manufacturer();
+
     public long id;
     public String name;
 

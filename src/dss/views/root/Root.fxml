@@ -4,6 +4,7 @@
 <?import dss.views.sections.detail.Detail?>
 <?import dss.views.sections.comparison.Comparison?>
 <?import javafx.scene.layout.StackPane?>
+<?import dss.views.sections.auth.Auth?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -17,6 +18,7 @@
             <Listing fx:id="listing"/>
             <Detail fx:id="detail"/>
             <Comparison fx:id="comparison"/>
+            <Auth fx:id="auth"/>
         </StackPane>
     </center>
 </fx:root>
