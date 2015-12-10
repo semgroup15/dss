@@ -437,6 +437,7 @@ public class Device extends Model {
     }
 
     public enum Platform {
+        NONE(""),
         UNKNOWN("Unknown"),
         ANDROID("Android"),
         IOS("iOS"),

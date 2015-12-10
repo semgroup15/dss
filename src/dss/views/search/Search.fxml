@@ -47,6 +47,10 @@
                     prefHeight="50.0"
                     text="+"
                     onAction="#onCreate"/>
+            <Button
+                    prefHeight="50.0"
+                    text="Login"
+                    onAction="#onAuth"/>
         </HBox>
     </right>
 </fx:root>

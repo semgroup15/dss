@@ -680,12 +680,12 @@ public abstract class Model {
         }
 
         /**
-         * Load a SQL {@code ResultSet} into a model listing.
+         * Load a SQL {@code ResultSet} into a model list.
          * @param result Query result
-         * @param rows Model listing
+         * @param rows Model list
          * @throws SQLException
          */
-        public void load(ResultSet result, List<T> rows) throws SQLException {
+        protected void load(ResultSet result, List<T> rows) throws SQLException {
             while (result.next()) {
                 T row;
 

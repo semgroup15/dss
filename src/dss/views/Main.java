@@ -30,9 +30,10 @@ public class Main extends Application {
         stage.setHeight(HEIGHT);
         stage.setMinHeight(HEIGHT);
         stage.setTitle(TITLE);
-        stage.show();
-        stage.requestFocus();
 
         root.setCenter(new Root());
+
+        stage.show();
+        stage.requestFocus();
     }
 }
