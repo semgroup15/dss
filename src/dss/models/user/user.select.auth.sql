@@ -1,7 +1,3 @@
-SELECT
-
-
+SELECT *
 FROM user
-
-
-WHERE username = ? &  password = ?
+WHERE username = ? AND password = ?

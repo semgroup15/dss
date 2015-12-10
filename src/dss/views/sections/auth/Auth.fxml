@@ -9,6 +9,41 @@
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
 
+
+
+
     <center>
+        <VBox>
+            <HBox alignment = "CENTER">
+
+                <Label  text = "username:"/>
+
+                <TextField/>
+
+            </HBox>
+
+
+           <HBox alignment = "CENTER">
+               <Label text = "password:"/>
+               <PasswordField/>
+
+           </HBox>
+
+
+             <HBox alignment= "CENTER">
+                 <Button text = "Login:"/>
+             </HBox>
+
+         </VBox>
+
     </center>
-</fx:root>
+
+    </fx:root>
+
+
+
+
+
+
+
+
