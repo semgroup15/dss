@@ -12,23 +12,18 @@
    <center>
       <VBox>
          <HBox alignment = "CENTER">
-
-            <Label  text = "username:"/>
-
-            <TextField/>
-
+            <Label text = "username:"/>
+            <TextField fx:id="username" />
          </HBox>
-
 
          <HBox alignment = "CENTER">
             <Label text = "password:"/>
-            <PasswordField/>
-
+            <PasswordField fx:id="password"/>
          </HBox>
 
-
          <HBox alignment= "CENTER">
-            <Button text = "Login:"/>
+            <Button text = "Login:"
+                    onAction="#onLogin"/>
          </HBox>
 
       </VBox>
