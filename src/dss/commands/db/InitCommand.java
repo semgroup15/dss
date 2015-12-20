@@ -4,6 +4,7 @@ import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import dss.models.price.Price;
 import dss.models.review.Review;
+import dss.models.user.User;
 
 public class InitCommand implements Runnable {
 
@@ -17,5 +18,6 @@ public class InitCommand implements Runnable {
         Device.manager.createTable();
         Price.manager.createTable();
         Review.manager.createTable();
+        User.manager.createTable();
     }
 }
