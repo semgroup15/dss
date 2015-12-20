@@ -1,4 +1,4 @@
-package dss.views.sections;
+package dss.views.base.components;
 
 import dss.views.base.Widget;
 import javafx.beans.property.BooleanProperty;

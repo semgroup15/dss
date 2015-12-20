@@ -18,7 +18,7 @@ public class SelectionCell extends ListCell<Device> {
     // Controls
     Label manufacturer = new Label();
     Label name = new Label();
-    Button remove = new Button("−");
+    Button remove = new Button("Deselect".toUpperCase());
 
     /**
      * Initialize {@code ListingCell}.

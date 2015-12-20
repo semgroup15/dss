@@ -12,7 +12,8 @@
         <Label
                 fx:id="label"
                 onMouseClicked="#onGoHome"
-                text="⌂ DSS"
+                alignment="CENTER"
+                text="DSS"
                 prefHeight="50.0"
                 prefWidth="100.0"/>
     </left>
@@ -30,6 +31,7 @@
             <center>
                 <TextField
                         fx:id="query"
+                        promptText="Search"
                         prefHeight="50.0"
                         onKeyReleased="#onSearch"
                         onAction="#onSearch"/>
@@ -41,11 +43,7 @@
         <HBox>
             <Button
                     prefHeight="50.0"
-                    text="⚲"
-                    onAction="#onSearch"/>
-            <Button
-                    prefHeight="50.0"
-                    text="+"
+                    text="Create"
                     onAction="#onCreate"/>
             <Button
                     prefHeight="50.0"

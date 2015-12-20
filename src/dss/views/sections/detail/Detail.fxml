@@ -2,7 +2,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.BorderPane?>
-<?import dss.views.sections.Rating?>
+<?import dss.views.base.components.Rating?>
 <?import dss.views.sections.detail.fields.DisplayField?>
 <?import dss.views.sections.detail.fields.BodyField?>
 <?import dss.views.sections.detail.fields.ColorField?>

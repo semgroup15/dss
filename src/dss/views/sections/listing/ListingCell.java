@@ -3,7 +3,7 @@ package dss.views.sections.listing;
 import dss.models.base.Model;
 import dss.models.device.Device;
 import dss.views.base.State;
-import dss.views.sections.Rating;
+import dss.views.base.components.Rating;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -38,9 +38,9 @@ public class ListingCell extends ListCell<Device>
     Rating overallRating = new Rating();
 
     // Actions
-    Button add = new Button("+");
-    Button remove = new Button("−");
-    Button delete = new Button("×");
+    Button add = new Button("Select".toUpperCase());
+    Button remove = new Button("Deselect".toUpperCase());
+    Button delete = new Button("Delete".toUpperCase());
 
     /**
      * Initialize {@code ListingCell}.

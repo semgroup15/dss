@@ -3,7 +3,7 @@ package dss.views.sections.listing.filter;
 import dss.models.device.Device;
 import dss.views.base.State;
 import dss.views.base.Widget;
-import dss.views.sections.Rating;
+import dss.views.base.components.Rating;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

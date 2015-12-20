@@ -2,7 +2,7 @@ package dss.views.sections.detail;
 
 import dss.models.base.Model;
 import dss.models.review.Review;
-import dss.views.sections.Rating;
+import dss.views.base.components.Rating;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -23,7 +23,7 @@ public class ReviewCell extends ListCell<Review>
     Rating batteryRating = new Rating();
 
     // Actions
-    Button delete = new Button("×");
+    Button delete = new Button("Delete".toUpperCase());
 
     /**
      * Initialize {@code ReviewCell}.

@@ -5,7 +5,7 @@ import dss.models.device.Device;
 import dss.models.review.Review;
 import dss.views.base.State;
 import dss.views.base.Widget;
-import dss.views.sections.Rating;
+import dss.views.base.components.Rating;
 import dss.views.sections.detail.fields.*;
 import dss.views.sections.detail.fields.base.DeviceBinding;
 import javafx.collections.FXCollections;

@@ -1,7 +1,7 @@
 package dss.views.sections.comparison;
 
 import dss.models.device.Device;
-import dss.views.sections.Rating;
+import dss.views.base.components.Rating;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

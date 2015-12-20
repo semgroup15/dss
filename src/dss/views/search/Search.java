@@ -83,9 +83,10 @@ public class Search extends Widget implements Initializable {
         device.manufacturerId = manufacturer.id;
         device.save();
 
-        // Refresh list
+        // Show detail
         State state = State.get();
-        state.setCriteria(state.getCriteria());
+        state.setLocation(
+                new State.Location(State.Location.Section.DETAIL, device));
     }
 
     @FXML
