@@ -42,6 +42,7 @@
     <right>
         <HBox>
             <Button
+                    fx:id="create"
                     prefHeight="50.0"
                     text="Create"
                     onAction="#onCreate"/>

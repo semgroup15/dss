@@ -32,6 +32,9 @@ public class Search extends Widget
     TextField query;
 
     @FXML
+    Button create;
+
+    @FXML
     Button login;
 
     @FXML
@@ -114,6 +117,9 @@ public class Search extends Widget
     public void onLevelChange(State.Level level) {
         switch (level) {
             case ANONYMOUS:
+                create.setVisible(false);
+                create.setManaged(false);
+
                 logout.setVisible(false);
                 logout.setManaged(false);
 
@@ -123,6 +129,9 @@ public class Search extends Widget
                 break;
 
             case AUTHORIZED:
+                create.setVisible(true);
+                create.setManaged(true);
+
                 logout.setVisible(true);
                 logout.setManaged(true);
 
