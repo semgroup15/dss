@@ -46,9 +46,15 @@
                     text="Create"
                     onAction="#onCreate"/>
             <Button
+                    fx:id="login"
                     prefHeight="50.0"
                     text="Login"
-                    onAction="#onAuth"/>
+                    onAction="#onLogin"/>
+            <Button
+                    fx:id="logout"
+                    prefHeight="50.0"
+                    text="Logout"
+                    onAction="#onLogout"/>
         </HBox>
     </right>
 </fx:root>

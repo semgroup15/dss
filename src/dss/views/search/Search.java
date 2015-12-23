@@ -1,5 +1,6 @@
 package dss.views.search;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import dss.views.base.State;
@@ -7,6 +8,7 @@ import dss.views.base.Widget;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -18,7 +20,8 @@ import java.util.ResourceBundle;
 /**
  * Search bar with manufacturer {@code ComboBox} and query {@code TextField}.
  */
-public class Search extends Widget implements Initializable {
+public class Search extends Widget
+        implements Initializable, State.LevelListener {
 
     @FXML
     Label label;
@@ -30,7 +33,15 @@ public class Search extends Widget implements Initializable {
     TextField query;
 
     @FXML
+    Button login;
+
+    @FXML
+    Button logout;
+
+    @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
+        State.get().addLevelListener(this);
+
         // Get common manufacturer list
         List<Manufacturer> manufacturers =
                 Manufacturer.manager.select(Manufacturer.SELECT_COMMON);
@@ -90,8 +101,35 @@ public class Search extends Widget implements Initializable {
     }
 
     @FXML
-    private void onAuth() {
+    private void onLogin() {
         State.get().setLocation(
                 new State.Location(State.Location.Section.AUTH));
+    }
+
+    @FXML
+    private void onLogout() {
+        State.get().setLevel(State.Level.ANONYMOUS);
+    }
+
+    public void onLevelChange(State.Level level) {
+        switch (level) {
+            case ANONYMOUS:
+                logout.setVisible(false);
+                logout.setManaged(false);
+
+                login.setVisible(true);
+                login.setManaged(true);
+
+                break;
+
+            case AUTHORIZED:
+                logout.setVisible(true);
+                logout.setManaged(true);
+
+                login.setVisible(false);
+                login.setManaged(false);
+
+                break;
+        }
     }
 }

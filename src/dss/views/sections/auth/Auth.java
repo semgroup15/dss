@@ -1,6 +1,5 @@
 package dss.views.sections.auth;
 
-import dss.models.base.Model;
 import dss.models.user.User;
 import dss.views.base.State;
 import dss.views.base.Widget;
@@ -32,14 +31,14 @@ public class Auth extends Widget implements Initializable {
         String username = this.username.getText();
         String password = this.password.getText();
 
-        State state = State.get();
-
         List<User> users = User.manager.select("auth", username, password);
 
-        if (users.isEmpty()) {
-            state.setLevel(State.Level.USER);
-        } else {
-            state.setLevel(State.Level.ADMIN);
+        if (!users.isEmpty()) {
+            State state = State.get();
+
+            state.setLevel(State.Level.AUTHORIZED);
+            state.setLocation(
+                    new State.Location(State.Location.Section.LISTING));
         }
     }
 }

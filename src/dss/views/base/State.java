@@ -259,8 +259,8 @@ public class State {
      * Access level
      */
     public enum Level {
-        USER,
-        ADMIN,
+        ANONYMOUS,
+        AUTHORIZED,
     }
 
     /**
@@ -322,7 +322,7 @@ public class State {
     private Location location = new Location(Location.Section.LISTING);
     private Criteria criteria = new Criteria();
     private List<Device> devices = new ArrayList<>();
-    private Level level = Level.USER;
+    private Level level = Level.ANONYMOUS;
 
     /*
      * Location
