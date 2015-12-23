@@ -2,6 +2,7 @@ package dss.views.sections.detail;
 
 import dss.models.base.Model;
 import dss.models.review.Review;
+import dss.views.base.State;
 import dss.views.base.components.Rating;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,7 +11,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 public class ReviewCell extends ListCell<Review>
-        implements Model.Observer.Listener<Review> {
+        implements
+            State.LevelListener,
+            Model.Observer.Listener<Review> {
 
     BorderPane graphic = new BorderPane();
 
@@ -33,6 +36,9 @@ public class ReviewCell extends ListCell<Review>
 
         // Listen to changes
         Review.observer.addListener(this);
+
+        // Listen to state
+        State.get().addLevelListener(this);
 
         /*
          * Text
@@ -96,5 +102,20 @@ public class ReviewCell extends ListCell<Review>
         responsivenessRating.setValue(review.responsiveness);
         screenRating.setValue(review.screen);
         batteryRating.setValue(review.battery);
+    }
+
+    @Override
+    public void onLevelChange(State.Level level) {
+        switch (level) {
+            case ANONYMOUS:
+                delete.setVisible(false);
+                delete.setManaged(false);
+                break;
+
+            case AUTHORIZED:
+                delete.setVisible(true);
+                delete.setManaged(true);
+                break;
+        }
     }
 }

@@ -21,7 +21,10 @@ import java.io.FileNotFoundException;
  * {@code ListCell} displaying device information.
  */
 public class ListingCell extends ListCell<Device>
-        implements State.SelectionListener, Model.Observer.Listener<Device> {
+        implements
+            State.SelectionListener,
+            State.LevelListener,
+            Model.Observer.Listener<Device> {
 
     BorderPane graphic = new BorderPane();
 
@@ -51,8 +54,10 @@ public class ListingCell extends ListCell<Device>
         // Listen to changes
         Device.observer.addListener(this);
 
-        // Listen to selection
-        State.get().addSelectionListener(this);
+        // Listen to state
+        State state = State.get();
+        state.addSelectionListener(this);
+        state.addLevelListener(this);
 
         /*
          * Image
@@ -179,6 +184,21 @@ public class ListingCell extends ListCell<Device>
     public void onDeviceRemove(Device device) {
         if (device == getItem()) {
             setSelected(false);
+        }
+    }
+
+    @Override
+    public void onLevelChange(State.Level level) {
+        switch (level) {
+            case ANONYMOUS:
+                delete.setVisible(false);
+                delete.setManaged(false);
+                break;
+
+            case AUTHORIZED:
+                delete.setVisible(true);
+                delete.setManaged(true);
+                break;
         }
     }
 }

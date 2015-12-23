@@ -24,7 +24,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Detail extends Widget
-        implements Initializable, Model.Observer.Listener<Review> {
+        implements
+            Initializable,
+            State.LevelListener,
+            Model.Observer.Listener<Review> {
 
     @FXML
     ImageView image;
@@ -85,6 +88,15 @@ public class Detail extends Widget
 
     @FXML
     SoundField sound;
+
+    @FXML
+    Button save;
+
+    @FXML
+    Button delete;
+
+    @FXML
+    Label login;
 
     @FXML
     ListView<Review> reviews;
@@ -160,6 +172,9 @@ public class Detail extends Widget
         screenRating.addListener((value) -> setReviewVisible(true));
         batteryRating.addListener((value) -> setReviewVisible(true));
 
+        // Listen to state
+        State.get().addLevelListener(this);
+
         // Listen to review changes
         Review.observer.addListener(this);
 
@@ -170,6 +185,35 @@ public class Detail extends Widget
                 return new ReviewCell();
             }
         });
+    }
+
+    @Override
+    public void onLevelChange(State.Level level) {
+        switch (level) {
+            case ANONYMOUS:
+                save.setVisible(false);
+                save.setManaged(false);
+
+                delete.setVisible(false);
+                delete.setManaged(false);
+
+                login.setVisible(true);
+                login.setManaged(true);
+
+                break;
+
+            case AUTHORIZED:
+                save.setVisible(true);
+                save.setManaged(true);
+
+                delete.setVisible(true);
+                delete.setManaged(true);
+
+                login.setVisible(false);
+                login.setManaged(false);
+
+                break;
+        }
     }
 
     @Override

@@ -74,6 +74,7 @@
                     <BorderPane styleClass="actions">
                         <left>
                             <Button
+                                    fx:id="save"
                                     onAction="#onSave"
                                     styleClass="save"
                                     text="Save"/>
@@ -81,10 +82,17 @@
 
                         <right>
                             <Button
+                                    fx:id="delete"
                                     onAction="#onDelete"
                                     styleClass="delete"
                                     text="Delete"/>
                         </right>
+
+                        <center>
+                            <Label
+                                    fx:id="login"
+                                    text="Login to save this device."/>
+                        </center>
                     </BorderPane>
 
                     <Separator/>

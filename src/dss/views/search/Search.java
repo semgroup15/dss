@@ -1,6 +1,5 @@
 package dss.views.search;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import dss.views.base.State;
@@ -111,6 +110,7 @@ public class Search extends Widget
         State.get().setLevel(State.Level.ANONYMOUS);
     }
 
+    @Override
     public void onLevelChange(State.Level level) {
         switch (level) {
             case ANONYMOUS:
