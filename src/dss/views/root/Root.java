@@ -42,23 +42,28 @@ public class Root extends Widget
 
     @Override
     public void onLocationChange(State.Location location) {
-        listing.setVisible(false);
-        detail.setVisible(false);
-        comparison.setVisible(false);
-        auth.setVisible(false);
 
         // Switch visible section depending on the current location
         switch (location.getSection()) {
             case LISTING:
+                auth.setVisible(false);
+                detail.setVisible(false);
+                comparison.setVisible(false);
                 listing.setVisible(true);
                 break;
 
             case DETAIL:
+                auth.setVisible(false);
+                listing.setVisible(false);
+                comparison.setVisible(false);
                 detail.setDevice((Device) location.getData()[0]);
                 detail.setVisible(true);
                 break;
 
             case COMPARISON:
+                auth.setVisible(false);
+                listing.setVisible(false);
+                detail.setVisible(false);
                 comparison.setVisible(true);
                 break;
 

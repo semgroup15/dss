@@ -603,6 +603,64 @@
     -fx-padding: 0;
 }
 
+
+/*
+ * Auth
+ */
+
+.Auth {
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+}
+
+.Auth .form {
+    -fx-background-color: #eeeeee;
+    -fx-padding: 24 0;
+    -fx-border-color: #bbbbbb;
+    -fx-border-width: 0 0 0 2;
+}
+
+.Auth .form > * {
+    -fx-padding: 6 0;
+}
+
+.Auth .form .label {
+    -fx-padding: 10;
+}
+
+.Auth .form .text-field,
+.Auth .form .password-field {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-color: #dddddd;
+}
+
+.Auth .form .text-field:focused,
+.Auth .form .password-field:focused {
+    -fx-border-color: #3498db;
+}
+
+.Auth .form .actions {
+    -fx-padding: 20 0 0 0;
+}
+
+.Auth .form .actions .button {
+    -fx-background-color: transparent;
+    -fx-font-size: 12pt;
+    -fx-padding: 10 20;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-border-width: 1;
+    -fx-border-color: #3498db;
+    -fx-text-fill: #3498db;
+}
+
+.Auth .form .actions .button:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #3498db;
+}
+
+
 /*
  * Separator
  */

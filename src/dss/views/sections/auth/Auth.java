@@ -31,14 +31,20 @@ public class Auth extends Widget implements Initializable {
         String username = this.username.getText();
         String password = this.password.getText();
 
+        // Clear username and password
+        this.username.clear();
+        this.password.clear();
+
         List<User> users = User.manager.select("auth", username, password);
 
         if (!users.isEmpty()) {
-            State state = State.get();
-
-            state.setLevel(State.Level.AUTHORIZED);
-            state.setLocation(
-                    new State.Location(State.Location.Section.LISTING));
+            State.get().setLevel(State.Level.AUTHORIZED);
+            setVisible(false);
         }
+    }
+
+    @FXML
+    public void onCancel() {
+        setVisible(false);
     }
 }
