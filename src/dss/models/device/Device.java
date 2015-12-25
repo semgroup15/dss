@@ -861,6 +861,9 @@ public class Device extends Model {
 
     @Override
     public void delete() {
+        Price.manager.delete(Price.manager.select(Price.SELECT_DEVICE, id));
+        Review.manager.delete(Review.manager.select(Review.SELECT_DEVICE, id));
+
         super.delete();
         observer.trigger(Observer.Event.DELETE, this);
     }
