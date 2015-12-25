@@ -146,8 +146,13 @@
 }
 
 .Listing .list-view .list-cell .name {
-    -fx-padding: 0 20 6 20;
+    -fx-padding: 0 20 2 20;
     -fx-font-size: 14pt;
+}
+
+.Listing .list-view .list-cell .price {
+    -fx-padding: 0 20 6 20;
+    -fx-font-size: 10pt;
 }
 
 .Listing .list-view .list-cell .Rating {

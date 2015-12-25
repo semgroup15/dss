@@ -36,6 +36,7 @@ public class ListingCell extends ListCell<Device>
     ImageView image = new ImageView();
     Label manufacturer = new Label();
     Label name = new Label();
+    Label price = new Label();
 
     // Ratings
     Rating overallRating = new Rating();
@@ -70,12 +71,14 @@ public class ListingCell extends ListCell<Device>
          */
         manufacturer.getStyleClass().add("manufacturer");
         name.getStyleClass().add("name");
+        price.getStyleClass().add("price");
         overallRating.setLabelVisible(false);
         overallRating.setLabelManaged(false);
 
         VBox center = new VBox();
         center.getChildren().add(manufacturer);
         center.getChildren().add(name);
+        center.getChildren().add(price);
         center.getChildren().add(overallRating);
 
         /*
@@ -169,6 +172,7 @@ public class ListingCell extends ListCell<Device>
         manufacturer.setText(device.getManufacturer().name);
         name.setText(device.name);
         overallRating.setValue(device.overallRating);
+        price.setText(String.format("$%.2f", device.price));
 
         setSelected(State.get().getDevices().contains(device));
     }
