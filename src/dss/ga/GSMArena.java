@@ -420,9 +420,7 @@ public class GSMArena {
         }
     }
 
-    private static void extractSensor(
-            Document document, Device device) {
-
+    private void extractSensor(Document document, Device device) {
         // Sensor
         String value = extractField(document, "sensors").toLowerCase();
         device.sensor.accelerometer = value.contains("accelerometer");
@@ -433,9 +431,7 @@ public class GSMArena {
         device.sensor.proximity = value.contains("proximity");
     }
 
-    private static void extractDeviceCom(
-            Document document, Device device) {
-
+    private void extractDeviceCom(Document document, Device device) {
         // DeviceCom
         String value;
 

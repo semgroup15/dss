@@ -40,8 +40,22 @@ public class BodyField extends Widget implements DeviceBinding {
 
     @Override
     public void syncFromDevice(Device device) {
-        width.setValue(device.body.width + "");
-        height.setValue(device.body.height + "");
-        depth.setValue(device.body.depth + "");
+        if (device.body.width > 0) {
+            width.setValue(device.body.width + "");
+        } else {
+            width.setValue("");
+        }
+
+        if (device.body.height > 0) {
+            height.setValue(device.body.height + "");
+        } else {
+            height.setValue("");
+        }
+
+        if (device.body.depth > 0) {
+            depth.setValue(device.body.depth + "");
+        } else {
+            depth.setValue("");
+        }
     }
 }

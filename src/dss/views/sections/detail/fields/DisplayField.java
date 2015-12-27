@@ -40,8 +40,22 @@ public class DisplayField extends Widget implements DeviceBinding {
 
     @Override
     public void syncFromDevice(Device device) {
-        width.setValue(device.display.width + "");
-        height.setValue(device.display.height + "");
-        density.setValue(device.display.density + "");
+        if (device.display.width > 0) {
+            width.setValue(device.display.width + "");
+        } else {
+            width.setValue("");
+        }
+
+        if (device.display.height > 0) {
+            height.setValue(device.display.height + "");
+        } else {
+            height.setValue("");
+        }
+
+        if (device.display.density > 0) {
+            density.setValue(device.display.density + "");
+        } else {
+            density.setValue("");
+        }
     }
 }
