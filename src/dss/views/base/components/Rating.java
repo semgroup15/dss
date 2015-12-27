@@ -54,6 +54,8 @@ public class Rating extends Widget implements Initializable {
      */
     private static class StarLabel extends Label {
 
+        private static final String LABEL = "★";
+
         private static final String STYLE_CLASS = "star";
         private static final String STYLE_CLASS_ACTIVE = "active";
 
@@ -63,7 +65,7 @@ public class Rating extends Widget implements Initializable {
          * @param value Value of the star
          */
         public StarLabel(Rating rating, int value) {
-            super("★");
+            super(LABEL);
 
             this.getStyleClass().add(STYLE_CLASS);
 

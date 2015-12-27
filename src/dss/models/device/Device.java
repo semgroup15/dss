@@ -23,8 +23,16 @@ import org.apache.http.impl.client.HttpClients;
 import dss.models.base.Model;
 import dss.models.manufacturer.Manufacturer;
 
+/**
+ * Model for device information.
+ */
 public class Device extends Model {
 
+    /**
+     * Join the string representations of the specified set of objects.
+     * @param objects Objects to join
+     * @return Comma-separated string
+     */
     public static String join(Set<?> objects) {
         return String.join(
                 ", ", objects.stream()
@@ -32,29 +40,88 @@ public class Device extends Model {
                         .collect(Collectors.toList()));
     }
 
+    /**
+     * Battery information
+     */
     public static class Battery {
+        /**
+         * Sleep/idle time (hours)
+         */
         public int sleep;
+
+        /**
+         * Talk time (hours)
+         */
         public int talk;
+
+        /**
+         * Music time (hours)
+         */
         public int music;
     }
 
+    /**
+     * Body information
+     */
     public static class Body {
+        /**
+         * Width (mm)
+         */
         public double width;
+
+        /**
+         * Height (mm)
+         */
         public double height;
+
+        /**
+         * Depth (mm)
+         */
         public double depth;
+
+        /**
+         * Weight (grams)
+         */
         public double weight;
     }
 
+    /**
+     * Camera information
+     */
     public static class Camera {
 
+        /**
+         * Primary camera
+         */
         public static class Primary {
+            /**
+             * Resolution (megapixels)
+             */
             public int mp;
+
+            /**
+             * Width (pixels)
+             */
             public int width;
+
+            /**
+             * Height (pixels)
+             */
             public int height;
         }
 
+        /**
+         * Secondary camera
+         */
         public static class Secondary {
+            /**
+             * Whether the device has a secondary camera
+             */
             public boolean has;
+
+            /**
+             * Resolution (megapixels)
+             */
             public int mp;
         }
 
@@ -62,13 +129,39 @@ public class Device extends Model {
         public Secondary secondary = new Secondary();
     }
 
+    /**
+     * Communication interfaces information
+     */
     public static class Com {
 
+        /**
+         * Wireless LAN (WiFi)
+         */
         public boolean wlan;
+
+        /**
+         * Bluetooth
+         */
         public boolean bluetooth;
+
+        /**
+         * GPS
+         */
         public boolean gps;
+
+        /**
+         * Radio (FM)
+         */
         public boolean radio;
+
+        /**
+         * USB port
+         */
         public boolean usb;
+
+        /**
+         * Near field communication
+         */
         public boolean nfc;
 
         public enum Item {
@@ -124,12 +217,38 @@ public class Device extends Model {
         }
     }
 
+    /**
+     * Sensor information
+     */
     public static class Sensor {
+        /**
+         * Accelerometer
+         */
         public boolean accelerometer;
+
+        /**
+         * Barometer
+         */
         public boolean barometer;
+
+        /**
+         * Compass
+         */
         public boolean compass;
+
+        /**
+         * Gyro
+         */
         public boolean gyro;
+
+        /**
+         * Magnetometer
+         */
         public boolean magnetometer;
+
+        /**
+         * Proximity
+         */
         public boolean proximity;
 
         public enum Item {
@@ -187,10 +306,23 @@ public class Device extends Model {
         }
     }
 
+    /**
+     * Memory information
+     */
     public static class Memory {
+        /**
+         * RAM size (MB)
+         */
         public long ramSize;
+
+        /**
+         * Max internal memory (MB)
+         */
         public long internalSize;
 
+        /*
+         * Available slots
+         */
         public boolean sd;
         public boolean microSD;
         public boolean microSDHC;
@@ -247,6 +379,9 @@ public class Device extends Model {
         }
     }
 
+    /**
+     * Network technology information
+     */
     public static class Network {
         public boolean gsm;
         public boolean umts;
@@ -308,11 +443,24 @@ public class Device extends Model {
         }
     }
 
+    /**
+     * Sound information
+     */
     public static class Sound {
+        /**
+         * Whether loudspeaker is available
+         */
         public boolean loudspeaker;
+
+        /**
+         * Whether 3.5mm jack is available
+         */
         public boolean jack35;
     }
 
+    /**
+     * Display information
+     */
     public static class Display {
         public double size;
         public double ratio;
