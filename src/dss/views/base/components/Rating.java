@@ -29,6 +29,7 @@ public class Rating extends Widget implements Initializable {
     public interface Listener {
         /**
          * Change rating value.
+         *
          * @param value New value
          */
         void onValueChange(int value);
@@ -61,8 +62,9 @@ public class Rating extends Widget implements Initializable {
 
         /**
          * Initialize {@code StarLabel}.
+         *
          * @param rating Parent {@code Rating}
-         * @param value Value of the star
+         * @param value  Value of the star
          */
         public StarLabel(Rating rating, int value) {
             super(LABEL);
@@ -76,6 +78,7 @@ public class Rating extends Widget implements Initializable {
 
         /**
          * Set whether the star is active changing its look.
+         *
          * @param active Active
          */
         public void setActive(boolean active) {
@@ -89,6 +92,7 @@ public class Rating extends Widget implements Initializable {
 
     /**
      * Add {@code Listener}.
+     *
      * @param listener Action listener
      */
     public void addListener(Listener listener) {
@@ -97,6 +101,7 @@ public class Rating extends Widget implements Initializable {
 
     /**
      * Remove {@code Listener}
+     *
      * @param listener Action listener
      */
     public void removeListener(Listener listener) {
@@ -115,6 +120,7 @@ public class Rating extends Widget implements Initializable {
 
     /**
      * Set value.
+     *
      * @param value Value
      */
     public void setValue(int value) {
@@ -130,6 +136,7 @@ public class Rating extends Widget implements Initializable {
 
     /**
      * Get value.
+     *
      * @return Value
      */
     public int getValue() {
@@ -138,6 +145,7 @@ public class Rating extends Widget implements Initializable {
 
     /**
      * Show the specified value without changing the real value.
+     *
      * @param value Value to show
      */
     public void showValue(int value) {

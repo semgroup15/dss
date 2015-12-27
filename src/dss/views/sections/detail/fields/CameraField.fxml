@@ -1,5 +1,6 @@
 <?import dss.views.sections.detail.fields.base.GroupLabel?>
 <?import dss.views.sections.detail.fields.base.UnitTextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <fx:root
         type="javafx.scene.layout.BorderPane"

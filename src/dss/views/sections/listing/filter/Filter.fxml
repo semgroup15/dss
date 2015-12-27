@@ -1,10 +1,7 @@
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import dss.views.base.components.Rating?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.RangeSlider?>
-<?import javafx.scene.control.Label?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">

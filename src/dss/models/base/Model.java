@@ -1,20 +1,14 @@
 package dss.models.base;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
-
+import dss.models.base.Model.DB.Context;
 import org.apache.commons.io.IOUtils;
 import org.sqlite.SQLiteConfig;
 
-import dss.models.base.Model.DB.Context;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.*;
+import java.util.*;
 
 /**
  * Base data model
@@ -23,23 +17,25 @@ public abstract class Model {
 
     /**
      * Database
-     *
+     * <p>
      * <ul>
-     *   <li>Keeps all database settings in one place</li>
-     *   <li>Establishes the {@code Connection} to the database</li>
-     *   <li>Encapsulates what developers can do in a {@code Context}</li>
-     *   <li>Throws database exceptions at runtime</li>
+     * <li>Keeps all database settings in one place</li>
+     * <li>Establishes the {@code Connection} to the database</li>
+     * <li>Encapsulates what developers can do in a {@code Context}</li>
+     * <li>Throws database exceptions at runtime</li>
      * </ul>
      */
     public static class DB {
 
         /**
          * Task that performs database operations.
+         *
          * @param <T> Return type
          */
         public static interface Task<T> {
             /**
              * Perform database operations.
+             *
              * @param context Task execution context.
              * @return Value provided to {@code DB.execute(...)}
              * @throws SQLException Exception to be thrown at runtime.
@@ -49,6 +45,7 @@ public abstract class Model {
 
         /**
          * Execute the specified task.
+         *
          * @param task Task to execute.
          * @return Result provided by task.
          */
@@ -83,6 +80,7 @@ public abstract class Model {
 
             /**
              * Initialize context for performing operations.
+             *
              * @throws SQLException
              */
             private void start() throws SQLException {
@@ -91,6 +89,7 @@ public abstract class Model {
 
             /**
              * Clean up context after performing operations.
+             *
              * @throws SQLException
              */
             private void finish() throws SQLException {
@@ -99,6 +98,7 @@ public abstract class Model {
 
             /**
              * Connect to the default database.
+             *
              * @return Database connection.
              * @throws SQLException
              */
@@ -119,6 +119,7 @@ public abstract class Model {
 
             /**
              * Configure statement for execution.
+             *
              * @param statement Statement
              * @throws SQLException
              */
@@ -129,6 +130,7 @@ public abstract class Model {
 
             /**
              * Get a statement for executing queries.
+             *
              * @return Statement
              * @throws SQLException
              */
@@ -140,6 +142,7 @@ public abstract class Model {
 
             /**
              * Get a prepared statement.
+             *
              * @param query SQL query
              * @return Prepared statement
              * @throws SQLException
@@ -148,7 +151,7 @@ public abstract class Model {
                     throws SQLException {
 
                 PreparedStatement statement =
-                    connection.prepareStatement(query);
+                        connection.prepareStatement(query);
                 configure(statement);
                 return statement;
             }
@@ -176,8 +179,9 @@ public abstract class Model {
 
         /**
          * Initialize {@code DoesNotExist} exception.
-         * @param type Type of model.
-         * @param name Query name or description.
+         *
+         * @param type       Type of model.
+         * @param name       Query name or description.
          * @param parameters Query parameters.
          */
         public DoesNotExist(Class<?> type, String name, Object[] parameters) {
@@ -202,14 +206,14 @@ public abstract class Model {
 
     /**
      * Manager for general operations.
-     *
+     * <p>
      * <ul>
-     *   <li>{@code CREATE TABLE}</li>
-     *   <li>{@code DROP TABLE}</li>
-     *   <li>Bulk {@code INSERT}</li>
-     *   <li>Bulk {@code UPDATE}</li>
-     *   <li>Bulk {@code DELETE}</li>
-     *   <li>{@code SELECT}</li>
+     * <li>{@code CREATE TABLE}</li>
+     * <li>{@code DROP TABLE}</li>
+     * <li>Bulk {@code INSERT}</li>
+     * <li>Bulk {@code UPDATE}</li>
+     * <li>Bulk {@code DELETE}</li>
+     * <li>{@code SELECT}</li>
      * </ul>
      *
      * @param <T> Model class
@@ -226,6 +230,7 @@ public abstract class Model {
 
             /**
              * Initialize {@code RestrictedStatement}.
+             *
              * @param statement {@code PreparedStatement} to wrap
              */
             public RestrictedStatement(PreparedStatement statement) {
@@ -301,6 +306,7 @@ public abstract class Model {
 
             /**
              * Initialize {@code RestrictedResult}.
+             *
              * @param result {@code ResultSet} to wrap
              */
             public RestrictedResult(ResultSet result) {
@@ -363,10 +369,13 @@ public abstract class Model {
 
             public static interface Section {
                 Section add(String part, Object... parameters);
+
                 QueryBuilder done();
 
                 String getQuery();
+
                 List<Object> getParameters();
+
                 boolean isValid();
             }
 
@@ -442,7 +451,7 @@ public abstract class Model {
                 }
 
                 @Override
-                public String getWord()  {
+                public String getWord() {
                     return "SELECT";
                 }
             }
@@ -454,7 +463,7 @@ public abstract class Model {
                 }
 
                 @Override
-                public String getWord()  {
+                public String getWord() {
                     return "GROUP BY";
                 }
             }
@@ -466,7 +475,7 @@ public abstract class Model {
                 }
 
                 @Override
-                public String getWord()  {
+                public String getWord() {
                     return "ORDER BY";
                 }
             }
@@ -530,7 +539,8 @@ public abstract class Model {
             /**
              * Initialize {@code QueryBuilder}.
              */
-            public QueryBuilder() {}
+            public QueryBuilder() {
+            }
 
             public Section select() {
                 return select;
@@ -565,15 +575,15 @@ public abstract class Model {
             }
 
             public String getQuery() {
-                return String.join(" ", new String[] {
-                    select.getQuery(),
-                    from.getQuery(),
-                    join.getQuery(),
-                    where.isValid() ? where.getQuery() : "",
-                    group.isValid() ? group.getQuery() : "",
-                    having.isValid() ? having.getQuery() : "",
-                    order.isValid() ? order.getQuery() : "",
-                    limit.getQuery(),
+                return String.join(" ", new String[]{
+                        select.getQuery(),
+                        from.getQuery(),
+                        join.getQuery(),
+                        where.isValid() ? where.getQuery() : "",
+                        group.isValid() ? group.getQuery() : "",
+                        having.isValid() ? having.getQuery() : "",
+                        order.isValid() ? order.getQuery() : "",
+                        limit.getQuery(),
                 });
             }
 
@@ -589,6 +599,7 @@ public abstract class Model {
 
         /**
          * Loader and cache for SQL files.
+         *
          * @param <T> Model class
          */
         public static class QueryLoader<T> {
@@ -601,6 +612,7 @@ public abstract class Model {
 
             /**
              * Initialize {@code QueryLoader}.
+             *
              * @param type Model type
              */
             public QueryLoader(Class<T> type) {
@@ -609,6 +621,7 @@ public abstract class Model {
 
             /**
              * Get the specified query file.
+             *
              * @param name Query name
              * @return SQL contents
              */
@@ -632,6 +645,7 @@ public abstract class Model {
 
             /**
              * Load the specified query file.
+             *
              * @param name Query name
              * @return SQL contents
              * @throws FileNotFoundException
@@ -659,6 +673,7 @@ public abstract class Model {
 
         /**
          * Initialize {@code Manager} for the specified model type.
+         *
          * @param type Model type
          */
         public Manager(Class<T> type) {
@@ -668,8 +683,9 @@ public abstract class Model {
 
         /**
          * Add meaningful manager information to {@code SQLException}.
+         *
          * @param exception Exception to wrap
-         * @param name Query name
+         * @param name      Query name
          * @return Wrapped {@code SQLException}
          */
         protected SQLException wrap(SQLException exception, String name) {
@@ -681,8 +697,9 @@ public abstract class Model {
 
         /**
          * Load a SQL {@code ResultSet} into a model list.
+         *
          * @param result Query result
-         * @param rows Model list
+         * @param rows   Model list
          * @throws SQLException
          */
         protected void load(ResultSet result, List<T> rows) throws SQLException {
@@ -713,6 +730,7 @@ public abstract class Model {
 
         /**
          * Get {@code CREATE TABLE} query.
+         *
          * @return SQL
          */
         private String getTableCreateQuery() {
@@ -721,6 +739,7 @@ public abstract class Model {
 
         /**
          * Get {@code DROP TABLE} query.
+         *
          * @return SQL
          */
         private String getTableDropQuery() {
@@ -777,6 +796,7 @@ public abstract class Model {
 
         /**
          * Get {@code INSERT} query.
+         *
          * @return SQL
          */
         private String getRowInsertQuery() {
@@ -785,6 +805,7 @@ public abstract class Model {
 
         /**
          * Get {@code UPDATE} query.
+         *
          * @return SQL
          */
         private String getRowUpdateQuery() {
@@ -793,6 +814,7 @@ public abstract class Model {
 
         /**
          * Get {@code DELETE} query.
+         *
          * @return SQL
          */
         private String getRowDeleteQuery() {
@@ -801,6 +823,7 @@ public abstract class Model {
 
         /**
          * {@code INSERT} multiple instances.
+         *
          * @param rows Instances to insert.
          */
         public void insert(final List<T> rows) {
@@ -829,6 +852,7 @@ public abstract class Model {
 
         /**
          * {@code UPDATE} multiple instances.
+         *
          * @param rows Instances to update.
          */
         public void update(final List<T> rows) {
@@ -857,6 +881,7 @@ public abstract class Model {
 
         /**
          * {@code DELETE} multiple instances.
+         *
          * @param rows Instances to delete.
          */
         public void delete(final List<T> rows) {
@@ -866,7 +891,7 @@ public abstract class Model {
                         throws SQLException {
 
                     PreparedStatement statement =
-                        context.prepared(getRowDeleteQuery());
+                            context.prepared(getRowDeleteQuery());
                     for (T row : rows) {
                         row.prepareDelete(new RestrictedStatement(statement));
                         statement.addBatch();
@@ -892,6 +917,7 @@ public abstract class Model {
 
         /**
          * Get full name for {@code SELECT} query.
+         *
          * @param name Select query name
          * @return Full name
          */
@@ -901,6 +927,7 @@ public abstract class Model {
 
         /**
          * Get {@code SELECT} query.
+         *
          * @param name Select query name
          * @return SQL
          */
@@ -910,7 +937,8 @@ public abstract class Model {
 
         /**
          * {@code SELECT} instances.
-         * @param name Select query name
+         *
+         * @param name       Select query name
          * @param parameters Query parameters
          * @return Query result
          */
@@ -941,7 +969,8 @@ public abstract class Model {
 
         /**
          * {@code SELECT} a single instance.
-         * @param name Select query name
+         *
+         * @param name       Select query name
          * @param parameters Query parameters
          * @return Query result
          */
@@ -959,6 +988,7 @@ public abstract class Model {
 
         /**
          * {@code SELECT} instances with a query generated at runtime.
+         *
          * @param builder {@code QueryBuilder}
          * @return Query result.
          */
@@ -991,6 +1021,7 @@ public abstract class Model {
 
     /**
      * Generic model observer.
+     *
      * @param <T> Model class
      */
     public static class Observer<T extends Model> {
@@ -1006,12 +1037,14 @@ public abstract class Model {
 
         /**
          * Model event {@code Listener}.
+         *
          * @param <T> Model class
          */
         public interface Listener<T extends Model> {
             /**
              * Handle event.
-             * @param event Event
+             *
+             * @param event  Event
              * @param object Model object
              */
             void onModelEvent(Event event, T object);
@@ -1021,6 +1054,7 @@ public abstract class Model {
 
         /**
          * Attach {@code Listener}.
+         *
          * @param listener Listener to attach
          */
         public void addListener(Listener<T> listener) {
@@ -1029,6 +1063,7 @@ public abstract class Model {
 
         /**
          * Detach {@code Listener}.
+         *
          * @param listener Listener to detach
          */
         public void removeListener(Listener<T> listener) {
@@ -1037,7 +1072,8 @@ public abstract class Model {
 
         /**
          * Trigger model event.
-         * @param event Event
+         *
+         * @param event  Event
          * @param object Model object
          */
         public void trigger(Event event, T object) {
@@ -1049,6 +1085,7 @@ public abstract class Model {
 
     /**
      * Generic object cache.
+     *
      * @param <T> Model type
      * @param <K> Key type
      */
@@ -1056,11 +1093,13 @@ public abstract class Model {
 
         /**
          * Object loader.
+         *
          * @param <T> Model type
          * @param <K> Key type
          */
         public static interface Loader<T, K> {
             T load(K key) throws DoesNotExist;
+
             T create(K key);
         }
 
@@ -1069,6 +1108,7 @@ public abstract class Model {
 
         /**
          * Initialize {@code Cache}.
+         *
          * @param loader Object loader
          */
         public Cache(Loader<T, K> loader) {
@@ -1077,6 +1117,7 @@ public abstract class Model {
 
         /**
          * Get the specified object by key
+         *
          * @param key Object key
          * @return Object
          */
@@ -1110,6 +1151,7 @@ public abstract class Model {
 
     /**
      * Get default manager for this model.
+     *
      * @return Default manager.
      */
     protected abstract Manager<?> getManager();
@@ -1120,6 +1162,7 @@ public abstract class Model {
 
     /**
      * Update the model with a generated key.
+     *
      * @param result Generated key
      * @throws SQLException
      */
@@ -1128,6 +1171,7 @@ public abstract class Model {
 
     /**
      * Update the model with row data.
+     *
      * @param result Query result
      */
     protected abstract void syncResultSet(
@@ -1139,6 +1183,7 @@ public abstract class Model {
 
     /**
      * Prepare for {@code INSERT} usually providing parameters.
+     *
      * @param statement Statement to prepare.
      * @throws SQLException
      */
@@ -1147,6 +1192,7 @@ public abstract class Model {
 
     /**
      * Prepare for {@code UPDATE} usually providing parameters.
+     *
      * @param statement Statement to prepare.
      * @throws SQLException
      */
@@ -1155,6 +1201,7 @@ public abstract class Model {
 
     /**
      * Prepare for {@code DELETE} usually providing parameters.
+     *
      * @param statement Statement to prepare.
      * @throws SQLException
      */
@@ -1187,6 +1234,7 @@ public abstract class Model {
                                 syncGeneratedKey(
                                         new Manager.RestrictedResult(key));
                             } catch (Model.NotApplicable exception) {
+                                // Not applicable
                             }
                         }
                         key.close();

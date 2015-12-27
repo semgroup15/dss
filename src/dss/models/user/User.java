@@ -1,6 +1,7 @@
 package dss.models.user;
 
 import dss.models.base.Model;
+
 import java.sql.SQLException;
 
 public class User extends Model {

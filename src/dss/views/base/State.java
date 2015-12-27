@@ -8,11 +8,11 @@ import java.util.List;
 
 /**
  * Singleton providing a global application state.
- *
+ * <p>
  * <ul>
- *   <li>Visible location</li>
- *   <li>Item selection</li>
- *   <li>Access level</li>
+ * <li>Visible location</li>
+ * <li>Item selection</li>
+ * <li>Access level</li>
  * </ul>
  */
 public class State {
@@ -21,6 +21,7 @@ public class State {
 
     /**
      * Get single {@code State} instance.
+     *
      * @return Single instance
      */
     public static State get() {
@@ -48,8 +49,9 @@ public class State {
 
         /**
          * Initialize {@code Location}.
+         *
          * @param section Section to be displayed
-         * @param data Arbitrary data
+         * @param data    Arbitrary data
          */
         public Location(Section section, Object... data) {
             this.section = section;
@@ -58,6 +60,7 @@ public class State {
 
         /**
          * Get displayed {@code Section}.
+         *
          * @return Section
          */
         public Section getSection() {
@@ -66,6 +69,7 @@ public class State {
 
         /**
          * Get arbitrary data.
+         *
          * @return Data
          */
         public Object[] getData() {
@@ -165,6 +169,7 @@ public class State {
 
         /**
          * Get criteria as a device query.
+         *
          * @return Device query
          */
         public Device.QueryBuilder asDeviceQuery() {
@@ -269,6 +274,7 @@ public class State {
     public interface LocationListener {
         /**
          * Change current location.
+         *
          * @param location Location
          */
         void onLocationChange(Location location);
@@ -280,6 +286,7 @@ public class State {
     public interface SearchListener {
         /**
          * Change current search criteria.
+         *
          * @param criteria Criteria
          */
         void onSearchChange(Criteria criteria);
@@ -291,12 +298,14 @@ public class State {
     public interface SelectionListener {
         /**
          * Add device.
+         *
          * @param device Item to add
          */
         void onDeviceAdd(Device device);
 
         /**
          * Remove device.
+         *
          * @param device Item to remove
          */
         void onDeviceRemove(Device device);
@@ -308,6 +317,7 @@ public class State {
     public interface LevelListener {
         /**
          * Change access level.
+         *
          * @param level Access level
          */
         void onLevelChange(Level level);
@@ -394,6 +404,7 @@ public class State {
 
     /**
      * Add device to selection.
+     *
      * @param device Item to add
      */
     public void addDevice(Device device) {
@@ -408,6 +419,7 @@ public class State {
 
     /**
      * Remove device from selection.
+     *
      * @param device Item to remove
      */
     public void removeDevice(Device device) {
@@ -422,6 +434,7 @@ public class State {
 
     /**
      * Get selected devices.
+     *
      * @return Devices
      */
     public List<Device> getDevices() {
@@ -444,6 +457,7 @@ public class State {
 
     /**
      * Set access level.
+     *
      * @param level Access level
      */
     public void setLevel(Level level) {
@@ -458,6 +472,7 @@ public class State {
 
     /**
      * Get access level.
+     *
      * @return Access level
      */
     public Level getLevel() {

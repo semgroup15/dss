@@ -12,8 +12,8 @@ import javafx.scene.layout.HBox;
 
 public class ReviewCell extends ListCell<Review>
         implements
-            State.LevelListener,
-            Model.Observer.Listener<Review> {
+        State.LevelListener,
+        Model.Observer.Listener<Review> {
 
     BorderPane graphic = new BorderPane();
 

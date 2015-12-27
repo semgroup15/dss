@@ -4,7 +4,7 @@ import dss.models.base.Model;
 
 import java.sql.SQLException;
 
-public class Review extends Model{
+public class Review extends Model {
 
     public long id;
     public long deviceId;

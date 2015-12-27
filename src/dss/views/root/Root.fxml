@@ -1,10 +1,10 @@
-<?import javafx.scene.layout.BorderPane?>
 <?import dss.views.search.Search?>
-<?import dss.views.sections.listing.Listing?>
-<?import dss.views.sections.detail.Detail?>
-<?import dss.views.sections.comparison.Comparison?>
-<?import javafx.scene.layout.StackPane?>
 <?import dss.views.sections.auth.Auth?>
+<?import dss.views.sections.comparison.Comparison?>
+<?import dss.views.sections.detail.Detail?>
+<?import dss.views.sections.listing.Listing?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">

@@ -1,9 +1,9 @@
 package dss.commands.ga;
 
-import java.util.List;
-
 import dss.ga.GSMArena;
 import dss.models.device.Device;
+
+import java.util.List;
 
 public class ExpandCommand implements Runnable {
 

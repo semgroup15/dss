@@ -8,12 +8,14 @@ import dss.models.device.Device;
 public interface DeviceBinding {
     /**
      * Set values to device.
+     *
      * @param device Device
      */
     void syncToDevice(Device device);
 
     /**
      * Get values from device.
+     *
      * @param device Device
      */
     void syncFromDevice(Device device);

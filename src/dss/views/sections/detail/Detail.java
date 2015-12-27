@@ -25,9 +25,9 @@ import java.util.ResourceBundle;
 
 public class Detail extends Widget
         implements
-            Initializable,
-            State.LevelListener,
-            Model.Observer.Listener<Review> {
+        Initializable,
+        State.LevelListener,
+        Model.Observer.Listener<Review> {
 
     @FXML
     ImageView image;
@@ -111,22 +111,22 @@ public class Detail extends Widget
     Button submit;
 
     private DeviceBinding[] bindings() {
-        return new DeviceBinding[] {
-            name,
-            manufacturer,
-            platform,
-            sim,
-            display,
-            body,
-            color,
-            battery,
-            camera,
-            com,
-            sensor,
-            memory,
-            slot,
-            network,
-            sound
+        return new DeviceBinding[]{
+                name,
+                manufacturer,
+                platform,
+                sim,
+                display,
+                body,
+                color,
+                battery,
+                camera,
+                com,
+                sensor,
+                memory,
+                slot,
+                network,
+                sound
         };
     }
 

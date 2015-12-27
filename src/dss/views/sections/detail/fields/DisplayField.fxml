@@ -1,6 +1,7 @@
-<?import javafx.scene.layout.HBox?>
-<?import dss.views.sections.detail.fields.base.UnitTextField?>
 <?import dss.views.sections.detail.fields.base.GroupLabel?>
+<?import dss.views.sections.detail.fields.base.UnitTextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">
@@ -24,7 +25,7 @@
             <UnitTextField
                     fx:id="density"
                     valuePromptText="Density"
-                    unit="DPI"/>
+                    unit="PPI"/>
         </HBox>
     </center>
 </fx:root>

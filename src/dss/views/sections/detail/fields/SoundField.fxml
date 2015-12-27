@@ -1,5 +1,6 @@
 <?import dss.views.sections.detail.fields.base.GroupLabel?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <fx:root
         styleClass="MultipleSelector"

@@ -22,9 +22,9 @@ import java.io.FileNotFoundException;
  */
 public class ListingCell extends ListCell<Device>
         implements
-            State.SelectionListener,
-            State.LevelListener,
-            Model.Observer.Listener<Device> {
+        State.SelectionListener,
+        State.LevelListener,
+        Model.Observer.Listener<Device> {
 
     BorderPane graphic = new BorderPane();
 
@@ -117,6 +117,7 @@ public class ListingCell extends ListCell<Device>
 
     /**
      * Set whether this device is selected.
+     *
      * @param selected Selected
      */
     private void setSelected(boolean selected) {

@@ -1,4 +1,5 @@
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <fx:root
         type="javafx.scene.layout.BorderPane"
         xmlns:fx="http://javafx.com/fxml">

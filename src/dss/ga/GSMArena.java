@@ -1,12 +1,11 @@
 package dss.ga;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import dss.models.device.Device;
+import dss.models.manufacturer.Manufacturer;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -15,13 +14,12 @@ import org.apache.http.impl.client.HttpClients;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import dss.models.device.Device;
-import dss.models.manufacturer.Manufacturer;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * GSMArena data extraction.
@@ -48,6 +46,7 @@ public class GSMArena {
 
     /**
      * Make HTTP {@code GET} request.
+     *
      * @param url URL
      * @return Response
      * @throws Exception
@@ -84,6 +83,7 @@ public class GSMArena {
 
     /**
      * Request quick search.
+     *
      * @return Search result
      * @throws Exception
      */
@@ -148,8 +148,9 @@ public class GSMArena {
 
     /**
      * Extract the specified field.
+     *
      * @param document Parsed HTML document
-     * @param field GSMArena field
+     * @param field    GSMArena field
      * @return Field value
      */
     private static String extractField(Document document, String field) {
@@ -160,9 +161,10 @@ public class GSMArena {
 
     /**
      * Extract the specified field value and match against regex.
+     *
      * @param document Parsed HTML document
-     * @param field GSMArena field
-     * @param regex Regular expression to match
+     * @param field    GSMArena field
+     * @param regex    Regular expression to match
      * @return Regex {@code Matcher}
      */
     private static Matcher extractFieldRegex(
@@ -463,7 +465,7 @@ public class GSMArena {
         matcher = extractFieldRegex(
                 document, "size",
                 "([0-9]*.[0-9]*) inches " +
-                "\\(~?([0-9]*.[0-9]*)% screen-to-body ratio\\)");
+                        "\\(~?([0-9]*.[0-9]*)% screen-to-body ratio\\)");
         if (matcher != null) {
             try {
                 device.display.size = Double.parseDouble(matcher.group(1));
@@ -476,7 +478,7 @@ public class GSMArena {
         matcher = extractFieldRegex(
                 document, "resolution",
                 "([0-9]*) x ([0-9]*) pixels " +
-                "\\(~([0-9]*) ppi pixel density\\)");
+                        "\\(~([0-9]*) ppi pixel density\\)");
         if (matcher != null) {
             try {
                 device.display.width = Integer.parseInt(matcher.group(1));

@@ -2,7 +2,6 @@ package dss.views.base;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +32,7 @@ public class Widget extends BorderPane {
 
     /**
      * Get layout {@code URL}.
+     *
      * @return Layout resource
      */
     private URL getLayoutResource() {

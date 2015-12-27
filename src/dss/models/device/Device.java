@@ -1,5 +1,15 @@
 package dss.models.device;
 
+import dss.models.base.Model;
+import dss.models.manufacturer.Manufacturer;
+import dss.models.price.Price;
+import dss.models.review.Review;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,17 +22,6 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import dss.models.price.Price;
-import dss.models.review.Review;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-
-import dss.models.base.Model;
-import dss.models.manufacturer.Manufacturer;
-
 /**
  * Model for device information.
  */
@@ -30,6 +29,7 @@ public class Device extends Model {
 
     /**
      * Join the string representations of the specified set of objects.
+     *
      * @param objects Objects to join
      * @return Comma-separated string
      */
@@ -173,7 +173,7 @@ public class Device extends Model {
             NFC("NFC");
 
             public static final Item[] ALL =
-                    new Item[] { WLAN, BLUETOOTH, GPS, RADIO, USB, NFC };
+                    new Item[]{WLAN, BLUETOOTH, GPS, RADIO, USB, NFC};
 
             private String name;
 
@@ -260,9 +260,9 @@ public class Device extends Model {
             PROXIMITY("Proximity");
 
             public static final Item[] ALL =
-                    new Item[] {
+                    new Item[]{
                             ACCELEROMETER, BAROMETER, COMPASS, GYRO,
-                            MAGNETOMETER, PROXIMITY };
+                            MAGNETOMETER, PROXIMITY};
 
             private String name;
 
@@ -337,7 +337,7 @@ public class Device extends Model {
             MMC_MOBILE("MMC Mobile");
 
             public static final Item[] ALL =
-                    new Item[] { SD, MICRO_SD, MICRO_SDHC, MMC, MMC_MOBILE };
+                    new Item[]{SD, MICRO_SD, MICRO_SDHC, MMC, MMC_MOBILE};
 
             private String name;
 
@@ -399,7 +399,7 @@ public class Device extends Model {
             LTE("LTE");
 
             public static final Item[] ALL =
-                    new Item[] { GSM, UMTS, HSPA, EVDO, CDMA, LTE };
+                    new Item[]{GSM, UMTS, HSPA, EVDO, CDMA, LTE};
 
             private String name;
 
@@ -462,19 +462,50 @@ public class Device extends Model {
      * Display information
      */
     public static class Display {
+        /**
+         * Size (inches)
+         */
         public double size;
+
+        /**
+         * Screen-to-body ratio (percentage)
+         */
         public double ratio;
 
+        /**
+         * Width (pixels)
+         */
         public int width;
+
+        /**
+         * Height (pixels)
+         */
         public int height;
+
+        /**
+         * Density (ppi)
+         */
         public int density;
 
+        /**
+         * Whether the screen is multitouch
+         */
         public boolean multitouch;
 
+        /**
+         * Type of display
+         */
         public String type;
+
+        /**
+         * Display protection
+         */
         public String protection;
     }
 
+    /**
+     * Available colors
+     */
     public static class Color {
         public boolean black;
         public boolean white;
@@ -502,9 +533,9 @@ public class Device extends Model {
             ORANGE("Orange");
 
             public static final Item[] ALL =
-                    new Item[] {
+                    new Item[]{
                             BLACK, WHITE, BLUE, RED, PINK, SILVER, GRAY,
-                            YELLOW, GREEN, GOLD, ORANGE };
+                            YELLOW, GREEN, GOLD, ORANGE};
 
             private String name;
 
@@ -558,6 +589,9 @@ public class Device extends Model {
         }
     }
 
+    /**
+     * Type of SIM card
+     */
     public enum SIMType {
         UNKNOWN("Unknown"),
         FULL_SIZE("Full size"),
@@ -566,7 +600,7 @@ public class Device extends Model {
         NANO_SIM("Nano SIM");
 
         public static final SIMType[] ALL =
-                new SIMType[] { FULL_SIZE, MINI_SIM, MICRO_SIM, NANO_SIM };
+                new SIMType[]{FULL_SIZE, MINI_SIM, MICRO_SIM, NANO_SIM};
 
         private String name;
 
@@ -584,6 +618,9 @@ public class Device extends Model {
         }
     }
 
+    /**
+     * Software platform
+     */
     public enum Platform {
         NONE(""),
         UNKNOWN("Unknown"),
@@ -592,7 +629,7 @@ public class Device extends Model {
         WINDOWS("Windows");
 
         public static final Platform[] ALL =
-                new Platform[] { ANDROID, IOS, WINDOWS };
+                new Platform[]{ANDROID, IOS, WINDOWS};
 
         private String name;
 
@@ -615,7 +652,7 @@ public class Device extends Model {
 
     public static long newId() {
         Random random = ThreadLocalRandom.current();
-        return NEW_ID_MIN + ((long)(random.nextDouble() *
+        return NEW_ID_MIN + ((long) (random.nextDouble() *
                 (NEW_ID_MAX - NEW_ID_MIN)));
     }
 
@@ -692,211 +729,380 @@ public class Device extends Model {
             this.withReviewOverallAverage();
         }
 
+        /**
+         * Add average price to {@code SELECT} clause.
+         *
+         * @return This {@code QueryBuilder}
+         */
         private QueryBuilder withPriceAverage() {
             return (QueryBuilder) this
                     .joinPrice()
                     .select()
-                        .add("AVG(price.cost)")
-                        .done();
+                    .add("AVG(price.cost)")
+                    .done();
         }
 
+        /**
+         * Add average review ratings to {@code SELECT} clause.
+         *
+         * @return This {@code QueryBuilder}
+         */
         private QueryBuilder withReviewAverage() {
             return (QueryBuilder) this
                     .joinReview()
                     .select()
-                        .add("AVG(review.responsiveness)")
-                        .add("AVG(review.screen)")
-                        .add("AVG(review.battery)")
-                        .done();
+                    .add("AVG(review.responsiveness)")
+                    .add("AVG(review.screen)")
+                    .add("AVG(review.battery)")
+                    .done();
         }
 
+        /**
+         * Add overall average of review ratings to {@code SELECT} clause.
+         *
+         * @return This {@code QueryBuilder}
+         */
         private QueryBuilder withReviewOverallAverage() {
             return (QueryBuilder) this
                     .joinReview()
                     .select()
-                        .add("AVG((" +
+                    .add("AVG((" +
                             "review.responsiveness + " +
                             "review.screen + " +
                             "review.battery) / 3.0)")
-                        .done();
+                    .done();
         }
 
+        /**
+         * Apply a SQL {@code OFFSET}.
+         *
+         * @param offset Number of rows to skip.
+         * @return This {@code QueryBuilder}
+         */
         public QueryBuilder offset(int offset) {
             return (QueryBuilder) this
                     .limit()
-                        .add(String.format("OFFSET %d", offset))
-                        .done();
+                    .add(String.format("OFFSET %d", offset))
+                    .done();
         }
 
+        /**
+         * Apply a SQL {@code LIMIT}.
+         *
+         * @param limit Number of rows to take.
+         * @return This {@code QueryBuilder}
+         */
         public QueryBuilder limit(int limit) {
             return (QueryBuilder) this
                     .limit()
-                        .add(String.format("LIMIT %d", limit))
-                        .done();
+                    .add(String.format("LIMIT %d", limit))
+                    .done();
         }
 
+        /**
+         * Filter devices containing the specified name.
+         *
+         * @param name Name by which to filter
+         * @return This {@code QueryBuilder}
+         * @see Device#name
+         */
         public QueryBuilder byName(String name) {
             return (QueryBuilder) this
                     .where()
-                        .add("device.name LIKE ?", "%" + name + "%")
-                        .done();
+                    .add("device.name LIKE ?", "%" + name + "%")
+                    .done();
         }
 
+        /**
+         * Filter devices from the specified manufacturer.
+         *
+         * @param manufacturerId Manufacturer ID by which to filter
+         * @return This {@code QueryBuilder}
+         * @see Manufacturer#id
+         */
         public QueryBuilder byManufacturerId(long manufacturerId) {
             return (QueryBuilder) this
                     .where()
-                        .add("device.manufacturer_id = ?", manufacturerId)
-                        .done();
+                    .add("device.manufacturer_id = ?", manufacturerId)
+                    .done();
         }
 
+        /**
+         * Filter devices from manufacturers containing the specified name.
+         *
+         * @param name Manufacturer name by which to filter
+         * @return This {@code QueryBuilder}
+         * @see Manufacturer#name
+         */
         public QueryBuilder byManufacturerName(String name) {
             return (QueryBuilder) this
                     .joinManufacturer()
                     .where()
-                        .add("manufacturer.name LIKE ?", "%" + name + "%")
-                        .done();
+                    .add("manufacturer.name LIKE ?", "%" + name + "%")
+                    .done();
         }
 
+        /**
+         * Filter devices from the specified platform.
+         *
+         * @param platform Platform by which to filter
+         * @return This {@code QueryBuilder}
+         * @see Device.Platform
+         */
         public QueryBuilder byPlatform(Platform platform) {
             return (QueryBuilder) this
                     .where()
-                        .add("platform = ?", platform.name())
-                        .done();
+                    .add("platform = ?", platform.name())
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum display size.
+         *
+         * @param value Minimum display size
+         * @return This {@code QueryBuilder}
+         * @see Device.Display#size
+         */
         public QueryBuilder byMinDisplaySize(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("display_size >= ?", value)
-                        .done();
+                    .add("display_size >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by maximum display size.
+         *
+         * @param value Maximum display size
+         * @return This {@code QueryBuilder}
+         * @see Device.Display#size
+         */
         public QueryBuilder byMaxDisplaySize(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("display_size <= ?", value)
-                        .done();
+                    .add("display_size <= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum RAM size.
+         *
+         * @param value Minimum RAM size
+         * @return This {@code QueryBuilder}
+         * @see Device.Memory#ramSize
+         */
         public QueryBuilder byMinMemoryRAMSize(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("memory_ram_size >= ?", value)
-                        .done();
+                    .add("memory_ram_size >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by maximum RAM size.
+         *
+         * @param value Maximum RAM size
+         * @return This {@code QueryBuilder}
+         * @see Device.Memory#ramSize
+         */
         public QueryBuilder byMaxMemoryRAMSize(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("memory_ram_size <= ?", value)
-                        .done();
+                    .add("memory_ram_size <= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum average price.
+         *
+         * @param value Minimum price
+         * @return This {@code QueryBuilder}
+         * @see Price#cost
+         */
         public QueryBuilder byMinPrice(double value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(price.cost) >= ?", value)
-                        .done();
+                    .add("AVG(price.cost) >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by maximum average price.
+         *
+         * @param value Maximum price
+         * @return This {@code QueryBuilder}
+         * @see Price#cost
+         */
         public QueryBuilder byMaxPrice(double value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(price.cost) <= ?", value)
-                        .done();
+                    .add("AVG(price.cost) <= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum responsiveness rating.
+         *
+         * @param value Minimum responsiveness rating
+         * @return This {@code QueryBuilder}
+         * @see Review#responsiveness
+         */
         public QueryBuilder byReviewResponsiveness(int value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(review.responsiveness) >= ?", value)
-                        .done();
+                    .add("AVG(review.responsiveness) >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum screen rating.
+         *
+         * @param value Minimum screen rating
+         * @return This {@code QueryBuilder}
+         * @see Review#screen
+         */
         public QueryBuilder byReviewScreen(int value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(review.screen) >= ?", value)
-                        .done();
+                    .add("AVG(review.screen) >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum battery rating.
+         *
+         * @param value Minimum battery rating
+         * @return This {@code QueryBuilder}
+         * @see Review#battery
+         */
         public QueryBuilder byReviewBattery(int value) {
             return (QueryBuilder) this
                     .having()
-                        .add("AVG(review.battery) >= ?", value)
-                        .done();
+                    .add("AVG(review.battery) >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum body width.
+         *
+         * @param value Minimum body width
+         * @return This {@code QueryBuilder}
+         * @see Device.Body#width
+         */
         public QueryBuilder byBodyWidth(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("body_width >= ?", value)
-                        .done();
+                    .add("body_width >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum body height.
+         *
+         * @param value Minimum body height
+         * @return This {@code QueryBuilder}
+         * @see Device.Body#height
+         */
         public QueryBuilder byBodyHeight(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("body_height >= ?", value)
-                        .done();
+                    .add("body_height >= ?", value)
+                    .done();
         }
 
+        /**
+         * Filter devices by minimum body depth.
+         *
+         * @param value Minimum body depth
+         * @return This {@code QueryBuilder}
+         * @see Device.Body#depth
+         */
         public QueryBuilder byBodyDepth(double value) {
             return (QueryBuilder) this
                     .where()
-                        .add("body_depth <= ?", value)
-                        .done();
+                    .add("body_depth <= ?", value)
+                    .done();
         }
 
         /*
          * Join
          */
 
-        private boolean joinManufacturer = false;
-
+        /**
+         * Join {@code Manufacturer} table.
+         *
+         * @return This {@code QueryBuilder}
+         */
         public QueryBuilder joinManufacturer() {
             if (!joinManufacturer) {
                 join().add(
                         "LEFT JOIN manufacturer " +
-                        "ON manufacturer.id = device.manufacturer_id");
+                                "ON manufacturer.id = device.manufacturer_id");
             }
             joinManufacturer = true;
             return this;
         }
 
-        private boolean joinPrice = false;
+        private boolean joinManufacturer = false;
 
+        /**
+         * Join {@code Price} table.
+         *
+         * @return This {@code QueryBuilder}
+         */
         public QueryBuilder joinPrice() {
-            if(!joinPrice) {
+            if (!joinPrice) {
                 join().add(
                         "LEFT JOIN price " +
-                        "ON price.device_id = device.id");
+                                "ON price.device_id = device.id");
             }
             joinPrice = true;
             return this;
         }
 
-        private boolean joinReview = false;
+        private boolean joinPrice = false;
 
+        /**
+         * Join {@code Review} table.
+         *
+         * @return This {@code QueryBuilder}
+         */
         public QueryBuilder joinReview() {
             if (!joinReview) {
                 join().add(
                         "LEFT JOIN review " +
-                        "ON review.device_id = device.id");
+                                "ON review.device_id = device.id");
             }
             joinReview = true;
             return this;
         }
+
+        private boolean joinReview = false;
     }
 
+    /**
+     * Get device {@code Manufacturer}.
+     *
+     * @return Manufacturer of this device
+     */
     public Manufacturer getManufacturer() {
         return Manufacturer.cache.get(manufacturerId);
     }
 
+    /**
+     * Get list of {@code Price} for this device.
+     *
+     * @return List of available prices
+     */
     public List<Price> getPrices() {
         return Price.manager.select(Price.SELECT_DEVICE, id);
     }
 
+    /**
+     * Get list of {@code Review} for this device.
+     *
+     * @return List of reviews
+     */
     public List<Review> getReviews() {
         return Review.manager.select(Review.SELECT_DEVICE, id);
     }
@@ -905,14 +1111,32 @@ public class Device extends Model {
      * Images
      */
 
+    /**
+     * Path to directory containing device images.
+     */
     private static final String IMAGE_BASE_PATH = "./media";
-    private static final String[] IMAGE_EXTENSIONS =
-        {"gif", "jpeg", "jpg", "png", "bmp"};
 
+    /**
+     * Possible extensions for image files.
+     */
+    private static final String[] IMAGE_EXTENSIONS =
+            {"gif", "jpeg", "jpg", "png", "bmp"};
+
+    /**
+     * Get expected path for an image of this device.
+     *
+     * @param extension File extension
+     * @return Path to device image
+     */
     private String getImageFilePath(String extension) {
         return String.format("%s/%d.%s", IMAGE_BASE_PATH, id, extension);
     }
 
+    /**
+     * Get the first available image for this device.
+     *
+     * @return Image {@code File}
+     */
     public File getImageFile() {
         File imageFile;
 
@@ -926,6 +1150,10 @@ public class Device extends Model {
         return null;
     }
 
+    /**
+     * Fetch the current {@link Device#imageUrl} and save to
+     * {@link Device#IMAGE_BASE_PATH}.
+     */
     public void fetchImageFile() {
         for (String extension : IMAGE_EXTENSIONS) {
             if (imageUrl.endsWith(extension)) {

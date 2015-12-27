@@ -15,14 +15,14 @@ public class Main extends Application {
 
     private static final String STYLES = "styles.css";
 
-    private static final String[] FONTS = new String[] {
-        "Karla-Bold.ttf",
-        "Karla-BoldItalic.ttf",
-        "Karla-Italic.ttf",
-        "Karla-Regular.ttf",
+    private static final String[] FONTS = new String[]{
+            "Karla-Bold.ttf",
+            "Karla-BoldItalic.ttf",
+            "Karla-Italic.ttf",
+            "Karla-Regular.ttf",
     };
     private static final int[] FONT_SIZES =
-            new int[] { 8, 10, 12, 14, 16, 18, 20, 24 };
+            new int[]{8, 10, 12, 14, 16, 18, 20, 24};
 
     public static void main(String[] args) {
         launch(args);

@@ -1,11 +1,11 @@
 package dss.commands.media;
 
-import java.io.File;
-import java.util.List;
-
 import dss.models.base.Model;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
+
+import java.io.File;
+import java.util.List;
 
 public class FetchCommand implements Runnable {
 
@@ -24,7 +24,7 @@ public class FetchCommand implements Runnable {
         List<Device> devices = Device.manager.select(Device.SELECT_ALL);
         for (Device device : devices) {
             System.out.println(String.format(
-                   "%s %s", device.getManufacturer().name, device.name));
+                    "%s %s", device.getManufacturer().name, device.name));
 
             File imageFile = device.getImageFile();
             if (imageFile == null) {
