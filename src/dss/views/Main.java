@@ -37,8 +37,7 @@ public class Main extends Application {
             }
         }
 
-        BorderPane root = new BorderPane();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(new Root());
         scene.getStylesheets().add(STYLES);
 
         stage.setScene(scene);
@@ -48,8 +47,6 @@ public class Main extends Application {
         stage.setHeight(HEIGHT);
         stage.setMinHeight(HEIGHT);
         stage.setTitle(TITLE);
-
-        root.setCenter(new Root());
 
         stage.show();
         stage.requestFocus();
