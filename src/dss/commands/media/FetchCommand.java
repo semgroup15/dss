@@ -18,9 +18,6 @@ public class FetchCommand implements Runnable {
         System.out.println("Media");
         System.out.println("Fetching missing device images");
 
-        Model.Cache<Manufacturer, Long> manufacturerCache =
-                new Model.Cache<>(new Manufacturer.Loader());
-
         List<Device> devices = Device.manager.select(Device.SELECT_ALL);
         for (Device device : devices) {
             System.out.println(String.format(

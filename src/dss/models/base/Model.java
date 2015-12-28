@@ -17,12 +17,12 @@ public abstract class Model {
 
     /**
      * Database
-     * <p>
+     *
      * <ul>
-     * <li>Keeps all database settings in one place</li>
-     * <li>Establishes the {@code Connection} to the database</li>
-     * <li>Encapsulates what developers can do in a {@code Context}</li>
-     * <li>Throws database exceptions at runtime</li>
+     *   <li>Keeps all database settings in one place</li>
+     *   <li>Establishes the {@code Connection} to the database</li>
+     *   <li>Encapsulates what developers can do in a {@code Context}</li>
+     *   <li>Throws database exceptions at runtime</li>
      * </ul>
      */
     public static class DB {
@@ -206,14 +206,14 @@ public abstract class Model {
 
     /**
      * Manager for general operations.
-     * <p>
+     *
      * <ul>
-     * <li>{@code CREATE TABLE}</li>
-     * <li>{@code DROP TABLE}</li>
-     * <li>Bulk {@code INSERT}</li>
-     * <li>Bulk {@code UPDATE}</li>
-     * <li>Bulk {@code DELETE}</li>
-     * <li>{@code SELECT}</li>
+     *   <li>{@code CREATE TABLE}</li>
+     *   <li>{@code DROP TABLE}</li>
+     *   <li>Bulk {@code INSERT}</li>
+     *   <li>Bulk {@code UPDATE}</li>
+     *   <li>Bulk {@code DELETE}</li>
+     *   <li>{@code SELECT}</li>
      * </ul>
      *
      * @param <T> Model class
@@ -1098,8 +1098,19 @@ public abstract class Model {
          * @param <K> Key type
          */
         public static interface Loader<T, K> {
+            /**
+             * Load the model instance with the specified key.
+             * @param key Key
+             * @return Model
+             * @throws DoesNotExist
+             */
             T load(K key) throws DoesNotExist;
 
+            /**
+             * Create the model instance with the specified key
+             * @param key Key
+             * @return Model
+             */
             T create(K key);
         }
 
@@ -1258,7 +1269,7 @@ public abstract class Model {
                 Manager<?> manager = getManager();
 
                 PreparedStatement statement =
-                        context.prepared(getManager().getRowUpdateQuery());
+                        context.prepared(manager.getRowUpdateQuery());
                 prepareUpdate(new Manager.RestrictedStatement(statement));
 
                 try {
@@ -1282,7 +1293,7 @@ public abstract class Model {
                 Manager<?> manager = getManager();
 
                 PreparedStatement statement =
-                        context.prepared(getManager().getRowDeleteQuery());
+                        context.prepared(manager.getRowDeleteQuery());
                 prepareDelete(new Manager.RestrictedStatement(statement));
 
                 try {

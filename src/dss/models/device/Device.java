@@ -738,8 +738,8 @@ public class Device extends Model {
             return (QueryBuilder) this
                     .joinPrice()
                     .select()
-                    .add("AVG(price.cost)")
-                    .done();
+                        .add("AVG(price.cost)")
+                        .done();
         }
 
         /**
@@ -751,10 +751,10 @@ public class Device extends Model {
             return (QueryBuilder) this
                     .joinReview()
                     .select()
-                    .add("AVG(review.responsiveness)")
-                    .add("AVG(review.screen)")
-                    .add("AVG(review.battery)")
-                    .done();
+                        .add("AVG(review.responsiveness)")
+                        .add("AVG(review.screen)")
+                        .add("AVG(review.battery)")
+                        .done();
         }
 
         /**
@@ -766,11 +766,11 @@ public class Device extends Model {
             return (QueryBuilder) this
                     .joinReview()
                     .select()
-                    .add("AVG((" +
-                            "review.responsiveness + " +
-                            "review.screen + " +
-                            "review.battery) / 3.0)")
-                    .done();
+                        .add("AVG((" +
+                                "review.responsiveness + " +
+                                "review.screen + " +
+                                "review.battery) / 3.0)")
+                        .done();
         }
 
         /**
@@ -782,8 +782,8 @@ public class Device extends Model {
         public QueryBuilder offset(int offset) {
             return (QueryBuilder) this
                     .limit()
-                    .add(String.format("OFFSET %d", offset))
-                    .done();
+                        .add(String.format("OFFSET %d", offset))
+                        .done();
         }
 
         /**
@@ -795,8 +795,8 @@ public class Device extends Model {
         public QueryBuilder limit(int limit) {
             return (QueryBuilder) this
                     .limit()
-                    .add(String.format("LIMIT %d", limit))
-                    .done();
+                        .add(String.format("LIMIT %d", limit))
+                        .done();
         }
 
         /**
@@ -809,8 +809,8 @@ public class Device extends Model {
         public QueryBuilder byName(String name) {
             return (QueryBuilder) this
                     .where()
-                    .add("device.name LIKE ?", "%" + name + "%")
-                    .done();
+                        .add("device.name LIKE ?", "%" + name + "%")
+                        .done();
         }
 
         /**
@@ -823,8 +823,8 @@ public class Device extends Model {
         public QueryBuilder byManufacturerId(long manufacturerId) {
             return (QueryBuilder) this
                     .where()
-                    .add("device.manufacturer_id = ?", manufacturerId)
-                    .done();
+                        .add("device.manufacturer_id = ?", manufacturerId)
+                        .done();
         }
 
         /**
@@ -838,8 +838,8 @@ public class Device extends Model {
             return (QueryBuilder) this
                     .joinManufacturer()
                     .where()
-                    .add("manufacturer.name LIKE ?", "%" + name + "%")
-                    .done();
+                        .add("manufacturer.name LIKE ?", "%" + name + "%")
+                        .done();
         }
 
         /**
@@ -852,8 +852,8 @@ public class Device extends Model {
         public QueryBuilder byPlatform(Platform platform) {
             return (QueryBuilder) this
                     .where()
-                    .add("platform = ?", platform.name())
-                    .done();
+                        .add("platform = ?", platform.name())
+                        .done();
         }
 
         /**
@@ -866,8 +866,8 @@ public class Device extends Model {
         public QueryBuilder byMinDisplaySize(double value) {
             return (QueryBuilder) this
                     .where()
-                    .add("display_size >= ?", value)
-                    .done();
+                        .add("display_size >= ?", value)
+                        .done();
         }
 
         /**
@@ -880,8 +880,8 @@ public class Device extends Model {
         public QueryBuilder byMaxDisplaySize(double value) {
             return (QueryBuilder) this
                     .where()
-                    .add("display_size <= ?", value)
-                    .done();
+                        .add("display_size <= ?", value)
+                        .done();
         }
 
         /**
@@ -894,8 +894,8 @@ public class Device extends Model {
         public QueryBuilder byMinMemoryRAMSize(double value) {
             return (QueryBuilder) this
                     .where()
-                    .add("memory_ram_size >= ?", value)
-                    .done();
+                        .add("memory_ram_size >= ?", value)
+                        .done();
         }
 
         /**
@@ -908,8 +908,8 @@ public class Device extends Model {
         public QueryBuilder byMaxMemoryRAMSize(double value) {
             return (QueryBuilder) this
                     .where()
-                    .add("memory_ram_size <= ?", value)
-                    .done();
+                        .add("memory_ram_size <= ?", value)
+                        .done();
         }
 
         /**
@@ -922,8 +922,8 @@ public class Device extends Model {
         public QueryBuilder byMinPrice(double value) {
             return (QueryBuilder) this
                     .having()
-                    .add("AVG(price.cost) >= ?", value)
-                    .done();
+                        .add("AVG(price.cost) >= ?", value)
+                        .done();
         }
 
         /**
@@ -936,8 +936,8 @@ public class Device extends Model {
         public QueryBuilder byMaxPrice(double value) {
             return (QueryBuilder) this
                     .having()
-                    .add("AVG(price.cost) <= ?", value)
-                    .done();
+                        .add("AVG(price.cost) <= ?", value)
+                        .done();
         }
 
         /**
@@ -950,8 +950,8 @@ public class Device extends Model {
         public QueryBuilder byReviewResponsiveness(int value) {
             return (QueryBuilder) this
                     .having()
-                    .add("AVG(review.responsiveness) >= ?", value)
-                    .done();
+                        .add("AVG(review.responsiveness) >= ?", value)
+                        .done();
         }
 
         /**
@@ -964,8 +964,8 @@ public class Device extends Model {
         public QueryBuilder byReviewScreen(int value) {
             return (QueryBuilder) this
                     .having()
-                    .add("AVG(review.screen) >= ?", value)
-                    .done();
+                        .add("AVG(review.screen) >= ?", value)
+                        .done();
         }
 
         /**
@@ -978,8 +978,8 @@ public class Device extends Model {
         public QueryBuilder byReviewBattery(int value) {
             return (QueryBuilder) this
                     .having()
-                    .add("AVG(review.battery) >= ?", value)
-                    .done();
+                        .add("AVG(review.battery) >= ?", value)
+                        .done();
         }
 
         /**
@@ -992,8 +992,8 @@ public class Device extends Model {
         public QueryBuilder byBodyWidth(double value) {
             return (QueryBuilder) this
                     .where()
-                    .add("body_width >= ?", value)
-                    .done();
+                        .add("body_width >= ?", value)
+                        .done();
         }
 
         /**
@@ -1006,8 +1006,8 @@ public class Device extends Model {
         public QueryBuilder byBodyHeight(double value) {
             return (QueryBuilder) this
                     .where()
-                    .add("body_height >= ?", value)
-                    .done();
+                        .add("body_height >= ?", value)
+                        .done();
         }
 
         /**
@@ -1020,8 +1020,8 @@ public class Device extends Model {
         public QueryBuilder byBodyDepth(double value) {
             return (QueryBuilder) this
                     .where()
-                    .add("body_depth <= ?", value)
-                    .done();
+                        .add("body_depth <= ?", value)
+                        .done();
         }
 
         /*
@@ -1037,7 +1037,7 @@ public class Device extends Model {
             if (!joinManufacturer) {
                 join().add(
                         "LEFT JOIN manufacturer " +
-                                "ON manufacturer.id = device.manufacturer_id");
+                        "ON manufacturer.id = device.manufacturer_id");
             }
             joinManufacturer = true;
             return this;
@@ -1054,7 +1054,7 @@ public class Device extends Model {
             if (!joinPrice) {
                 join().add(
                         "LEFT JOIN price " +
-                                "ON price.device_id = device.id");
+                        "ON price.device_id = device.id");
             }
             joinPrice = true;
             return this;
@@ -1071,7 +1071,7 @@ public class Device extends Model {
             if (!joinReview) {
                 join().add(
                         "LEFT JOIN review " +
-                                "ON review.device_id = device.id");
+                        "ON review.device_id = device.id");
             }
             joinReview = true;
             return this;

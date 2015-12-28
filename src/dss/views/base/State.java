@@ -8,11 +8,11 @@ import java.util.List;
 
 /**
  * Singleton providing a global application state.
- * <p>
+ *
  * <ul>
- * <li>Visible location</li>
- * <li>Item selection</li>
- * <li>Access level</li>
+ *   <li>Visible location</li>
+ *   <li>Item selection</li>
+ *   <li>Access level</li>
  * </ul>
  */
 public class State {
