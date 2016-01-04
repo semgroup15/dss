@@ -22,6 +22,7 @@ public class Auth extends Widget implements Initializable {
 
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
+        visibleProperty().addListener((observable) -> username.requestFocus());
     }
 
     @FXML

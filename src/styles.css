@@ -615,8 +615,6 @@
 .Auth .form {
     -fx-background-color: #eeeeee;
     -fx-padding: 24 0;
-    -fx-border-color: #bbbbbb;
-    -fx-border-width: 0 0 0 2;
 }
 
 .Auth .form > * {
