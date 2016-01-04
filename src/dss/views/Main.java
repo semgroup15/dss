@@ -1,5 +1,6 @@
 package dss.views;
 
+import dss.Developer;
 import dss.views.root.Root;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -7,14 +8,25 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * Application entry point.
+ */
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class Main extends Application {
 
+    /*
+     * Window
+     */
     private static final String TITLE = "DSS";
     private static final int WIDTH = 1020;
     private static final int HEIGHT = 620;
 
+    /*
+     * Styling
+     */
     private static final String STYLES = "styles.css";
-
     private static final String[] FONTS = new String[]{
             "Karla-Bold.ttf",
             "Karla-BoldItalic.ttf",
@@ -24,6 +36,10 @@ public class Main extends Application {
     private static final int[] FONT_SIZES =
             new int[]{8, 10, 12, 14, 16, 18, 20, 24};
 
+    /**
+     * {@code main()}
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

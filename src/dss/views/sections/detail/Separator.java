@@ -1,7 +1,11 @@
 package dss.views.sections.detail;
 
+import dss.Developer;
 import javafx.scene.layout.VBox;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class Separator extends VBox {
 
     private static final String STYLE_CLASS = "separator";

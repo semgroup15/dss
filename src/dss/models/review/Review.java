@@ -1,9 +1,13 @@
 package dss.models.review;
 
+import dss.Developer;
 import dss.models.base.Model;
 
 import java.sql.SQLException;
 
+@Developer({
+    Developer.Value.TRIXIE,
+})
 public class Review extends Model {
 
     public long id;

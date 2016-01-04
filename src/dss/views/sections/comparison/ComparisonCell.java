@@ -1,5 +1,6 @@
 package dss.views.sections.comparison;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.components.Rating;
 import javafx.collections.ObservableList;
@@ -15,6 +16,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+@Developer({
+    Developer.Value.ISAR,
+    Developer.Value.JIM,
+})
 public class ComparisonCell extends ListCell<Device> {
 
     VBox graphic = new VBox();

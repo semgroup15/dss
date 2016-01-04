@@ -1,10 +1,14 @@
 package dss.commands.ga;
 
+import dss.Developer;
 import dss.ga.GSMArena;
 import dss.models.device.Device;
 
 import java.util.List;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class ExpandCommand implements Runnable {
 
     public static void main(String[] args) {

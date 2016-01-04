@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dss.Developer;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import org.apache.commons.io.IOUtils;
@@ -24,6 +25,9 @@ import java.util.regex.Pattern;
 /**
  * GSMArena data extraction.
  */
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class GSMArena {
 
     private static final String ENCODING = "UTF-8";

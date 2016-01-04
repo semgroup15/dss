@@ -1,5 +1,6 @@
 package dss.views.root;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.State;
 import dss.views.base.Widget;
@@ -17,6 +18,10 @@ import java.util.ResourceBundle;
 /**
  * Root layout.
  */
+@Developer({
+    Developer.Value.ISAR,
+    Developer.Value.JIM,
+})
 public class Root extends Widget
         implements Initializable, State.LocationListener {
 

@@ -1,5 +1,6 @@
 package dss.views.sections.detail;
 
+import dss.Developer;
 import dss.models.base.Model;
 import dss.models.review.Review;
 import dss.views.base.State;
@@ -10,8 +11,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
+@Developer({
+    Developer.Value.JONATAN,
+    Developer.Value.AHMED,
+    Developer.Value.ISAR,
+})
 public class ReviewCell extends ListCell<Review>
-        implements
+    implements
         State.LevelListener,
         Model.Observer.Listener<Review> {
 

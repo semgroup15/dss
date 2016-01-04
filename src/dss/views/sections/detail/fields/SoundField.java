@@ -1,11 +1,17 @@
 package dss.views.sections.detail.fields;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.Widget;
 import dss.views.sections.detail.fields.base.DeviceBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
+@Developer({
+    Developer.Value.JONATAN,
+    Developer.Value.AHMED,
+    Developer.Value.TRIXIE,
+})
 public class SoundField extends Widget implements DeviceBinding {
 
     @FXML

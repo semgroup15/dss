@@ -3,8 +3,18 @@ package dss;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Management command entry point.
+ */
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class Main {
 
+    /**
+     * {@code main()}
+     * @param args
+     */
     public static void main(String[] args) {
         Map<String, Runnable> commands = new HashMap<>();
 

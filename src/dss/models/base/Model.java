@@ -1,6 +1,8 @@
 package dss.models.base;
 
+import dss.Developer;
 import dss.models.base.Model.DB.Context;
+import dss.models.device.Device;
 import org.apache.commons.io.IOUtils;
 import org.sqlite.SQLiteConfig;
 
@@ -13,6 +15,9 @@ import java.util.*;
 /**
  * Base data model
  */
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public abstract class Model {
 
     /**

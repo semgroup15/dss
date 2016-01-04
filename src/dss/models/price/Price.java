@@ -1,9 +1,14 @@
 package dss.models.price;
 
+import dss.Developer;
 import dss.models.base.Model;
 
 import java.sql.SQLException;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+    Developer.Value.TRIXIE,
+})
 public class Price extends Model {
 
     public enum Retailer {

@@ -1,5 +1,6 @@
 package dss.views.sections.auth;
 
+import dss.Developer;
 import dss.models.user.User;
 import dss.views.base.State;
 import dss.views.base.Widget;
@@ -12,6 +13,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Developer({
+    Developer.Value.AHMED,
+    Developer.Value.TRIXIE,
+    Developer.Value.JIM,
+    Developer.Value.SEBASTIAN,
+})
 public class Auth extends Widget implements Initializable {
 
     @FXML

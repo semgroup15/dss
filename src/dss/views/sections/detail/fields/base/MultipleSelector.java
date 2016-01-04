@@ -1,5 +1,6 @@
 package dss.views.sections.detail.fields.base;
 
+import dss.Developer;
 import dss.views.base.Widget;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,9 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class MultipleSelector<T> extends Widget implements Initializable {
 
     private static class ItemCheckBox<T> extends CheckBox {

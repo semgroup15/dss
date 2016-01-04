@@ -1,5 +1,6 @@
 package dss.views.sections.detail.fields;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.Widget;
 import dss.views.sections.detail.fields.base.DeviceBinding;
@@ -11,6 +12,11 @@ import javafx.scene.control.ComboBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Developer({
+    Developer.Value.JONATAN,
+    Developer.Value.AHMED,
+    Developer.Value.TRIXIE,
+})
 public class PlatformField extends Widget
         implements Initializable, DeviceBinding {
 

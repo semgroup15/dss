@@ -1,5 +1,6 @@
 package dss.views.search;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import dss.views.base.State;
@@ -19,6 +20,10 @@ import java.util.ResourceBundle;
 /**
  * Search bar with manufacturer {@code ComboBox} and query {@code TextField}.
  */
+@Developer({
+    Developer.Value.SEBASTIAN,
+    Developer.Value.TRIXIE,
+})
 public class Search extends Widget
         implements Initializable, State.LevelListener {
 

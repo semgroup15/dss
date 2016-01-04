@@ -1,5 +1,6 @@
 package dss.views.sections.detail;
 
+import dss.Developer;
 import dss.models.base.Model;
 import dss.models.device.Device;
 import dss.models.review.Review;
@@ -23,8 +24,12 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Developer({
+    Developer.Value.ISAR,
+    Developer.Value.JIM,
+})
 public class Detail extends Widget
-        implements
+    implements
         Initializable,
         State.LevelListener,
         Model.Observer.Listener<Review> {
@@ -112,21 +117,21 @@ public class Detail extends Widget
 
     private DeviceBinding[] bindings() {
         return new DeviceBinding[]{
-                name,
-                manufacturer,
-                platform,
-                sim,
-                display,
-                body,
-                color,
-                battery,
-                camera,
-                com,
-                sensor,
-                memory,
-                slot,
-                network,
-                sound
+            name,
+            manufacturer,
+            platform,
+            sim,
+            display,
+            body,
+            color,
+            battery,
+            camera,
+            com,
+            sensor,
+            memory,
+            slot,
+            network,
+            sound
         };
     }
 
@@ -272,7 +277,14 @@ public class Detail extends Widget
         submit.setText(done ? "Submitted" : "Submit");
     }
 
+    /**
+     * Submit text review.
+     */
     @FXML
+    @Developer({
+        Developer.Value.ISAR,
+        Developer.Value.JIM,
+    })
     public void onSubmit() {
         setReviewDone(true);
 

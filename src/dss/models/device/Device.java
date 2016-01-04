@@ -1,5 +1,6 @@
 package dss.models.device;
 
+import dss.Developer;
 import dss.models.base.Model;
 import dss.models.manufacturer.Manufacturer;
 import dss.models.price.Price;
@@ -25,6 +26,10 @@ import java.util.stream.Collectors;
 /**
  * Model for device information.
  */
+@Developer({
+    Developer.Value.SEBASTIAN,
+    Developer.Value.TRIXIE,
+})
 public class Device extends Model {
 
     /**
@@ -713,6 +718,9 @@ public class Device extends Model {
      * Query
      */
 
+    @Developer({
+        Developer.Value.SEBASTIAN,
+    })
     public static class QueryBuilder extends Manager.QueryBuilder {
 
         public QueryBuilder() {
@@ -1202,6 +1210,9 @@ public class Device extends Model {
      * Cache
      */
 
+    @Developer({
+        Developer.Value.SEBASTIAN,
+    })
     public static class Loader implements Cache.Loader<Device, Long> {
         @Override
         public Device load(Long key) throws DoesNotExist {

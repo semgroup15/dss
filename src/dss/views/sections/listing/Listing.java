@@ -1,5 +1,6 @@
 package dss.views.sections.listing;
 
+import dss.Developer;
 import dss.models.base.Model;
 import dss.models.device.Device;
 import dss.views.base.State;
@@ -15,6 +16,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Developer({
+    Developer.Value.JONATAN,
+    Developer.Value.AHMED,
+})
 public class Listing extends Widget implements
         Initializable, State.SearchListener, Model.Observer.Listener<Device> {
 

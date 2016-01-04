@@ -1,9 +1,14 @@
 package dss.models.manufacturer;
 
+import dss.Developer;
 import dss.models.base.Model;
 
 import java.sql.SQLException;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+    Developer.Value.TRIXIE,
+})
 public class Manufacturer extends Model {
 
     public static final Manufacturer NONE = new Manufacturer();

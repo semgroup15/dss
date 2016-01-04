@@ -1,9 +1,13 @@
 package dss.commands.ga;
 
+import dss.Developer;
 import dss.ga.GSMArena;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class InitCommand implements Runnable {
 
     public static void main(String[] args) {

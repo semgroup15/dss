@@ -1,9 +1,15 @@
 package dss.models.user;
 
+import dss.Developer;
 import dss.models.base.Model;
 
 import java.sql.SQLException;
 
+@Developer({
+    Developer.Value.TRIXIE,
+    Developer.Value.AHMED,
+    Developer.Value.JIM,
+})
 public class User extends Model {
 
     public long id;

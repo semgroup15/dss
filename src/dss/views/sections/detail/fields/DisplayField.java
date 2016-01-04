@@ -1,11 +1,17 @@
 package dss.views.sections.detail.fields;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.Widget;
 import dss.views.sections.detail.fields.base.DeviceBinding;
 import dss.views.sections.detail.fields.base.UnitTextField;
 import javafx.fxml.FXML;
 
+@Developer({
+    Developer.Value.JONATAN,
+    Developer.Value.AHMED,
+    Developer.Value.TRIXIE,
+})
 public class DisplayField extends Widget implements DeviceBinding {
 
     @FXML

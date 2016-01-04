@@ -1,5 +1,6 @@
 package dss.views.base.components;
 
+import dss.Developer;
 import dss.views.base.Widget;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -21,6 +22,9 @@ import java.util.ResourceBundle;
 /**
  * Star rating widget.
  */
+@Developer({
+    Developer.Value.JONATAN,
+})
 public class Rating extends Widget implements Initializable {
 
     /**

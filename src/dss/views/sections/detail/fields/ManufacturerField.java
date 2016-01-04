@@ -1,5 +1,6 @@
 package dss.views.sections.detail.fields;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 import dss.views.base.Widget;
@@ -13,6 +14,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Developer({
+    Developer.Value.JONATAN,
+    Developer.Value.AHMED,
+    Developer.Value.TRIXIE,
+})
 public class ManufacturerField extends Widget
         implements Initializable, DeviceBinding {
 

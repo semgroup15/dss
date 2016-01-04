@@ -1,5 +1,6 @@
 package dss.views.sections.listing.filter;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.State;
 import dss.views.base.Widget;
@@ -18,6 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+    Developer.Value.TRIXIE,
+})
 public class Filter extends Widget implements Initializable {
 
     @FXML
@@ -48,6 +53,10 @@ public class Filter extends Widget implements Initializable {
     RangeSlider price;
 
     @FXML
+    @Developer({
+        Developer.Value.JONATAN,
+        Developer.Value.AHMED,
+    })
     RangeSlider memory;
 
     @FXML

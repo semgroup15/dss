@@ -1,5 +1,6 @@
 package dss.views.sections.listing;
 
+import dss.Developer;
 import dss.models.base.Model;
 import dss.models.device.Device;
 import dss.views.base.State;
@@ -20,8 +21,12 @@ import java.io.FileNotFoundException;
 /**
  * {@code ListCell} displaying device information.
  */
+@Developer({
+    Developer.Value.JONATAN,
+    Developer.Value.AHMED,
+})
 public class ListingCell extends ListCell<Device>
-        implements
+    implements
         State.SelectionListener,
         State.LevelListener,
         Model.Observer.Listener<Device> {

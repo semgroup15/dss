@@ -1,5 +1,6 @@
 package dss.views.sections.listing.selection;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.State;
 import dss.views.base.Widget;
@@ -15,6 +16,10 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Developer({
+    Developer.Value.ISAR,
+    Developer.Value.JIM,
+})
 public class Selection extends Widget
         implements Initializable, State.SelectionListener {
 

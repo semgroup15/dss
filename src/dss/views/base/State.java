@@ -1,5 +1,6 @@
 package dss.views.base;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
 
@@ -15,6 +16,9 @@ import java.util.List;
  *   <li>Access level</li>
  * </ul>
  */
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class State {
 
     private static State state;

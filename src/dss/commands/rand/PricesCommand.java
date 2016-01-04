@@ -1,5 +1,6 @@
 package dss.commands.rand;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.models.price.Price;
 
@@ -8,6 +9,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class PricesCommand implements Runnable {
 
     private static final int MAX = 1000;

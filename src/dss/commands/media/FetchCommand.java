@@ -1,5 +1,6 @@
 package dss.commands.media;
 
+import dss.Developer;
 import dss.models.base.Model;
 import dss.models.device.Device;
 import dss.models.manufacturer.Manufacturer;
@@ -7,6 +8,9 @@ import dss.models.manufacturer.Manufacturer;
 import java.io.File;
 import java.util.List;
 
+@Developer({
+    Developer.Value.SEBASTIAN,
+})
 public class FetchCommand implements Runnable {
 
     public static void main(String[] args) {

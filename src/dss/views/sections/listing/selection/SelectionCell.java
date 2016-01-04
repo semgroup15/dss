@@ -1,5 +1,6 @@
 package dss.views.sections.listing.selection;
 
+import dss.Developer;
 import dss.models.device.Device;
 import dss.views.base.State;
 import javafx.scene.control.Button;
@@ -11,6 +12,10 @@ import javafx.scene.layout.VBox;
 /**
  * {@code ListCell} displaying a selected device.
  */
+@Developer({
+    Developer.Value.ISAR,
+    Developer.Value.JIM,
+})
 public class SelectionCell extends ListCell<Device> {
 
     BorderPane graphic = new BorderPane();
