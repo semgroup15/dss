@@ -3,7 +3,7 @@
     <property name="proj.build.classes" value="build/classes"/>
     <property name="proj.build.jardir" value="build/jar"/>
     <property name="proj.build.jar" value="${proj.build.jardir}/dss.jar"/>
-    <property name="proj.main" value="dss.Main"/>
+    <property name="proj.main" value="dss.views.Main"/>
 
     <!-- Clean -->
     <target name="clean">
